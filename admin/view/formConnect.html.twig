@@ -1,0 +1,61 @@
+{% extends 'basenotconnect.html.twig' %}
+
+{% block titlePage %}
+    <div class="row">
+        <div class="col-md-6">
+            {#<h2 class="mb-4">{{ title }}</h2>#}
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    <div class="col-md-12 col-lg-12 main-content">
+        <div class="row">
+
+            <form action="?action=connectAdmin" method="POST">
+                <div class="row">
+                    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                        <div class="card card-signin my-5">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">Connexion</h5>
+                                {% if error %}
+                                    <div class="alert alert-danger" role="alert">
+                                        {{ error }}
+                                    </div>
+                                {% endif %}
+                                <form class="form-signin">
+                                    <div class="form-label-group">
+                                        <label for="login">Identifiant</label>
+                                        <input type="text" id="login" name="login" class="form-control"
+                                               placeholder="Identifiant" required autofocus>
+                                    </div>
+
+                                    <div class="form-label-group">
+                                        <label for="password">Mot de passe</label>
+                                        <input type="password" id="password" name="password" class="form-control"
+                                               placeholder="mot de passe" required>
+                                    </div>
+
+                                    {#<div class="custom-control custom-checkbox mb-3">#}
+                                    {#<input type="checkbox" class="custom-control-input" id="customCheck1">#}
+                                    {#<label class="custom-control-label" for="customCheck1">Remember password</label>#}
+                                    {#</div>#}
+                                    {#<button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Se#}
+                                    {#connecter#}
+                                    {#</button>#}
+                                    <div class="form-label-group"><br><input type="submit" value="Se connecter"
+                                                                             class="btn btn-primary"></div>
+
+                                    <hr class="my-4">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+{% endblock %}

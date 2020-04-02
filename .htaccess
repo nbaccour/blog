@@ -1,0 +1,6 @@
+Options +FollowSymLinks
+RewriteEngine On # Activer le module Rewrite
+RewriteRule ^index/?$ index.php [NC,L]
+#RewriteRule ^[^/]+/(\d+)$ indesx.php?id=$1
+
+RewriteRule ^project-([0-9]+)-([0-9]+).html$   index.php?action=project&id=$1 [L]

@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block titlePage %}
+    <div class="row">
+        <div class="col-md-6">
+            <h2 class="mb-4">{{ projectTitle }}</h2>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    <div class="col-md-12 col-lg-8 main-content">
+        <div class="row">
+            <div class="post-content-body">
+                <p>{{ projectContent }}</p>
+                <p>
+                <ul class="list-group">
+                    <li class="list-group-item">Mentor : {{ projectMentor }}</li>
+                    <li class="list-group-item">Evaluateur : {{ projectEvaluator }}</li>
+                    <li class="list-group-item"><span class="category mb-5"> {{ projectValidDat }}</span></li>
+                </ul>
+                </p>
+                <p>
+                    {% if projectComment != false %}
+                        <img src="public/images/{{ projectComment }}" alt="project comment" class="img-fluid mb-5">
+                    {% endif %}
+                </p>
+            </div>
+
+
+        </div>
+    </div>
+{% endblock %}

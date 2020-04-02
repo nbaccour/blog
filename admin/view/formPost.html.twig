@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block titlePage %}
+    <div class="row">
+        <div class="col-md-6">
+            <h2 class="mb-4">{{ title }}</h2>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    <div class="col-md-12 col-lg-8 main-content">
+        <div class="row">
+            {% if error %}
+                <div class="row">
+                    <div class="alert alert-danger" role="alert">
+                        {{ error }}
+                    </div>
+                </div>
+            {% endif %}
+            {% if valid %}
+                <div class="row">
+                    <div class="alert alert-success" role="alert">
+                        {{ valid }}
+                    </div>
+                </div>
+            {% endif %}
+            <form action="?action=addpost" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                        <label for="title">Titre</label>
+                        <input type="text" name="title" id="title" class="form-control ">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                        <label for="content">Contenu article</label>
+                        <textarea name="content" id="content" class="form-control " cols="30" rows="8"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                        <label for="author">Auteur</label>
+                        <input type="text" name="author" id="author" disabled value="{{ session.ident }}"
+                               class="form-control ">
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <label class="mr-sm-2" for="category">Choisir une catégorie</label>
+                        <select class="custom-select mr-sm-2" id="category" name="category">
+                            {% if categoryList %}
+                                <option selected>Choisir...</option>
+                                {% for category in categoryList %}
+                                    <option value="{{ category.id }}">{{ category.name }}</option>
+                                {% endfor %}
+                            {% endif %}
+                            {#<option value="1">One</option>#}
+                            {#<option value="2">Two</option>#}
+                            {#<option value="3">Three</option>#}
+                        </select>
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="postimg" name="postimg" lang="fr"
+                                   accept=".jpg,.jpeg,.png"/>
+                            <label class="custom-file-label" for="postimg">Sélectionner une image</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <input type="submit" value="Envoyer" class="btn btn-primary">
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+{% endblock %}
