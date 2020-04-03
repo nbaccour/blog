@@ -80,6 +80,15 @@ class FrontendController extends DefaultController
         return $content;
     }
 
+    function getFormTest()
+    {
+//        $manager = new CategoryManager();
+//        $aCategory = $manager->getCategory();
+        $content = $this->_twig->render('formTest.html.twig',
+            ['title' => 'Test Ajax']);
+        return $content;
+    }
+
     function getListPost()
     {
 

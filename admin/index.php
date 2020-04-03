@@ -67,6 +67,13 @@ if ($isConnect === false) {
                     echo $connectOut;
                     exit();
 
+                } elseif (isset($_GET['action']) && $_GET['action'] === 'ajax') {
+
+                    // Formulaire ajouter un article
+                    $contentFormPost = $frontendController->getFormTest();
+                    echo $contentFormPost;
+                    exit();
+
                 } elseif (isset($_GET['action']) && $_GET['action'] === 'formpost') {
 
                     // Formulaire ajouter un article
