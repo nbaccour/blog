@@ -71,12 +71,33 @@ class FrontendController extends DefaultController
         return $content;
     }
 
-    function getFormPost()
+    function getFormPost($id)
     {
         $manager = new CategoryManager();
         $aCategory = $manager->getCategory();
-        $content = $this->_twig->render('formPost.html.twig',
-            ['title' => 'Ajouter un article', 'categoryList' => $aCategory]);
+        $aDataPost = [];
+        if ($id !== '') {
+            $postManager = new Postmanager();
+            $post = $postManager->getPost($id);
+
+
+            $aDataCategory = $manager->getCategoryData($post->idcategory());
+
+            $aDataPost = [
+                'postId'       => $post->id(),
+                'postTitle'    => $post->title(),
+                'postContent'  => $post->content(),
+                'idcategory'   => $post->idcategory(),
+                'namecategory' => $aDataCategory->name(),
+            ];
+        }
+
+
+        $content = $this->_twig->render('formPost.html.twig', array_merge([
+                'title'        => 'Ajouter un article',
+                'categoryList' => $aCategory,
+            ], $aDataPost)
+        );
         return $content;
     }
 
@@ -134,6 +155,21 @@ class FrontendController extends DefaultController
 
     }
 
+    function updatePost($idPost)
+    {
+
+        $postManager = new Postmanager();
+        $post = $postManager->updatePost($idPost);
+
+        $test = '';
+//        $content = $this->_twig->render('post.html.twig', [
+//            'postTitle'   => $post->title(),
+//            'postContent' => $post->content(),
+//        ]);
+//
+//        return $content;
+
+    }
 
     function getProject($idProject)
     {

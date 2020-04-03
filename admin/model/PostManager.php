@@ -81,13 +81,75 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC') or d
         $req = $db->prepare('DELETE FROM posts WHERE id= :id') or die(print_r($db->errorInfo()));
         $req->bindValue(':id', $id);
 //        $req->execute();
+        return $req->execute();
+//        if ($req->execute()) {
+//            return 'article supprimé';
+//        } else {
+//            return 'erreur suppression';
+//        }
 
-        if ($req->execute()) {
-            return 'article supprimé';
-        } else {
-            return 'erreur suppression';
+
+    }
+
+    function updatePost($id)
+    {
+        $db = $this->dbconnect();
+
+        $post = new Post();
+        $post->setAttribute($_POST);
+
+//        $title = $_POST["title"];
+//        $content = $_POST["content"];
+//        $author = $_SESSION["ident"];
+//        $category = $_POST["category"];
+        $modifDate = date('Y-m-d H:i:s');
+        $errorFilePost = false;
+        $postimg = '';
+        if (isset($_FILES['postimg'])) {
+
+
+            $file_name = $_FILES['postimg']['name'];
+            $file_size = $_FILES['postimg']['size'];
+            $file_tmp = $_FILES['postimg']['tmp_name'];
+            $aExplodeImg = explode('.', $_FILES['postimg']['name']);
+            $file_ext = strtolower(end($aExplodeImg));
+
+            $extensions = ["jpeg", "jpg", "png"];
+
+            if (in_array($file_ext, $extensions) === false) {
+                $errorFilePost = "Le type de l'image est invalide, seuls les fichiers avec extension '.jpg ou .png' sont acceptés";
+            }
+
+            if ($file_size > 2097152) {
+                $errorFilePost = 'Le poids de l\'image ne doit pas dépasser le 2 MB';
+            }
+
+//            if (empty($errors) == true) {
+            if ($errorFilePost === false) {
+                move_uploaded_file($file_tmp, "../public/images/post/" . $file_name);
+                $postimg = $file_name;
+            }
         }
+        if ($errorFilePost === false) {
+            $req = $db->prepare('UPDATE posts SET  title = :title, content = :content, modifDate = :modifDate, idcategory = :idcategory, postImg = :postImg WHERE id = :id')
+            or die(print_r($db->errorInfo()));
 
+            $req->bindValue(':id', intval($id));
+            $req->bindValue(':titre', $post->title());
+            $req->bindValue(':content', $post->content());
+            $req->bindValue(':modifDate', $modifDate);
+            $req->bindValue(':idcategory', intval($post->idcategory()));
+            $req->bindValue(':postImg', $postimg);
+
+            if ($req->execute()) {
+                return ['valid' => 'Votre produit a été modifié'];
+            } else {
+                return ['error' => $db->errorInfo()];
+            }
+
+        } else {
+            return ['error' => $errorFilePost];
+        }
 
     }
 
@@ -98,7 +160,7 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC') or d
         $title = $_POST["title"];
         $content = $_POST["content"];
         $author = $_SESSION["ident"];
-        $category = $_POST["category"];
+        $idcategory = $_POST["idcategory"];
         $createDate = date('Y-m-d H:i:s');
         $errorFilePost = false;
 
@@ -135,7 +197,7 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC') or d
             $req->bindParam(':content', $content);
             $req->bindParam(':author', $author);
             $req->bindParam(':postimg', $postimg);
-            $req->bindParam(':idcategory', $category);
+            $req->bindParam(':idcategory', $idcategory);
             $req->bindParam(':createDate', $createDate);
 
 

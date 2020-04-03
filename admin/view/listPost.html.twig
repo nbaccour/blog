@@ -24,32 +24,21 @@
                 </tr>
                 </thead>
                 <tbody>
+                <div id="postdeleted"></div>
                 {% for post in posts %}
                     <tr>
                         <td>{{ post.title }}</td>
                         <td>{{ post.name }}</td>
                         <td>{{ post.createDate }}</td>
                         <td>
-                            <a href="">
-                                {#<button type="button" class="btn btn-warning btn-sm">Modifier</button>#}
+                            <a href="?action=formpost&id={{ post.id }}">
                                 <span class="fa fa-edit"></span>
                             </a>
                         </td>
                         <td>
-                            <a href="delete.php?action=deletepost&id={{ post.id }}&login={{ login }}">
-                                {#<button type="button" class="btn btn-danger btn-sm">Supprimer</button>#}
-                                <span class="fa fa-trash-o" data-name="supprimer"></span>
-                            </a>
+                            <span id="deletePost" data-id="{{ post.id }}" class="fa fa-trash-o"
+                                  data-name="supprimer"></span>
 
-
-                            {#<form action="?action=deletepost&id={{ post.id }}" method="post">#}
-                            {#<input type="hidden" name="_method" value="DELETE">#}
-                            {#<input class="btn btn-danger btn-sm" type="submit" value="Supprimer">#}
-                            {#</form>#}
-                            {#<form action="?action=deletepost&id={{ post.id }}" method="DELETE">#}
-                            {#<button type="button" class="btn btn-danger btn-sm">Supprimer</button>#}
-                            {#<input class="btn btn-danger btn-sm" type="submit" value="Supprimer">#}
-                            {#</form>#}
                         </td>
                     </tr>
                 {% endfor %}

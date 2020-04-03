@@ -23,7 +23,8 @@ spl_autoload_register(function ($className) {
     }
 });
 
-require('../vendor/autoload.php');
+require('vendor/autoload.php');
+require('controller/function.php');
 
 
 $frontendController = new FrontendController();
@@ -77,7 +78,8 @@ if ($isConnect === false) {
                 } elseif (isset($_GET['action']) && $_GET['action'] === 'formpost') {
 
                     // Formulaire ajouter un article
-                    $contentFormPost = $frontendController->getFormPost();
+                    $id = (isset($_GET['id']) === true) ? $_GET['id'] : '';
+                    $contentFormPost = $frontendController->getFormPost($id);
                     echo $contentFormPost;
                     exit();
 
@@ -107,6 +109,13 @@ if ($isConnect === false) {
                     $contentAddPost = $frontendController->addPost();
                     echo $contentAddPost;
                     exit();
+                }elseif (isset($_GET['action']) && $_GET['action'] === 'updatepost') {
+                    if (!empty($_GET["id"])) {
+                        // Récupérer un seul article
+                        $contentPost = $frontendController->updatePost($_GET['id']);
+                        echo $contentPost;
+                        exit();
+                    }
                 }
 
                 break;

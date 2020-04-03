@@ -26,17 +26,19 @@
                     </div>
                 </div>
             {% endif %}
-            <form action="?action=addpost" method="post" enctype="multipart/form-data">
+            <form action="?action={% if postId %}updatepost&id={{ postId }} {% endif %} {% if not postId %}addpost{% endif %}"
+                  method="post" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-md-12 form-group">
                         <label for="title">Titre</label>
-                        <input type="text" name="title" id="title" class="form-control ">
+                        <input type="text" name="title" id="title" class="form-control" value="{{ postTitle }}">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12 form-group">
                         <label for="content">Contenu article</label>
-                        <textarea name="content" id="content" class="form-control " cols="30" rows="8"></textarea>
+                        <textarea name="content" id="content" class="form-control " cols="30" rows="8"
+                                  >{{ postContent }}</textarea>
                     </div>
                 </div>
                 <div class="row">
@@ -47,9 +49,10 @@
                     </div>
                     <div class="col-md-12 form-group">
                         <label class="mr-sm-2" for="category">Choisir une catégorie</label>
-                        <select class="custom-select mr-sm-2" id="category" name="category">
+                        <select class="custom-select mr-sm-2" id="idcategory" name="idcategory">
                             {% if categoryList %}
-                                <option selected>Choisir...</option>
+                                <option value="{{ idcategory }}"
+                                        selected>{% if idcategory %} {{ namecategory }} {% endif %} {% if not idcategory %}Choisir... {% endif %}</option>
                                 {% for category in categoryList %}
                                     <option value="{{ category.id }}">{{ category.name }}</option>
                                 {% endfor %}

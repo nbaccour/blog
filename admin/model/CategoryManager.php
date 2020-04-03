@@ -44,14 +44,29 @@ class CategoryManager
             while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
 
                 $category = new Category();
-                $category->hydrate($data);
+                $category->setAttribute($data);
                 array_push($aCategory, $category);
             }
 
             return $aCategory;
         } else {
-            throw new Exception('Impossible trouver les articles !');
+            throw new Exception('Impossible trouver les catégories !');
         }
+
+    }
+
+    function getCategoryData($id)
+    {
+        $db = $this->dbconnect();
+
+        $req = $db->prepare('select * from category WHERE id = :id') or die(print_r($db->errorInfo()));
+        $req->bindValue(':id', $id);
+        $req->execute();
+        $data = $req->fetch(PDO::FETCH_ASSOC);
+
+        $category = new Category();
+        $category->setAttribute($data);
+        return $category;
 
     }
 }

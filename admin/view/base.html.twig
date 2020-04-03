@@ -20,41 +20,8 @@
 </head>
 <body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script>
+<script src="public/js/main-01.js"></script>
 
-    $(document).ready(function () {
-
-        $("#submit").click(function (e) {
-            console.log('TESTETSTEST');
-            e.preventDefault();
-
-            $.post(
-                'view/connexion.php', // Un script PHP que l'on va créer juste après
-                {
-                    username: $("#username").val(),  // Nous récupérons la valeur de nos input que l'on fait passer à connexion.php
-                    password: $("#password").val()
-                },
-
-                function (data) {
-
-                    if (data == 'Success') {
-                        // Le membre est connecté. Ajoutons lui un message dans la page HTML.
-
-                        $("#resultat").html("<p>Vous avez été connecté avec succès !</p>");
-                    }
-                    else {
-                        // Le membre n'a pas été connecté. (data vaut ici "failed")
-
-                        $("#resultat").html("<p>Erreur lors de la connexion...</p>");
-                    }
-
-                },
-                'text'
-            );
-        });
-    });
-
-</script>
 
 <div class="wrap">
 

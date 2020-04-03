@@ -15,7 +15,7 @@ class Category
     protected $_createDate;
     protected $_modifDate;
 
-    public function hydrate(array $data)
+    public function setAttribute(array $data)
     {
         foreach ($data as $key => $value) {
             $method = 'set' . ucfirst($key);
