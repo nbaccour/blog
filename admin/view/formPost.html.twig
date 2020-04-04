@@ -14,15 +14,19 @@
         <div class="row">
             {% if error %}
                 <div class="row">
-                    <div class="alert alert-danger" role="alert">
-                        {{ error }}
+                    <div class="col-md-12 form-group">
+                        <div class="alert alert-danger" role="alert">
+                            {{ error }}
+                        </div>
                     </div>
                 </div>
             {% endif %}
             {% if valid %}
                 <div class="row">
-                    <div class="alert alert-success" role="alert">
-                        {{ valid }}
+                    <div class="col-md-12 form-group">
+                        <div class="alert alert-success" role="alert">
+                            {{ valid }}
+                        </div>
                     </div>
                 </div>
             {% endif %}
@@ -38,7 +42,7 @@
                     <div class="col-md-12 form-group">
                         <label for="content">Contenu article</label>
                         <textarea name="content" id="content" class="form-control " cols="30" rows="8"
-                                  >{{ postContent }}</textarea>
+                        >{{ postContent }}</textarea>
                     </div>
                 </div>
                 <div class="row">
@@ -69,10 +73,18 @@
                             <label class="custom-file-label" for="postimg">Sélectionner une image</label>
                         </div>
                     </div>
+                    {% if postId %}
+                        <div class="col-md-12 form-group">
+                            <img src="public/images/post/{{ postImg }}" width="300" height="200" alt="{{ postTitle }}"
+                                 class="img-thumbnail">
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="row">
                     <div class="col-md-6 form-group">
-                        <input type="submit" value="Envoyer" class="btn btn-primary">
+                        <input type="submit"
+                               value="{% if idcategory %} Modifier {% endif %} {% if not idcategory %}Envoyer {% endif %}"
+                               class="btn btn-primary">
                     </div>
                 </div>
             </form>

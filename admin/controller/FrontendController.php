@@ -88,7 +88,9 @@ class FrontendController extends DefaultController
                 'postTitle'    => $post->title(),
                 'postContent'  => $post->content(),
                 'idcategory'   => $post->idcategory(),
+                'postImg'      => $post->postImg(),
                 'namecategory' => $aDataCategory->name(),
+                'title'        => "Modifier l'article",
             ];
         }
 
@@ -155,19 +157,48 @@ class FrontendController extends DefaultController
 
     }
 
-    function updatePost($idPost)
+    function updatePost($id)
     {
 
         $postManager = new Postmanager();
-        $post = $postManager->updatePost($idPost);
+        $postUpdate = $postManager->updatePost($id);
 
-        $test = '';
-//        $content = $this->_twig->render('post.html.twig', [
-//            'postTitle'   => $post->title(),
-//            'postContent' => $post->content(),
+
+        $manager = new CategoryManager();
+        $aCategory = $manager->getCategory();
+        $aDataPost = [];
+        if ($id !== '') {
+            $postManager = new Postmanager();
+            $post = $postManager->getPost($id);
+
+
+            $aDataCategory = $manager->getCategoryData($post->idcategory());
+
+            $aDataPost = [
+                'postId'       => $post->id(),
+                'postTitle'    => $post->title(),
+                'postContent'  => $post->content(),
+                'idcategory'   => $post->idcategory(),
+                'postImg'      => $post->postImg(),
+                'namecategory' => $aDataCategory->name(),
+            ];
+        }
+
+
+        $content = $this->_twig->render('formPost.html.twig', array_merge([
+                'title'        => 'Modifier',
+                'valid'        => (isset($postUpdate['valid']) === true) ? $postUpdate['valid'] : '',
+                'error'        => (isset($postUpdate['error']) === true) ? $postUpdate['error'] : '',
+                'categoryList' => $aCategory,
+            ], $aDataPost)
+        );
+
+//        $content = $this->_twig->render('formPost.html.twig', [
+//            'valid' => (isset($post['valid']) === true ) ? $postUpdate['valid'] : '',
+//            'error' => (isset($post['error']) === true ) ? $postUpdate['error'] : '',
 //        ]);
-//
-//        return $content;
+
+        return $content;
 
     }
 
@@ -236,15 +267,15 @@ class FrontendController extends DefaultController
 //        return $content;
     }
 
-    function deletePost($id)
-    {
-        $manager = new Postmanager();
-        $deletePost = $manager->deletePost($id);
-        $content = $this->_twig->render('returnMessage.html.twig', [
-            'Message' => $deletePost,
-        ]);
-        header("Refresh: 1; URL=index.php");
-        return $content;
-
-    }
+//    function deletePost($id)
+//    {
+//        $manager = new Postmanager();
+//        $deletePost = $manager->deletePost($id);
+//        $content = $this->_twig->render('returnMessage.html.twig', [
+//            'Message' => $deletePost,
+//        ]);
+//        header("Refresh: 1; URL=index.php");
+//        return $content;
+//
+//    }
 }

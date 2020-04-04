@@ -32,12 +32,13 @@ if (isset($_POST['action']) === true && $_POST['action'] === 'updatePost') {
     $postManager = new Postmanager();
     $updatePost = $postManager->updatePost($_POST);
 
-//    if ($updatePost === true) {
-//        $return['result'] = 'Success';
-//        jsonGenerate($return);
-//    } else {
-//        $return['result'] = 'Failed';
-//        jsonGenerate($return);
-//    }
+
+    if ($updatePost === true) {
+        $return['result'] = 'Success';
+        jsonGenerate($return);
+    } else {
+        $return['result'] = 'Failed';
+        jsonGenerate($return);
+    }
 }
 

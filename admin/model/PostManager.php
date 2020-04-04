@@ -98,10 +98,6 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC') or d
         $post = new Post();
         $post->setAttribute($_POST);
 
-//        $title = $_POST["title"];
-//        $content = $_POST["content"];
-//        $author = $_SESSION["ident"];
-//        $category = $_POST["category"];
         $modifDate = date('Y-m-d H:i:s');
         $errorFilePost = false;
         $postimg = '';
@@ -126,7 +122,8 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC') or d
 
 //            if (empty($errors) == true) {
             if ($errorFilePost === false) {
-                move_uploaded_file($file_tmp, "../public/images/post/" . $file_name);
+                move_uploaded_file($file_tmp, "../public/images/post/" . $file_name);//blog site
+                copy("../public/images/post/" . $file_name, "public/images/post/" . $file_name);//admin
                 $postimg = $file_name;
             }
         }
@@ -135,13 +132,14 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC') or d
             or die(print_r($db->errorInfo()));
 
             $req->bindValue(':id', intval($id));
-            $req->bindValue(':titre', $post->title());
+            $req->bindValue(':title', $post->title());
             $req->bindValue(':content', $post->content());
             $req->bindValue(':modifDate', $modifDate);
             $req->bindValue(':idcategory', intval($post->idcategory()));
             $req->bindValue(':postImg', $postimg);
-
+//            return $req->execute();
             if ($req->execute()) {
+
                 return ['valid' => 'Votre produit a été modifié'];
             } else {
                 return ['error' => $db->errorInfo()];
@@ -185,7 +183,8 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC') or d
             }
 
             if (empty($errors) == true) {
-                move_uploaded_file($file_tmp, "../public/images/post/" . $file_name);
+                move_uploaded_file($file_tmp, "../public/images/post/" . $file_name);//blog site
+                move_uploaded_file($file_tmp, "public/images/post/" . $file_name);//admin
                 $postimg = $file_name;
             }
         }

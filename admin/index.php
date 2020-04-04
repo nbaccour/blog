@@ -36,11 +36,11 @@ if (isset($_SESSION['login']) === true) {
     $isConnect = true;
 }
 
-if (isset($_GET['login']) === true) {
-    if ($_GET['login'] === '1') {
-        $isConnect = true;
-    }
-}
+//if (isset($_GET['login']) === true) {
+////    if ($_GET['login'] === '1') {
+////        $isConnect = true;
+////    }
+////}
 //var_dump($isConnect);
 if ($isConnect === false) {
 //if (isset($_SESSION['login']) === true) {
@@ -66,13 +66,6 @@ if ($isConnect === false) {
                     // Deconnexion
                     $connectOut = $frontendController->connectOut();
                     echo $connectOut;
-                    exit();
-
-                } elseif (isset($_GET['action']) && $_GET['action'] === 'ajax') {
-
-                    // Formulaire ajouter un article
-                    $contentFormPost = $frontendController->getFormTest();
-                    echo $contentFormPost;
                     exit();
 
                 } elseif (isset($_GET['action']) && $_GET['action'] === 'formpost') {
@@ -109,7 +102,7 @@ if ($isConnect === false) {
                     $contentAddPost = $frontendController->addPost();
                     echo $contentAddPost;
                     exit();
-                }elseif (isset($_GET['action']) && $_GET['action'] === 'updatepost') {
+                } elseif (isset($_GET['action']) && $_GET['action'] === 'updatepost') {
                     if (!empty($_GET["id"])) {
                         // Récupérer un seul article
                         $contentPost = $frontendController->updatePost($_GET['id']);
