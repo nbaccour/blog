@@ -2,7 +2,7 @@
 $(document).ready(function () {
 
 
-    $("#deletePost").click(function (e) {
+    $(".deletePost").click(function (e) {
 
         e.preventDefault();
         const $this = $(this);

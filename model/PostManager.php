@@ -6,8 +6,8 @@
  * Time: 16:02
  */
 
-//class Postmanager extends DataBase
-class Postmanager
+//class PostManager extends DataBase
+class PostManager
 {
 
     protected function dbconnect()

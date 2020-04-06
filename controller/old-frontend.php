@@ -44,7 +44,7 @@ function getListPost()
 
 function getPost($idPost)
 {
-    $postManager = new Postmanager();
+    $postManager = new PostManager();
 //    $commentManager = new CommentManager();
 
     $post = $postManager->getPost($idPost);

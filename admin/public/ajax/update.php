@@ -29,7 +29,7 @@ require('../../vendor/autoload.php');
 require('../../controller/function.php');
 
 if (isset($_POST['action']) === true && $_POST['action'] === 'updatePost') {
-    $postManager = new Postmanager();
+    $postManager = new PostManager();
     $updatePost = $postManager->updatePost($_POST);
 
 

@@ -29,7 +29,7 @@ require('../../vendor/autoload.php');
 require('../../controller/function.php');
 
 if (isset($_POST['action']) === true && $_POST['action'] === 'deletePost') {
-    $postManager = new Postmanager();
+    $postManager = new PostManager();
     $deletePost = $postManager->deletePost($_POST['idpost']);
     if ($deletePost === true) {
         $return['result'] = 'Success';

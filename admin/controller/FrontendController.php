@@ -269,7 +269,7 @@ class FrontendController extends DefaultController
 
 //    function deletePost($id)
 //    {
-//        $manager = new Postmanager();
+//        $manager = new PostManager();
 //        $deletePost = $manager->deletePost($id);
 //        $content = $this->_twig->render('returnMessage.html.twig', [
 //            'Message' => $deletePost,

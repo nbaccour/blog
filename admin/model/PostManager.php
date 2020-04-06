@@ -8,7 +8,7 @@
 
 //namespace admin\model;
 
-//class Postmanager extends DataBase
+//class PostManager extends DataBase
 class PostManager
 {
 

@@ -42,7 +42,7 @@ class FrontendController extends DefaultController
 //    $commentManager = new CommentManager();
 //    $comment = $commentManager->getListComment();
 
-        $postManager = new Postmanager();
+        $postManager = new PostManager();
         $post = $postManager->getPost($idPost);
 //        var_dump($post);
         $content = $this->_twig->render('post.html.twig', [
