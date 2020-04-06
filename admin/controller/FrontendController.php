@@ -77,7 +77,7 @@ class FrontendController extends DefaultController
         $aCategory = $manager->getCategory();
         $aDataPost = [];
         if ($id !== '') {
-            $postManager = new Postmanager();
+            $postManager = new PostManager();
             $post = $postManager->getPost($id);
 
 
@@ -145,7 +145,7 @@ class FrontendController extends DefaultController
 //    $commentManager = new CommentManager();
 //    $comment = $commentManager->getListComment();
 
-        $postManager = new Postmanager();
+        $postManager = new PostManager();
         $post = $postManager->getPost($idPost);
 //        var_dump($post);
         $content = $this->_twig->render('post.html.twig', [
@@ -160,7 +160,7 @@ class FrontendController extends DefaultController
     function updatePost($id)
     {
 
-        $postManager = new Postmanager();
+        $postManager = new PostManager();
         $postUpdate = $postManager->updatePost($id);
 
 
@@ -168,7 +168,7 @@ class FrontendController extends DefaultController
         $aCategory = $manager->getCategory();
         $aDataPost = [];
         if ($id !== '') {
-            $postManager = new Postmanager();
+            $postManager = new PostManager();
             $post = $postManager->getPost($id);
 
 
@@ -254,7 +254,7 @@ class FrontendController extends DefaultController
 
     function addPost()
     {
-        $manager = new Postmanager();
+        $manager = new PostManager();
         $addpost = $manager->addPost();
 
 //        $content = $this->_twig->render('formPost.html.twig', ['title' => 'Ajouter un article']);

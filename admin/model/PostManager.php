@@ -9,7 +9,7 @@
 //namespace admin\model;
 
 //class Postmanager extends DataBase
-class Postmanager
+class PostManager
 {
 
     protected function dbconnect()
