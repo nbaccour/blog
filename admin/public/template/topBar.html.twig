@@ -2,10 +2,11 @@
     <div class="container">
         <div class="row">
             <div class="col-4 social">
-                <a href="#"><span class="fa fa-twitter"></span></a>
-                <a href="#"><span class="fa fa-facebook"></span></a>
-                <a href="#"><span class="fa fa-instagram"></span></a>
-                <a href="#"><span class="fa fa-youtube-play"></span></a>
+                {#<a href="#"><span class="fa fa-twitter"></span></a>#}
+                {#<a href="#"><span class="fa fa-facebook"></span></a>#}
+                {#<a href="#"><span class="fa fa-instagram"></span></a>#}
+                {#<a href="#"><span class="fa fa-youtube-play"></span></a>#}
+                <a href="">Admin</a>
             </div>
             <div class="col-8">
 
@@ -18,7 +19,8 @@
                                 Bienvenue {{ session.firstnameUser }}  </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="?action=connectout"><i class="fa fa-sign-out" aria-hidden="true"></i>
+                            <a class="nav-link" href="?action=connectout"><i class="fa fa-sign-out"
+                                                                             aria-hidden="true"></i>
                                 Déconnexion</a>
                         </li>
                     {% endif %}

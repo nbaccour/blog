@@ -140,7 +140,7 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC') or d
 //            return $req->execute();
             if ($req->execute()) {
 
-                return ['valid' => 'Votre produit a été modifié'];
+                return ['valid' => 'Votre article a été modifié'];
             } else {
                 return ['error' => $db->errorInfo()];
             }
@@ -202,7 +202,7 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC') or d
 
             if ($req->execute()) {
 //                return 'Votre produit a été ajouté';
-                return ['valid' => 'Votre produit a été ajouté'];
+                return ['valid' => 'Votre article a été ajouté'];
             } else {
 //                return 'erreur';
                 return ['error' => $db->errorInfo()];
