@@ -8,8 +8,8 @@ $(document).ready(function () {
         const $this = $(this);
 
         $.ajax({
-            // type: "DELETE",
-            type: "POST",
+            type: "DELETE",
+            // type: "POST",
             url: 'public/ajax/delete.php',
             data: {
                 idpost: $this[0].dataset.id,
