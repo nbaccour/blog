@@ -28,10 +28,15 @@ spl_autoload_register(function ($className) {
 require('../../vendor/autoload.php');
 require('../../controller/function.php');
 
-if (isset($_POST['action']) === true && $_POST['action'] === 'updatePost') {
-    $postManager = new PostManager();
-    $updatePost = $postManager->updatePost($_POST);
+//fopen('php://input', 'r')
+//$request->getParsedBody()['file']
 
+parse_str(file_get_contents("php://input"), $putVars);
+
+if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
+
+    $postManager = new PostManager();
+    $updatePost = $postManager->updatePost($putVars);
 
     if ($updatePost === true) {
         $return['result'] = 'Success';
@@ -40,5 +45,7 @@ if (isset($_POST['action']) === true && $_POST['action'] === 'updatePost') {
         $return['result'] = 'Failed';
         jsonGenerate($return);
     }
+
+
 }
 

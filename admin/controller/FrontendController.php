@@ -76,6 +76,7 @@ class FrontendController extends DefaultController
         $manager = new CategoryManager();
         $aCategory = $manager->getCategory();
         $aDataPost = [];
+        $fileName = 'formAddPost.html.twig';
         if ($id !== '') {
             $postManager = new PostManager();
             $post = $postManager->getPost($id);
@@ -92,10 +93,11 @@ class FrontendController extends DefaultController
                 'namecategory' => $aDataCategory->name(),
                 'title'        => "Modifier l'article",
             ];
+            $fileName = 'formPost.html.twig';
         }
 
 
-        $content = $this->_twig->render('formPost.html.twig', array_merge([
+        $content = $this->_twig->render($fileName, array_merge([
                 'title'        => 'Ajouter un article',
                 'categoryList' => $aCategory,
             ], $aDataPost)
@@ -258,7 +260,7 @@ class FrontendController extends DefaultController
         $addpost = $manager->addPost();
 
 //        $content = $this->_twig->render('formPost.html.twig', ['title' => 'Ajouter un article']);
-        $content = $this->_twig->render('formPost.html.twig', $addpost);
+        $content = $this->_twig->render('formAddPost.html.twig', $addpost);
         return $content;
 
 //        $content = $this->_twig->render('returnMessage.html.twig', [

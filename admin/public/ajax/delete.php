@@ -28,9 +28,10 @@ spl_autoload_register(function ($className) {
 require('../../vendor/autoload.php');
 require('../../controller/function.php');
 
-if (isset($_POST['action']) === true && $_POST['action'] === 'deletePost') {
+if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     $postManager = new PostManager();
-    $deletePost = $postManager->deletePost($_POST['idpost']);
+    $deletePost = $postManager->deletePost(substr($_SERVER['QUERY_STRING'], 3));
+
     if ($deletePost === true) {
         $return['result'] = 'Success';
         jsonGenerate($return);
@@ -38,5 +39,7 @@ if (isset($_POST['action']) === true && $_POST['action'] === 'deletePost') {
         $return['result'] = 'Failed';
         jsonGenerate($return);
     }
+
+
 }
 

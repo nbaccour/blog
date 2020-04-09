@@ -56,10 +56,12 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC') or d
 
     function deletePost($id)
     {
+
         $db = $this->dbconnect();
         $req = $db->prepare('DELETE FROM posts WHERE id= :id') or die(print_r($db->errorInfo()));
         $req->bindValue(':id', $id);
-//        $req->execute();
+//        $returnSql = $req->execute();
+        $test = '';
         return $req->execute();
 //        if ($req->execute()) {
 //            return 'article supprimé';
@@ -70,12 +72,12 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC') or d
 
     }
 
-    function updatePost($id)
+    function updatePost($PUT)
     {
         $db = $this->dbconnect();
 
         $post = new Post();
-        $post->setAttribute($_POST);
+        $post->setAttribute($PUT);
 
         $modifDate = date('Y-m-d H:i:s');
         $errorFilePost = false;
@@ -110,7 +112,7 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC') or d
             $req = $db->prepare('UPDATE posts SET  title = :title, content = :content, modifDate = :modifDate, idcategory = :idcategory, postImg = :postImg WHERE id = :id')
             or die(print_r($db->errorInfo()));
 
-            $req->bindValue(':id', intval($id));
+            $req->bindValue(':id', intval($PUT['id']));
             $req->bindValue(':title', $post->title());
             $req->bindValue(':content', $post->content());
             $req->bindValue(':modifDate', $modifDate);
@@ -119,13 +121,17 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC') or d
 //            return $req->execute();
             if ($req->execute()) {
 
-                return ['valid' => 'Votre article a été modifié'];
+                return true;
+//                return ['result' => 'Success'];
+//                return ['valid' => 'Votre article a été modifié'];
             } else {
-                return ['error' => $db->errorInfo()];
+//                return ['error' => $db->errorInfo()];
+                return ['result' => $db->errorInfo()];
             }
 
         } else {
-            return ['error' => $errorFilePost];
+//            return ['error' => $errorFilePost];
+            return ['result' => $errorFilePost];
         }
 
     }
