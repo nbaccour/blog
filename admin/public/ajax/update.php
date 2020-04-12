@@ -31,6 +31,7 @@ require('../../controller/function.php');
 //fopen('php://input', 'r')
 //$request->getParsedBody()['file']
 
+
 parse_str(file_get_contents("php://input"), $putVars);
 
 if ($_SERVER['REQUEST_METHOD'] === 'PUT') {

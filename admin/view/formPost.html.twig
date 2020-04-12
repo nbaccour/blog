@@ -12,29 +12,10 @@
 
     <div class="col-md-12 col-lg-8 main-content">
         <div class="row">
-            <div id="postedittest"></div>
-            {% if error %}
-                <div class="row">
-                    <div class="col-md-12 form-group">
-                        <div class="alert alert-danger" role="alert">
-                            {{ error }}
-                        </div>
-                    </div>
-                </div>
-            {% endif %}
-            {% if valid %}
-                <div class="row">
-                    <div class="col-md-12 form-group">
-                        <div class="alert alert-success" role="alert">
-                            {{ valid }}
-                        </div>
-                    </div>
-                </div>
-            {% endif %}
+            <div id="postedit"></div>
 
             {#<form action="?action={% if postId %}updatepost&id={{ postId }} {% endif %}{% if not postId %}addpost{% endif %}"#}
-            <form id="postform" action="?action={% if postId %}{% endif %}{% if not postId %}addpost{% endif %}"
-                  method="post" enctype="multipart/form-data">
+            <form id="updatepostform" action="?action=" method="post" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-md-12 form-group">
                         <label for="title">Titre</label>
@@ -59,24 +40,20 @@
                         <label class="mr-sm-2" for="category">Choisir une catégorie</label>
                         <select class="custom-select mr-sm-2" id="idcategory" name="idcategory">
                             {% if categoryList %}
-                                <option value="{{ idcategory }}"
-                                        selected>{% if idcategory %} {{ namecategory }} {% endif %} {% if not idcategory %}Choisir... {% endif %}</option>
+                                <option value="{{ idcategory }}" selected>{{ namecategory }}</option>
                                 {% for category in categoryList %}
                                     <option value="{{ category.id }}">{{ category.name }}</option>
                                 {% endfor %}
                             {% endif %}
-                            {#<option value="1">One</option>#}
-                            {#<option value="2">Two</option>#}
-                            {#<option value="3">Three</option>#}
                         </select>
                     </div>
-                    <div class="col-md-12 form-group">
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="postimg" name="postimg" lang="fr"
-                                   accept=".jpg,.jpeg,.png"/>
-                            <label class="custom-file-label" for="postimg">Sélectionner une image</label>
-                        </div>
-                    </div>
+                    {#<div class="col-md-12 form-group">#}
+                    {#<div class="custom-file">#}
+                    {#<input type="file" class="custom-file-input" id="postimg" name="postimg" lang="fr"#}
+                    {#accept=".jpg,.jpeg,.png"/>#}
+                    {#<label class="custom-file-label" for="postimg">Sélectionner une image</label>#}
+                    {#</div>#}
+                    {#</div>#}
                     {% if postId %}
                         {#<div class="col-md-12 form-group">#}
                         {#<img src="public/images/post/{{ postImg }}" width="300" height="200" alt="{{ postTitle }}"#}
@@ -87,7 +64,7 @@
                 <div class="row">
                     <div class="col-md-6 form-group">
                         <input type="submit"
-                               value="{% if idcategory %}ModifierTest {% endif %} {% if not idcategory %}Envoyer {% endif %}"
+                               value="Modifier"
                                class="btn btn-primary">
                     </div>
                 </div>

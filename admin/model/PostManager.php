@@ -60,15 +60,7 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC') or d
         $db = $this->dbconnect();
         $req = $db->prepare('DELETE FROM posts WHERE id= :id') or die(print_r($db->errorInfo()));
         $req->bindValue(':id', $id);
-//        $returnSql = $req->execute();
-        $test = '';
         return $req->execute();
-//        if ($req->execute()) {
-//            return 'article supprimé';
-//        } else {
-//            return 'erreur suppression';
-//        }
-
 
     }
 
@@ -81,49 +73,21 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC') or d
 
         $modifDate = date('Y-m-d H:i:s');
         $errorFilePost = false;
-        $postimg = '';
-        if (isset($_FILES['postimg'])) {
 
-
-            $file_name = $_FILES['postimg']['name'];
-            $file_size = $_FILES['postimg']['size'];
-            $file_tmp = $_FILES['postimg']['tmp_name'];
-            $aExplodeImg = explode('.', $_FILES['postimg']['name']);
-            $file_ext = strtolower(end($aExplodeImg));
-
-            $extensions = ["jpeg", "jpg", "png"];
-
-            if (in_array($file_ext, $extensions) === false) {
-                $errorFilePost = "Le type de l'image est invalide, seuls les fichiers avec extension '.jpg ou .png' sont acceptés";
-            }
-
-            if ($file_size > 2097152) {
-                $errorFilePost = 'Le poids de l\'image ne doit pas dépasser le 2 MB';
-            }
-
-//            if (empty($errors) == true) {
-            if ($errorFilePost === false) {
-                move_uploaded_file($file_tmp, "../public/images/post/" . $file_name);//blog site
-                copy("../public/images/post/" . $file_name, "public/images/post/" . $file_name);//admin
-                $postimg = $file_name;
-            }
-        }
         if ($errorFilePost === false) {
-            $req = $db->prepare('UPDATE posts SET  title = :title, content = :content, modifDate = :modifDate, idcategory = :idcategory, postImg = :postImg WHERE id = :id')
+            $req = $db->prepare('UPDATE posts SET  title = :title, content = :content, modifDate = :modifDate, idcategory = :idcategory WHERE id = :id')
             or die(print_r($db->errorInfo()));
 
-            $req->bindValue(':id', intval($PUT['id']));
+//            $req->bindValue(':id', intval($PUT['id']));
+            $req->bindValue(':id', intval($post->id()));
             $req->bindValue(':title', $post->title());
             $req->bindValue(':content', $post->content());
-            $req->bindValue(':modifDate', $modifDate);
             $req->bindValue(':idcategory', intval($post->idcategory()));
-            $req->bindValue(':postImg', $postimg);
+            $req->bindValue(':modifDate', $modifDate);
 //            return $req->execute();
             if ($req->execute()) {
 
                 return true;
-//                return ['result' => 'Success'];
-//                return ['valid' => 'Votre article a été modifié'];
             } else {
 //                return ['error' => $db->errorInfo()];
                 return ['result' => $db->errorInfo()];

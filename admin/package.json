@@ -1,0 +1,13 @@
+{
+  "name": "admin",
+  "version": "1.0.0",
+  "description": "OC Blog",
+  "main": "index.php",
+  "dependencies": {
+    "boostrap": "^2.0.0",
+    "bootbox": "^5.4.0",
+    "jquery": "^3.5.0",
+    "jquery-confirm": "^3.3.4",
+    "popper.js": "^1.16.1"
+  }
+}
