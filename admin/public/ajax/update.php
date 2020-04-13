@@ -28,13 +28,9 @@ spl_autoload_register(function ($className) {
 require('../../vendor/autoload.php');
 require('../../controller/function.php');
 
-//fopen('php://input', 'r')
-//$request->getParsedBody()['file']
-
-
-parse_str(file_get_contents("php://input"), $putVars);
 
 if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
+    parse_str(file_get_contents("php://input"), $putVars);
 
     $postManager = new PostManager();
     $updatePost = $postManager->updatePost($putVars);
@@ -48,5 +44,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     }
 
 
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    $postManager = new PostManager();
+    $updateImgPost = $postManager->updateImgPost($_FILES, $_POST['id']);
+    $test = '';
+//    if ($updateImgPost === true) {
+//        $return['result'] = 'Success';
+//        jsonGenerate($return);
+//    } else {
+//        $return['result'] = 'Failed';
+//        jsonGenerate($return);
+//    }
+
+    $return['result'] = 'Success';
+    jsonGenerate($return);
 }
 

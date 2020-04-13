@@ -100,6 +100,58 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC') or d
 
     }
 
+    function updateImgPost($Files, $id)
+    {
+        $db = $this->dbconnect();
+
+        $modifDate = date('Y-m-d H:i:s');
+        $errorFilePost = false;
+        $postimg = '';
+
+        if (isset($Files['file'])) {
+
+
+            $file_name = $Files['file']['name'];
+            $file_size = $Files['file']['size'];
+            $file_tmp = $Files['file']['tmp_name'];
+            $aExplodeImg = explode('.', $file_name);
+            $file_ext = strtolower(end($aExplodeImg));
+
+            $extensions = ["jpeg", "jpg", "png"];
+
+            if (in_array($file_ext, $extensions) === false) {
+                $errorFilePost = "Le type de l'image est invalide, seuls les fichiers avec extension '.jpg ou .png' sont acceptés";
+            }
+
+            if ($file_size > 2097152) {
+                $errorFilePost = 'Le poids de l\'image ne doit pas dépasser le 2 MB';
+            }
+
+            if (empty($errors) == true) {
+//                move_uploaded_file($file_tmp, "../public/images/post/" . $file_name);//blog site
+                move_uploaded_file($file_tmp, "public/images/post/" . $file_name);//admin
+                $postimg = $file_name;
+            }
+        }
+
+        if ($errorFilePost === false) {
+            $req = $db->prepare('UPDATE posts SET  postimg = :postimg, modifDate = :modifDate  WHERE id = :id')
+            or die(print_r($db->errorInfo()));
+
+            $req->bindValue(':id', intval($id));
+            $req->bindValue(':postimg', $postimg);
+            $req->bindValue(':modifDate', $modifDate);
+
+            if ($req->execute()) {
+                return true;
+            } else {
+                return 'Erreur : SQL';
+            }
+        } else {
+            return $errorFilePost;
+        }
+    }
+
     function addPost()
     {
         $db = $this->dbconnect();

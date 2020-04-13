@@ -37,7 +37,7 @@ $(document).ready(function () {
                                     setTimeout(
                                         function () {
                                             location.reload();
-                                        }, 0002);
+                                        }, 2000);
                                 }
                                 else {
 
@@ -60,38 +60,22 @@ $(document).ready(function () {
 
         });
 
-// var x = confirm("Voulez vous supprimer cet article ?");
-// if (x)
-// Confirm box
-// bootbox.confirm("Do you really want to delete record?", function (result) {
-// console.log(x);
-// alert('test1');
-
-// });
     })
     ;
 
-// $(".updatePost").click(function (e) {
     $('#updatepostform').submit(function (e) {
 
         e.preventDefault();
-        // console.log($(this));
-
-        // var fd = new FormData();
-        // var files = $('#postimg')[0].files[0];
-        // fd.append('file', files);
 
         $.ajax({
             type: "PUT",
-            // type: "POST",
             url: 'public/ajax/update.php',
-            // data: fd,
             contentType: false,
             processData: false,
             data: $(this).serialize(),
 
             success: function (json) {
-
+                alert('test1 modif data');
                 if (json.result == 'Success') {
 
                     $("#postedit").html("<div class=\"alert alert-success\">L'article est modifié</div>");
@@ -102,6 +86,44 @@ $(document).ready(function () {
                 }
 
             }	//	SUCCESS
+        });	//	AJAX
+
+    });
+
+    $('#updateimgpost').submit(function (e) {
+
+        e.preventDefault();
+        // console.log($(this));
+
+        var oFileData = new FormData();
+        var files = $('#postimg')[0].files[0];
+
+        oFileData.append('file', files);
+        oFileData.append('id', $("input#id").val());
+
+
+        $.ajax({
+            type: "POST",
+            url: 'public/ajax/update.php',
+            contentType: false,
+            processData: false,
+            data: oFileData,
+            // dataType: 'json',
+            success: function (json) {
+
+                alert('test1 modif image');
+                console.log(json);
+                if (json.result == 'Success') {
+
+                    $("#imgpostedit").html("<div class=\"alert alert-success\">Image modifiée</div>");
+                }
+                else {
+
+                    $("#imgpostedit").html('<div class="alert alert-danger">json.error </div>');
+                }
+
+            }	//	SUCCESS
+
         });	//	AJAX
 
     });

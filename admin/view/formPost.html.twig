@@ -14,8 +14,7 @@
         <div class="row">
             <div id="postedit"></div>
 
-            {#<form action="?action={% if postId %}updatepost&id={{ postId }} {% endif %}{% if not postId %}addpost{% endif %}"#}
-            <form id="updatepostform" action="?action=" method="post" enctype="multipart/form-data">
+            <form id="updatepostform" action="" method="post" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-md-12 form-group">
                         <label for="title">Titre</label>
@@ -70,7 +69,35 @@
                 </div>
 
             </form>
-
+            <div id="imgpostedit"></div>
+            <form id="updateimgpost" action="" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="mb-4">Modifier l'image</h4>
+                    </div>
+                    {% if postId %}
+                        <div class="col-md-12 form-group">
+                            <img src="public/images/post/{{ postImg }}" width="300" height="200" alt="{{ postTitle }}"
+                                 class="img-thumbnail">
+                        </div>
+                    {% endif %}
+                    <div class="col-md-12 form-group">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="postimg" name="postimg" lang="fr"
+                                   accept=".jpg,.jpeg,.png"/>
+                            <label class="custom-file-label" for="postimg">Sélectionner une image</label>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" id="id" name="id" value="{{ postId }}">
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <input type="submit"
+                               value="Remplacer"
+                               class="btn btn-primary">
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 {% endblock %}
