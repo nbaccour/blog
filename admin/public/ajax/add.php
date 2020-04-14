@@ -29,32 +29,14 @@ require('../../vendor/autoload.php');
 require('../../controller/function.php');
 
 
-if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
-    parse_str(file_get_contents("php://input"), $putVars);
-
-    $postManager = new PostManager();
-    $updatePost = $postManager->updatePost($putVars);
-
-    if ($updatePost === true) {
-        $return['result'] = 'Success';
-        jsonGenerate($return);
-    } else {
-        $return['result'] = 'Failed';
-        jsonGenerate($return);
-    }
-
-
-}
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+//    parse_str(file_get_contents("php://input"), $putVars);
 
     $postManager = new PostManager();
-    $updateImgPost = $postManager->updateImgPost($_FILES, $_POST['id']);
+    $addPost = $postManager->addPost($_FILES, $_POST);
 
-
-    if ($updateImgPost === true) {
+    if ($addPost === true) {
         header('Location: ' . $_SERVER['REQUEST_URI']);
-//        location . reload();
         $return['result'] = 'Success';
         jsonGenerate($return);
     } else {
@@ -62,7 +44,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         jsonGenerate($return);
     }
 
-//    $return['result'] = 'Success';
-//    jsonGenerate($return);
+
 }
+
+//if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+//
+//    $postManager = new PostManager();
+//    $updateImgPost = $postManager->updateImgPost($_FILES, $_POST['id']);
+//
+//
+//    if ($updateImgPost === true) {
+//        header('Location: ' . $_SERVER['REQUEST_URI']);
+////        location . reload();
+//        $return['result'] = 'Success';
+//        jsonGenerate($return);
+//    } else {
+//        $return['result'] = 'Failed';
+//        jsonGenerate($return);
+//    }
+//
+////    $return['result'] = 'Success';
+////    jsonGenerate($return);
+//}
 

@@ -75,7 +75,6 @@ $(document).ready(function () {
             data: $(this).serialize(),
 
             success: function (json) {
-                alert('test1 modif data');
                 if (json.result == 'Success') {
 
                     $("#postedit").html("<div class=\"alert alert-success\">L'article est modifié</div>");
@@ -84,6 +83,43 @@ $(document).ready(function () {
 
                     $("#postedit").html('<div class="alert alert-danger">Erreur : Article non modifié </div>');
                 }
+
+            }	//	SUCCESS
+        });	//	AJAX
+
+    });
+
+    $('#addpostform').submit(function (e) {
+
+        e.preventDefault();
+
+        var oPostData = new FormData();
+        var files = $('#postimg')[0].files[0];
+
+        oPostData.append('file', files);
+        oPostData.append('title', $("input#title").val());
+        oPostData.append('content', $("textarea#content").val());
+        oPostData.append('idcategory', $("select#idcategory").val());
+
+        $.ajax({
+            type: "POST",
+            url: 'public/ajax/add.php',
+            contentType: false,
+            processData: false,
+            // data: $(this).serialize(),
+            data: oPostData,
+
+            success: function (json) {
+                $("#postadd").html("<div class=\"alert alert-success\">Votre article a été ajouté</div>");
+
+                // if (json.result == 'Success') {
+                //
+                //     $("#postadd").html("<div class=\"alert alert-success\">Votre article a été ajouté</div>");
+                // }
+                // else {
+                //
+                //     $("#postadd").html('<div class="alert alert-danger">Erreur : Ajout Article </div>');
+                // }
 
             }	//	SUCCESS
         });	//	AJAX
@@ -100,6 +136,7 @@ $(document).ready(function () {
 
         oFileData.append('file', files);
         oFileData.append('id', $("input#id").val());
+        // oFileData.append('url', the_slug());
 
 
         $.ajax({
@@ -110,17 +147,21 @@ $(document).ready(function () {
             data: oFileData,
             // dataType: 'json',
             success: function (json) {
+                // alert(json);
+                $("#imgpostedit").html("<div class=\"alert alert-success\">Image modifiée</div>");
+                setTimeout(
+                    function () {
+                        location.reload();
+                    }, 2000);
 
-                alert('test1 modif image');
-                console.log(json);
-                if (json.result == 'Success') {
-
-                    $("#imgpostedit").html("<div class=\"alert alert-success\">Image modifiée</div>");
-                }
-                else {
-
-                    $("#imgpostedit").html('<div class="alert alert-danger">json.error </div>');
-                }
+                // if (json.result == 'Success') {
+                //
+                //
+                // }
+                // else {
+                //
+                //     $("#imgpostedit").html('<div class="alert alert-danger">json.error </div>');
+                // }
 
             }	//	SUCCESS
 
