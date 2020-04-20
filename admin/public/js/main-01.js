@@ -1,14 +1,6 @@
 //GET, POST, DELETE, PUT
 $(document).ready(function () {
 
-    // $('#testconfirm').click(function (event) {
-    //     event.preventDefault();
-    //     $.confirm({
-    //         title: 'Alert!',
-    //         content: 'Simple alert!',
-    //     });
-    //
-    // });
 
     $(".deletePost").click(function (e) {
 
@@ -33,15 +25,11 @@ $(document).ready(function () {
                             success: function (json) {
                                 if (json.result == 'Success') {
 
-                                    $("#postdeleted").html("<div class=\"alert alert-danger\">L'article est supprimé</div>");
-                                    setTimeout(
-                                        function () {
-                                            location.reload();
-                                        }, 2000);
+                                    $("#postdeleted").html("<div class=\"alert alert-success\">L'article est supprimé</div>");
+                                    $('#id_' + json.idpost).remove();
                                 }
                                 else {
-
-                                    $("#postdeleted").html("<div>Erreur : Article non supprimé</div>");
+                                    $("#postdeleted").html("<div class=\"alert alert-danger\" >Erreur : Article non supprimé</div>");
                                 }
 
 
@@ -49,9 +37,6 @@ $(document).ready(function () {
                         });	//	AJAX
                     },
                 },
-                // Valider: function () {
-                //
-                // },
                 Annuler: {
                     btnClass: 'btn-danger',
 
@@ -62,6 +47,31 @@ $(document).ready(function () {
 
     })
     ;
+    $('#updateuserform').submit(function (e) {
+
+        e.preventDefault();
+
+        $.ajax({
+            type: "PUT",
+            url: 'public/ajax/update.php',
+            contentType: false,
+            processData: false,
+            data: $(this).serialize(),
+
+            success: function (json) {
+                if (json.result == 'Success') {
+
+                    $("#postedit").html("<div class=\"alert alert-success\">Les données du membre ont étaient modifiées</div>");
+                }
+                else {
+
+                    $("#postedit").html('<div class="alert alert-danger">Erreur : Données non modifiées </div>');
+                }
+
+            }	//	SUCCESS
+        });	//	AJAX
+
+    });
 
     $('#updatepostform').submit(function (e) {
 
@@ -98,6 +108,7 @@ $(document).ready(function () {
 
         oPostData.append('file', files);
         oPostData.append('title', $("input#title").val());
+        oPostData.append('action', $("input#addpost").val());
         oPostData.append('content', $("textarea#content").val());
         oPostData.append('idcategory', $("select#idcategory").val());
 
@@ -106,23 +117,62 @@ $(document).ready(function () {
             url: 'public/ajax/add.php',
             contentType: false,
             processData: false,
-            // data: $(this).serialize(),
             data: oPostData,
-
+            // error: function (request, statut, error) {
+            //     console.log(error);
+            // },
             success: function (json) {
-                $("#postadd").html("<div class=\"alert alert-success\">Votre article a été ajouté</div>");
+                if (json.result === 'Success') {
 
-                // if (json.result == 'Success') {
-                //
-                //     $("#postadd").html("<div class=\"alert alert-success\">Votre article a été ajouté</div>");
-                // }
-                // else {
-                //
-                //     $("#postadd").html('<div class="alert alert-danger">Erreur : Ajout Article </div>');
-                // }
+                    $("#postadd").html("<div class=\"alert alert-success\">Votre article a été ajouté</div>");
+                }
+                else {
+
+                    $("#postadd").html('<div class="alert alert-danger">Erreur : Ajout Article </div>');
+                }
 
             }	//	SUCCESS
-        });	//	AJAX
+        })
+        ;	//	AJAX
+
+    });
+
+    $('#adduser').submit(function (e) {
+
+        e.preventDefault();
+
+        var oPostData = new FormData();
+
+        oPostData.append('lastname', $("input#lastname").val());
+        oPostData.append('action', $("input#adduser").val());
+        oPostData.append('firstname', $("input#firstname").val());
+        oPostData.append('email', $("input#email").val());
+        oPostData.append('role', $("select#role").val());
+        oPostData.append('login', $("input#login").val());
+        oPostData.append('password', $("input#password").val());
+
+        $.ajax({
+            type: "POST",
+            url: 'public/ajax/add.php',
+            contentType: false,
+            processData: false,
+            data: oPostData,
+            // error: function (request, statut, error) {
+            //     console.log(error);
+            // },
+            success: function (json) {
+                if (json.result === 'Success') {
+
+                    $("#useradd").html("<div class=\"alert alert-success\">L'utilisateur a été ajouté</div>");
+                }
+                else {
+
+                    $("#useradd").html('<div class="alert alert-danger">Erreur : Ajout Utilisateur </div>');
+                }
+
+            }	//	SUCCESS
+        })
+        ;	//	AJAX
 
     });
 
@@ -145,23 +195,21 @@ $(document).ready(function () {
             contentType: false,
             processData: false,
             data: oFileData,
-            // dataType: 'json',
+            // error: function (request, statut, error) {
+            //     console.log(error);
+            // },
+            dataType: 'json',
             success: function (json) {
-                // alert(json);
-                $("#imgpostedit").html("<div class=\"alert alert-success\">Image modifiée</div>");
-                setTimeout(
-                    function () {
-                        location.reload();
-                    }, 2000);
 
-                // if (json.result == 'Success') {
-                //
-                //
-                // }
-                // else {
-                //
-                //     $("#imgpostedit").html('<div class="alert alert-danger">json.error </div>');
-                // }
+                if (json.result == 'Success') {
+
+                    $("#imgpostedit").html("<div class=\"alert alert-success\">Image modifiée</div>");
+                    $('#postimgupdate').attr('src', 'public/images/post/' + json.filename);
+                }
+                else {
+
+                    $("#imgpostedit").html('<div class="alert alert-danger">json.error </div>');
+                }
 
             }	//	SUCCESS
 

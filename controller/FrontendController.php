@@ -10,16 +10,20 @@ class FrontendController extends DefaultController
 {
 
 
-
-
     function getListPost()
     {
 
         $manager = new PostManager();
         $posts = $manager->getListPost();
-//        print_r($posts);
-//        header('Content-Type: application/json');
-//        echo json_encode($posts, JSON_PRETTY_PRINT);
+
+        foreach ($posts as $key => $aData) {
+            foreach ($aData as $nameColumn => $value) {
+                if ($nameColumn === 'createDate') {
+                    $posts[$key]['createDate'] = date('d/m/Y', strtotime($value));
+                }
+            }
+
+        }
 
         $content = $this->_twig->render('listPost.html.twig', ['posts' => $posts]);
         return $content;

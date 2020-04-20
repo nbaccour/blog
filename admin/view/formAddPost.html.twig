@@ -32,14 +32,12 @@
                 </div>
             {% endif %}
 
-            {#<form  action="?action={% if postId %}{% endif %}{% if not postId %}addpost{% endif %}"#}
-            {#method="post" enctype="multipart/form-data">#}
             <form id="addpostform" action="" method="post" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-md-12 form-group">
                         <label for="title">Titre</label>
                         <input type="text" name="title" id="title" class="form-control" value="{{ postTitle }}">
-                        {#<input type="hidden" name="id" id="id" class="form-control" value="{{ postId }}">#}
+                        <input type="hidden" name="addpost" id="addpost" class="form-control" value="addpost">
                     </div>
                 </div>
                 <div class="row">
@@ -65,9 +63,6 @@
                                     <option value="{{ category.id }}">{{ category.name }}</option>
                                 {% endfor %}
                             {% endif %}
-                            {#<option value="1">One</option>#}
-                            {#<option value="2">Two</option>#}
-                            {#<option value="3">Three</option>#}
                         </select>
                     </div>
                     <div class="col-md-12 form-group">
@@ -77,12 +72,6 @@
                             <label class="custom-file-label" for="postimg">Sélectionner une image</label>
                         </div>
                     </div>
-                    {% if postId %}
-                        {#<div class="col-md-12 form-group">#}
-                        {#<img src="public/images/post/{{ postImg }}" width="300" height="200" alt="{{ postTitle }}"#}
-                        {#class="img-thumbnail">#}
-                        {#</div>#}
-                    {% endif %}
                 </div>
                 <div class="row">
                     <div class="col-md-6 form-group">

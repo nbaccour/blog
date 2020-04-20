@@ -5,7 +5,7 @@
  * Date: 02/04/2020
  * Time: 18:01
  */
-
+session_start();
 spl_autoload_register(function ($className) {
     $extensions = [".php"];
     $folders = ['', '../../model'];
@@ -32,15 +32,31 @@ require('../../controller/function.php');
 if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     parse_str(file_get_contents("php://input"), $putVars);
 
-    $postManager = new PostManager();
-    $updatePost = $postManager->updatePost($putVars);
+    if (isset($putVars['updateuser'])) {
+//        $userManager = new UserManager();
+//        $updateUser = $postManager->updateUser($putVars);
+//
+//        if ($updateUser === true) {
+//            $return['result'] = 'Success';
+//            jsonGenerate($return);
+//        } else {
+//            $return['result'] = 'Failed';
+//            jsonGenerate($return);
+//        }
+    }
+    if (isset($putVars['updatepost'])) {
 
-    if ($updatePost === true) {
-        $return['result'] = 'Success';
-        jsonGenerate($return);
-    } else {
-        $return['result'] = 'Failed';
-        jsonGenerate($return);
+        $postManager = new PostManager();
+        $updatePost = $postManager->updatePost($putVars);
+
+        if ($updatePost === true) {
+            $return['result'] = 'Success';
+            jsonGenerate($return);
+        } else {
+            $return['result'] = 'Failed';
+            jsonGenerate($return);
+        }
+
     }
 
 
@@ -53,16 +69,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
     if ($updateImgPost === true) {
-        header('Location: ' . $_SERVER['REQUEST_URI']);
-//        location . reload();
         $return['result'] = 'Success';
+        $return['filename'] = $_FILES['file']['name'];
+
         jsonGenerate($return);
     } else {
         $return['result'] = 'Failed';
         jsonGenerate($return);
     }
 
-//    $return['result'] = 'Success';
-//    jsonGenerate($return);
 }
 

@@ -64,7 +64,7 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC') or d
 
     }
 
-    function updatePost($PUT)
+    function updatePost(array $PUT)
     {
         $db = $this->dbconnect();
 
@@ -96,20 +96,16 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC') or d
 
     }
 
-    function updateImgPost($Files, $id)
+    function uploadFile(array $Files)
     {
-        $db = $this->dbconnect();
-
-        $modifDate = date('Y-m-d H:i:s');
         $errorFilePost = false;
-        $postimg = '';
 
         if (isset($Files['file'])) {
 
 
             $file_name = $Files['file']['name'];
             $file_size = $Files['file']['size'];
-            $file_tmp = $Files['file']['tmp_name'];
+//            $file_tmp = $Files['file']['tmp_name'];
             $aExplodeImg = explode('.', $file_name);
             $file_ext = strtolower(end($aExplodeImg));
 
@@ -122,13 +118,32 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC') or d
             if ($file_size > 2097152) {
                 $errorFilePost = 'Le poids de l\'image ne doit pas dépasser le 2 MB';
             }
+            //$uploaddir = '/var/www/admin/upload/';
+            $url = 'C:\xampp\htdocs\openclassroom\projet-blog\blog-02';
+            $uploaddir = $url . '/admin/public/images/post/';
+            $uploadfile = $uploaddir . basename($Files['file']['name']);
 
-            if (empty($errors) == true) {
-//                move_uploaded_file($file_tmp, "../public/images/post/" . $file_name);//blog site
-                move_uploaded_file($file_tmp, "public/images/post/" . $file_name);//admin
-                $postimg = $file_name;
+            if (move_uploaded_file($Files['file']['tmp_name'], $uploadfile) === true) {
+
+                copy($url . '/admin/public/images/post/' . basename($Files['file']['name']),
+                    $url . '/public/images/post/' . basename($Files['file']['name']));
+
+            } else {
+                $errorFilePost = true;
             }
         }
+
+        return $errorFilePost;
+    }
+
+    function updateImgPost(array $Files, $id)
+    {
+        $db = $this->dbconnect();
+
+        $modifDate = date('Y-m-d H:i:s');
+        $postimg = $Files['file']['name'];
+
+        $errorFilePost = $this->uploadFile($Files);
 
         if ($errorFilePost === false) {
             $req = $db->prepare('UPDATE posts SET  postimg = :postimg, modifDate = :modifDate  WHERE id = :id')
@@ -149,7 +164,7 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC') or d
     }
 
 
-    function addPost($FILES, $POST)
+    function addPost(array $FILES, array $POST)
     {
         $db = $this->dbconnect();
 
@@ -159,39 +174,14 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC') or d
         $title = $post->title();
         $content = $post->content();
         $idcategory = $post->idcategory();
-//        $author = $_SESSION["ident"];
-        $author = 'test';
+        $author = $_SESSION["ident"];
 
         $createDate = date('Y-m-d H:i:s');
-        $errorFilePost = false;
-        $file_tmp = '';
-        $file_name = '';
+        $postimg = $FILES['file']['name'];
 
-        if (isset($FILES['file'])) {
+        $errorFilePost = $this->uploadFile($FILES);
 
 
-            $file_name = $FILES['file']['name'];
-            $file_size = $FILES['file']['size'];
-            $file_tmp = $FILES['file']['tmp_name'];
-            $aExplodeImg = explode('.', $file_name);
-            $file_ext = strtolower(end($aExplodeImg));
-
-            $extensions = ["jpeg", "jpg", "png"];
-
-            if (in_array($file_ext, $extensions) === false) {
-                $errorFilePost = "Le type de l'image est invalide, seuls les fichiers avec extension '.jpg ou .png' sont acceptés";
-            }
-
-            if ($file_size > 2097152) {
-                $errorFilePost = 'Le poids de l\'image ne doit pas dépasser le 2 MB';
-            }
-            $postimg = $file_name;
-//            if (empty($errors) == true) {
-//                move_uploaded_file($file_tmp, "../public/images/post/" . $file_name);//blog site
-////                move_uploaded_file($file_tmp, "public/images/post/" . $file_name);//admin
-//
-//            }
-        }
         if ($errorFilePost === false) {
             $req = $db->prepare('INSERT INTO posts(title, content, author, postimg, idcategory, createDate) VALUE (:title,:content,:author,:postimg,:idcategory,:createDate)')
             or die(print_r($db->errorInfo()));
@@ -205,7 +195,6 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC') or d
 
 
             if ($req->execute()) {
-                move_uploaded_file($file_tmp, "../public/images/post/" . $file_name);//blog site
 //                return 'Votre produit a été ajouté';
 //                return ['valid' => 'Votre article a été ajouté'];
                 return true;
@@ -220,7 +209,6 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC') or d
 
         $db->close();
 
-//close connexion
     }
 
     function addPostold()

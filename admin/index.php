@@ -76,13 +76,33 @@ if ($isConnect === false) {
                     echo $contentFormPost;
                     exit();
 
-                } elseif (isset($_GET['action']) && $_GET['action'] === 'post') {
-                    if (!empty($_GET["id"])) {
-                        // Récupérer un seul article
-                        $contentPost = $frontendController->getPost($_GET['id']);
-                        echo $contentPost;
-                        exit();
-                    }
+                }
+//                elseif (isset($_GET['action']) && $_GET['action'] === 'post') {
+//                    if (!empty($_GET["id"])) {
+//                        // Récupérer un seul article
+//                        $contentPost = $frontendController->getPost($_GET['id']);
+//                        echo $contentPost;
+//                        exit();
+//                    }
+//                }
+                elseif (isset($_GET['action']) && $_GET['action'] === 'posts') {
+                    $contentListPost = $frontendController->getListPost();
+                    echo $contentListPost;
+                    exit();
+
+                } elseif (isset($_GET['action']) && $_GET['action'] === 'formuser') {
+
+                    // Formulaire ajouter un membre
+                    $id = (isset($_GET['id']) === true) ? $_GET['id'] : '';
+                    $contentFormPost = $frontendController->getFormUser($id);
+                    echo $contentFormPost;
+                    exit();
+
+                } elseif (isset($_GET['action']) && $_GET['action'] === 'users') {
+                    $contentListPost = $frontendController->getListUser();
+                    echo $contentListPost;
+                    exit();
+
                 } elseif (isset($_GET['action']) && $_GET['action'] === 'project') {
                     if (isset($_GET['id']) && $_GET['id'] > 0) {
                         $contentProject = $frontendController->getProject($_GET['id']);

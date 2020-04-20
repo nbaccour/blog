@@ -5,7 +5,7 @@
  * Date: 02/04/2020
  * Time: 18:01
  */
-
+session_start();
 spl_autoload_register(function ($className) {
     $extensions = [".php"];
     $folders = ['', '../../model'];
@@ -32,16 +32,31 @@ require('../../controller/function.php');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 //    parse_str(file_get_contents("php://input"), $putVars);
 
-    $postManager = new PostManager();
-    $addPost = $postManager->addPost($_FILES, $_POST);
 
-    if ($addPost === true) {
-        header('Location: ' . $_SERVER['REQUEST_URI']);
-        $return['result'] = 'Success';
-        jsonGenerate($return);
-    } else {
-        $return['result'] = 'Failed';
-        jsonGenerate($return);
+    if ($_POST['action'] === 'addpost') {
+        $postManager = new PostManager();
+        $addPost = $postManager->addPost($_FILES, $_POST);
+
+        if ($addPost === true) {
+            $return['result'] = 'Success';
+            jsonGenerate($return);
+        } else {
+            $return['result'] = 'Failed';
+            jsonGenerate($return);
+        }
+    }
+    if ($_POST['action'] === 'adduser') {
+
+        $userManager = new UserManager();
+        $addUser = $userManager->addUser($_POST);
+
+        if ($addUser === true) {
+            $return['result'] = 'Success';
+            jsonGenerate($return);
+        } else {
+            $return['result'] = 'Failed';
+            jsonGenerate($return);
+        }
     }
 
 

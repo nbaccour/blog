@@ -20,6 +20,7 @@
                         <label for="title">Titre</label>
                         <input type="text" name="title" id="title" class="form-control" value="{{ postTitle }}">
                         <input type="hidden" name="id" id="id" class="form-control" value="{{ postId }}">
+                        <input type="hidden" name="updatepost" id="updatepost" class="form-control" value="updatepost">
                     </div>
                 </div>
                 <div class="row">
@@ -46,19 +47,6 @@
                             {% endif %}
                         </select>
                     </div>
-                    {#<div class="col-md-12 form-group">#}
-                    {#<div class="custom-file">#}
-                    {#<input type="file" class="custom-file-input" id="postimg" name="postimg" lang="fr"#}
-                    {#accept=".jpg,.jpeg,.png"/>#}
-                    {#<label class="custom-file-label" for="postimg">Sélectionner une image</label>#}
-                    {#</div>#}
-                    {#</div>#}
-                    {% if postId %}
-                        {#<div class="col-md-12 form-group">#}
-                        {#<img src="public/images/post/{{ postImg }}" width="300" height="200" alt="{{ postTitle }}"#}
-                        {#class="img-thumbnail">#}
-                        {#</div>#}
-                    {% endif %}
                 </div>
                 <div class="row">
                     <div class="col-md-6 form-group">
@@ -81,7 +69,8 @@
             <form id="updateimgpost" action="" method="post" enctype="multipart/form-data">
                 {% if postId %}
                     <div class="col-md-12 form-group">
-                        <img src="public/images/post/{{ postImg }}" width="300" height="200" alt="{{ postTitle }}"
+                        <img id="postimgupdate" src="public/images/post/{{ postImg }}" width="300" height="200"
+                             alt="{{ postTitle }}"
                              class="img-thumbnail">
                     </div>
                 {% endif %}
@@ -97,7 +86,7 @@
                 {#<div class="row">#}
                 <div class="col-md-6 form-group">
                     <input type="submit"
-                           value="Remplacer"
+                           value="Modifier"
                            class="btn btn-primary">
                 </div>
             </form>

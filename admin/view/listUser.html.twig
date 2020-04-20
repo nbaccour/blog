@@ -16,29 +16,31 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th scope="col">Titre</th>
-                        {#<th scope="col">Contenu</th>#}
-                        <th scope="col">Catégorie</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Prénom</th>
+                        <th scope="col">Identifiant</th>
+                        <th scope="col">Rôle</th>
                         <th scope="col">Date</th>
                         <th scope="col">..</th>
                         <th scope="col">..</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <div id="postdeleted"></div>
-                    {% for post in posts %}
-                        <tr id="id_{{ post.id }}">
-                            <td scope="row">{{ post.title }}</td>
-                            {#<td>{{ post.title }}</td>#}
-                            <td>{{ post.name }}</td>
-                            <td>{{ post.createDate }}</td>
+                    <div id="userdeleted"></div>
+                    {% for user in users %}
+                        <tr id="id_{{ user.id }}">
+                            <td scope="row">{{ user.lastname }}</td>
+                            <td>{{ user.firstname }}</td>
+                            <td>{{ user.login }}</td>
+                            <td>{{ user.role }}</td>
+                            <td>{{ user.createDate }}</td>
                             <td>
-                                <a href="?action=formpost&id={{ post.id }}">
+                                <a href="?action=formuser&id={{ user.id }}">
                                     <span class="fa fa-edit"></span>
                                 </a>
                             </td>
                             <td>
-            <span data-id="{{ post.id }}" class="fa fa-trash-o deletePost"
+            <span data-id="{{ user.id }}" class="fa fa-trash-o deleteUser"
                   data-name="supprimer"></span>
 
                             </td>

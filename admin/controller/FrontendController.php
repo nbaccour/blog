@@ -70,7 +70,63 @@ class FrontendController extends DefaultController
         $content = $this->_twig->render('formConnect.html.twig', ['title' => 'Admin']);
         return $content;
     }
+    //-------------------------------------------------------------------------------------------------------------
+    //----------------------------------------     USER -----------------------------------------------------------
+    //-------------------------------------------------------------------------------------------------------------
+    function getFormUser($id)
+    {
 
+        $aDataUser = [];
+        $fileName = 'formAddUser.html.twig';
+        if ($id !== '') {
+            $userManager = new UserManager();
+            $user = $userManager->getUser($id);
+
+
+            $aDataUser = [
+                'id'        => $user->id(),
+                'lastname'  => $user->lastname(),
+                'firstname' => $user->firstname(),
+                'email'     => $user->email(),
+                'role'      => $user->role(),
+                'login'     => $user->login(),
+                'password'  => $user->password(),
+                'title'     => "Modifier les données du membre",
+            ];
+            $fileName = 'formUpdateUser.html.twig';
+        }
+
+
+        $content = $this->_twig->render($fileName, array_merge([
+                'title' => 'Ajouter un utilisateur',
+            ], $aDataUser)
+        );
+        return $content;
+    }
+
+    function getListUser()
+    {
+
+        $manager = new UserManager();
+        $users = $manager->getListUser();
+
+        foreach ($users as $key => $aData) {
+            foreach ($aData as $nameColumn => $value) {
+                if ($nameColumn === 'createDate') {
+                    $users[$key]['createDate'] = date('d/m/Y', strtotime($value));
+                }
+            }
+
+        }
+
+
+        $content = $this->_twig->render('listUser.html.twig', ['users' => $users, 'login' => $_SESSION['login']]);
+        return $content;
+
+    }
+    //-------------------------------------------------------------------------------------------------------------
+    //----------------------------------------     POST -----------------------------------------------------------
+    //-------------------------------------------------------------------------------------------------------------
     function getFormPost($id)
     {
         $manager = new CategoryManager();
@@ -105,27 +161,24 @@ class FrontendController extends DefaultController
         return $content;
     }
 
-    function getFormTest()
-    {
-//        $manager = new CategoryManager();
-//        $aCategory = $manager->getCategory();
-        $content = $this->_twig->render('formTest.html.twig',
-            ['title' => 'Test Ajax']);
-        return $content;
-    }
+
 
     function getListPost()
     {
 
         $manager = new PostManager();
         $posts = $manager->getListPost();
-//        $aPosts = json_decode(json_encode($posts), true);
-//        foreach ($posts as $key => $post) {
-////            if ($key === 'createDate') {
-//                $posts[$key]['_createDate'] = date_format($post['_createDate'], 'd/m/Y');
-////            }
-//
-//        }
+
+        foreach ($posts as $key => $aData) {
+            foreach ($aData as $nameColumn => $value) {
+                if ($nameColumn === 'createDate') {
+                    $posts[$key]['createDate'] = date('d/m/Y', strtotime($value));
+                }
+            }
+
+        }
+
+
         $content = $this->_twig->render('listPost.html.twig', ['posts' => $posts, 'login' => $_SESSION['login']]);
         return $content;
 
@@ -141,23 +194,23 @@ class FrontendController extends DefaultController
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
-    function getPost($idPost)
-    {
-
-//    $commentManager = new CommentManager();
-//    $comment = $commentManager->getListComment();
-
-        $postManager = new PostManager();
-        $post = $postManager->getPost($idPost);
-//        var_dump($post);
-        $content = $this->_twig->render('post.html.twig', [
-            'postTitle'   => $post->title(),
-            'postContent' => $post->content(),
-        ]);
-
-        return $content;
-
-    }
+//    function getPost($idPost)
+//    {
+//
+////    $commentManager = new CommentManager();
+////    $comment = $commentManager->getListComment();
+//
+//        $postManager = new PostManager();
+//        $post = $postManager->getPost($idPost);
+////        var_dump($post);
+//        $content = $this->_twig->render('post.html.twig', [
+//            'postTitle'   => $post->title(),
+//            'postContent' => $post->content(),
+//        ]);
+//
+//        return $content;
+//
+//    }
 
     function updatePost($id)
     {
@@ -269,15 +322,4 @@ class FrontendController extends DefaultController
 //        return $content;
     }
 
-//    function deletePost($id)
-//    {
-//        $manager = new PostManager();
-//        $deletePost = $manager->deletePost($id);
-//        $content = $this->_twig->render('returnMessage.html.twig', [
-//            'Message' => $deletePost,
-//        ]);
-//        header("Refresh: 1; URL=index.php");
-//        return $content;
-//
-//    }
 }
