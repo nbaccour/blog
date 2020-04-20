@@ -17,10 +17,10 @@ $(document).ready(function () {
                     action: function () {
                         $.ajax({
                             type: "DELETE",
-                            url: 'public/ajax/delete.php?id=' + $this[0].dataset.id,
+                            url: 'public/ajax/delete.php?deletepost&' + $this[0].dataset.id,
                             data: {
                                 idpost: $this[0].dataset.id,
-                                action: 'deletePost',
+                                action: 'deletepost',
                             },
                             success: function (json) {
                                 if (json.result == 'Success') {
@@ -45,8 +45,53 @@ $(document).ready(function () {
 
         });
 
-    })
-    ;
+    });
+
+    $(".deleteUser").click(function (e) {
+
+        e.preventDefault();
+        const $this = $(this);
+        // var confirmdelete = false;
+        $.confirm({
+            title: 'Supprimer',
+            content: "Supprimer l'utilisateur ?",
+            buttons: {
+                Valider: {
+                    text: 'Valider',
+                    btnClass: 'btn-success',
+                    action: function () {
+                        $.ajax({
+                            type: "DELETE",
+                            url: 'public/ajax/delete.php?deleteuser&' + $this[0].dataset.id,
+                            data: {
+                                iduser: $this[0].dataset.id,
+                                action: 'deleteuser',
+                            },
+                            success: function (json) {
+                                if (json.result == 'Success') {
+
+                                    $("#userdeleted").html("<div class=\"alert alert-success\">Le membre est supprimé</div>");
+                                    $('#id_' + json.iduser).remove();
+                                }
+                                else {
+                                    $("#userdeleted").html("<div class=\"alert alert-danger\" >Erreur : Membre non supprimé</div>");
+                                }
+
+
+                            }	//	SUCCESS
+                        });	//	AJAX
+                    },
+                },
+                Annuler: {
+                    btnClass: 'btn-danger',
+
+                },
+            },
+
+        });
+
+    });
+
     $('#updateuserform').submit(function (e) {
 
         e.preventDefault();
@@ -61,11 +106,11 @@ $(document).ready(function () {
             success: function (json) {
                 if (json.result == 'Success') {
 
-                    $("#postedit").html("<div class=\"alert alert-success\">Les données du membre ont étaient modifiées</div>");
+                    $("#useredit").html("<div class=\"alert alert-success\">Les données du membre ont étaient modifiées</div>");
                 }
                 else {
 
-                    $("#postedit").html('<div class="alert alert-danger">Erreur : Données non modifiées </div>');
+                    $("#useredit").html('<div class="alert alert-danger">Erreur : Données non modifiées </div>');
                 }
 
             }	//	SUCCESS

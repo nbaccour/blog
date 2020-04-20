@@ -33,16 +33,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     parse_str(file_get_contents("php://input"), $putVars);
 
     if (isset($putVars['updateuser'])) {
-//        $userManager = new UserManager();
-//        $updateUser = $postManager->updateUser($putVars);
-//
-//        if ($updateUser === true) {
-//            $return['result'] = 'Success';
-//            jsonGenerate($return);
-//        } else {
-//            $return['result'] = 'Failed';
-//            jsonGenerate($return);
-//        }
+        $userManager = new UserManager();
+        $updateUser = $userManager->updateUser($putVars);
+
+        if ($updateUser === true) {
+            $return['result'] = 'Success';
+            jsonGenerate($return);
+        } else {
+            $return['result'] = 'Failed';
+            jsonGenerate($return);
+        }
     }
     if (isset($putVars['updatepost'])) {
 

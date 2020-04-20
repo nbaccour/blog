@@ -138,17 +138,17 @@ if ($isConnect === false) {
 //        updatePost($id);
 //        break;
             case 'DELETE':
-                if (isset($_GET['action']) && $_GET['action'] === 'deletepost') {
-                    if (!empty($_GET["id"])) {
-//                var_dump($_GET);
-                        // Supprimer un article
-                        $id = intval($_GET["id"]);
-                        $contentDeletePost = $frontendController->deletePost($id);
-                        echo $contentDeletePost;
-                        exit();
-                    }
-
-                }
+//                if (isset($_GET['action']) && $_GET['action'] === 'deletepost') {
+//                    if (!empty($_GET["id"])) {
+////                var_dump($_GET);
+//                        // Supprimer un article
+//                        $id = intval($_GET["id"]);
+//                        $contentDeletePost = $frontendController->deletePost($id);
+//                        echo $contentDeletePost;
+//                        exit();
+//                    }
+//
+//                }
             default:
                 // Requête invalide
                 header("HTTP/1.0 405 Method Not Allowed");

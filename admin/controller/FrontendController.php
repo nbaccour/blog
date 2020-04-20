@@ -89,6 +89,7 @@ class FrontendController extends DefaultController
                 'firstname' => $user->firstname(),
                 'email'     => $user->email(),
                 'role'      => $user->role(),
+                'roleShow'  => ($user->role() === 'user') ? 'Membre' : 'Administrateur',
                 'login'     => $user->login(),
                 'password'  => $user->password(),
                 'title'     => "Modifier les données du membre",
@@ -114,6 +115,10 @@ class FrontendController extends DefaultController
             foreach ($aData as $nameColumn => $value) {
                 if ($nameColumn === 'createDate') {
                     $users[$key]['createDate'] = date('d/m/Y', strtotime($value));
+                }
+                if ($nameColumn === 'role') {
+                    $roleShow = ($value === 'user') ? 'Membre' : 'Administrateur';
+                    $users[$key]['roleShow'] = $roleShow;
                 }
             }
 
@@ -160,7 +165,6 @@ class FrontendController extends DefaultController
         );
         return $content;
     }
-
 
 
     function getListPost()

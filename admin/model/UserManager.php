@@ -108,4 +108,51 @@ class UserManager extends DataBase
 
         $db->close();
     }
+
+    function deleteUser($id)
+    {
+
+        $db = $this->dbconnect();
+        $req = $db->prepare('DELETE FROM users WHERE id= :id') or die(print_r($db->errorInfo()));
+        $req->bindValue(':id', $id);
+        return $req->execute();
+
+    }
+
+    function updateUser(array $PUT)
+    {
+        $db = $this->dbconnect();
+
+        $user = new User();
+        $user->setAttribute($PUT);
+
+        $modifDate = date('Y-m-d H:i:s');
+
+
+        if (intval($user->id()) !== '') {
+            $req = $db->prepare('UPDATE users SET  lastname = :lastname, firstname = :firstname,email = :email,role = :role,login = :login, modifDate = :modifDate WHERE id = :id')
+            or die(print_r($db->errorInfo()));
+
+            $req->bindValue(':id', intval($user->id()));
+            $req->bindValue(':lastname', $user->lastname());
+            $req->bindValue(':firstname', $user->firstname());
+            $req->bindValue(':email', $user->email());
+            $req->bindValue(':role', $user->role());
+            $req->bindValue(':login', $user->login());
+            $req->bindValue(':modifDate', $modifDate);
+
+//            var_dump($req->execute());
+//            return $req->execute();
+            if ($req->execute()) {
+
+                return true;
+            } else {
+//                return ['error' => $db->errorInfo()];
+                return ['result' => $db->errorInfo()];
+            }
+//            $test = '';
+
+        }
+
+    }
 }

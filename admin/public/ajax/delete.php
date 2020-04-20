@@ -29,15 +29,32 @@ require('../../vendor/autoload.php');
 require('../../controller/function.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
-    $postManager = new PostManager();
-    $deletePost = $postManager->deletePost(substr($_SERVER['QUERY_STRING'], 3));
-    if ($deletePost === true) {
-        $return['result'] = 'Success';
-        $return['idpost'] = substr($_SERVER['QUERY_STRING'], 3);
-        jsonGenerate($return);
-    } else {
-        $return['result'] = 'Failed';
-        jsonGenerate($return);
+    $aExplode = explode('&', $_SERVER['QUERY_STRING']);
+
+    if ($aExplode[0] === 'deleteuser') {
+        $userManager = new UserManager();
+        $deletePost = $userManager->deleteUser($aExplode[1]);
+        if ($deletePost === true) {
+            $return['result'] = 'Success';
+            $return['iduser'] = $aExplode[1];
+            jsonGenerate($return);
+        } else {
+            $return['result'] = 'Failed';
+            jsonGenerate($return);
+        }
+    }
+
+    if ($aExplode[0] === 'deletepost') {
+        $postManager = new PostManager();
+        $deletePost = $postManager->deletePost($aExplode[1]);
+        if ($deletePost === true) {
+            $return['result'] = 'Success';
+            $return['idpost'] = $aExplode[1];
+            jsonGenerate($return);
+        } else {
+            $return['result'] = 'Failed';
+            jsonGenerate($return);
+        }
     }
 
 
