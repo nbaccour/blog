@@ -29,6 +29,7 @@ spl_autoload_register(function ($className) {
 });
 
 require('vendor/autoload.php');
+require('controller/function.php');
 
 
 $frontendController = new FrontendController();
@@ -45,12 +46,31 @@ switch ($request_method) {
                 echo $contentPost;
                 exit();
             }
+        }
+        if (isset($_GET['action']) && $_GET['action'] === 'connectout') {
+
+            // Deconnexion
+            $connectOut = $frontendController->connectOut();
+            echo $connectOut;
+            exit();
+
         } elseif (isset($_GET['action']) && $_GET['action'] === 'project') {
             if (isset($_GET['id']) && $_GET['id'] > 0) {
                 $contentProject = $frontendController->getProject($_GET['id']);
                 echo $contentProject;
                 exit;
             }
+        } elseif (isset($_GET['action']) && $_GET['action'] === 'connect') {
+            $contentFormConnect = $frontendController->getFormConnect();
+            echo $contentFormConnect;
+            exit();
+
+        } elseif (isset($_GET['action']) && $_GET['action'] === 'reg') {
+            $id = '';
+            $contentFormUser = $frontendController->getFormUser($id);
+            echo $contentFormUser;
+            exit();
+
         } else {
             // Récupérer tous les articles
             $contentListPost = $frontendController->getListPost();

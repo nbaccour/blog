@@ -18,7 +18,7 @@ class User {
     protected $_role;
 
 
-    public function hydrate(array $data)
+    public function setAttribute(array $data)
     {
         foreach ($data as $key => $value) {
             $method = 'set' . ucfirst($key);

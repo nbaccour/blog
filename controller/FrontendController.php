@@ -9,6 +9,97 @@
 class FrontendController extends DefaultController
 {
 
+    function connectOut()
+    {
+        session_unset();
+        session_destroy();
+        header("Refresh: 1; URL=index.php");
+
+        exit;
+    }
+
+    //-------------------------------------------------------------------------------------------------------------
+    //----------------------------------------     USER -----------------------------------------------------------
+    //-------------------------------------------------------------------------------------------------------------
+    function getFormUser($id)
+    {
+
+        $aDataUser = [];
+        $fileName = 'formAddUser.html.twig';
+        if ($id !== '') {
+            $userManager = new UserManager();
+            $user = $userManager->getUser($id);
+
+
+            $aDataUser = [
+                'id'        => $user->id(),
+                'lastname'  => $user->lastname(),
+                'firstname' => $user->firstname(),
+                'email'     => $user->email(),
+                'role'      => $user->role(),
+                'roleShow'  => ($user->role() === 'user') ? 'Membre' : 'Administrateur',
+                'login'     => $user->login(),
+                'password'  => $user->password(),
+                'title'     => "Modifier les données du membre",
+            ];
+            $fileName = 'formUpdateUser.html.twig';
+        }
+
+
+        $content = $this->_twig->render($fileName, array_merge([
+                'title' => 'Créer un compte',
+            ], $aDataUser)
+        );
+        return $content;
+    }
+
+//    function checkUser()
+//    {
+//        $manager = new UserManager();
+//        $checkConnect = $manager->checkUser();
+//
+//        if (is_array($checkConnect) && isset($checkConnect['error']) === false) {
+//
+//            $aConnectagent = ['Administrator', 'Moderator', 'user'];
+//
+//            if (in_array($checkConnect['role'], $aConnectagent) === true) {
+//
+//                $_SESSION['login'] = true;
+//                $_SESSION['ident'] = $checkConnect['login'];
+//                $_SESSION['lastnameUser'] = $checkConnect['lastname'];
+//                $_SESSION['firstnameUser'] = $checkConnect['firstname'];
+//                $_SESSION['mailUser'] = $checkConnect['email'];
+//
+////                header("Refresh: 1; URL=index.php");
+//
+////                $manager = new PostManager();
+////                $posts = $manager->getListPost();
+////
+////                $content = $this->_twig->render('listPost.html.twig', ['posts' => $posts]);
+////
+////                return $content;
+//            } else {
+////                $content = $this->_twig->render('formConnect.html.twig', [
+////                    'title' => 'Admin',
+////                    'error' => 'Identifiant ou mot de passe invalide',
+////                ]);
+//
+////                return $content;
+//            }
+//
+//        } else {
+////            $content = $this->_twig->render('formConnect.html.twig', ['title' => 'Admin', 'error' => $checkConnect]);
+////
+////            return $content;
+//        }
+//
+//    }
+
+    function getFormConnect()
+    {
+        $content = $this->_twig->render('formConnect.html.twig', ['title' => 'Admin']);
+        return $content;
+    }
 
     function getListPost()
     {

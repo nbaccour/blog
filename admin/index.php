@@ -36,12 +36,7 @@ if (isset($_SESSION['login']) === true) {
     $isConnect = true;
 }
 
-//if (isset($_GET['login']) === true) {
-////    if ($_GET['login'] === '1') {
-////        $isConnect = true;
-////    }
-////}
-//var_dump($isConnect);
+
 if ($isConnect === false) {
 //if (isset($_SESSION['login']) === true) {
     if (isset($_GET['action']) && $_GET['action'] === 'connectAdmin') {
@@ -49,7 +44,6 @@ if ($isConnect === false) {
         $checkUser = $frontendController->checkUser();
         echo $checkUser;
         exit();
-//        checkUser($login, $pwd)
     } else {
         $contentFormConnect = $frontendController->getFormConnect();
         echo $contentFormConnect;
@@ -117,19 +111,19 @@ if ($isConnect === false) {
                 }
                 break;
             case 'POST':
-                if (isset($_GET['action']) && $_GET['action'] === 'addpost') {
-                    // Ajouter un article
-                    $contentAddPost = $frontendController->addPost();
-                    echo $contentAddPost;
-                    exit();
-                } elseif (isset($_GET['action']) && $_GET['action'] === 'updatepost') {
-                    if (!empty($_GET["id"])) {
-                        // Récupérer un seul article
-                        $contentPost = $frontendController->updatePost($_GET['id']);
-                        echo $contentPost;
-                        exit();
-                    }
-                }
+//                if (isset($_GET['action']) && $_GET['action'] === 'addpost') {
+//                    // Ajouter un article
+//                    $contentAddPost = $frontendController->addPost();
+//                    echo $contentAddPost;
+//                    exit();
+//                } elseif (isset($_GET['action']) && $_GET['action'] === 'updatepost') {
+//                    if (!empty($_GET["id"])) {
+//                        // Récupérer un seul article
+//                        $contentPost = $frontendController->updatePost($_GET['id']);
+//                        echo $contentPost;
+//                        exit();
+//                    }
+//                }
 
                 break;
 //    case 'PUT':

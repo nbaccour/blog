@@ -15,7 +15,7 @@ class Post
     protected $_author;
     protected $_imgPost;
 
-    public function hydrate(array $data)
+    public function setAttribute(array $data)
     {
         foreach ($data as $key => $value) {
             $method = 'set' . ucfirst($key);

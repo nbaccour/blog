@@ -13,7 +13,7 @@ class DefaultController
 
     public function __construct()
     {
-        $loader = new Twig_Loader_Filesystem(['view/frontend', 'public/template']); // Dossier contenant les templates
+        $loader = new Twig_Loader_Filesystem(['view', 'public/template']); // Dossier contenant les templates
         $this->_twig = new Twig_Environment($loader, [
             'cache' => false,
         ]);

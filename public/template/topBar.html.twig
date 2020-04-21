@@ -11,26 +11,27 @@
 
 
                 <ul class="nav justify-content-end">
-                    {% if session %}
+                    {% if session.firstname %}
                         <li class="nav-item">
                             <a class="nav-link active" href="?action=connect"><i class="fa fa-user"
                                                                                  aria-hidden="true"></i>
-                                Bienvenue </a>
+                                Bienvenue {{ session.firstname }}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#!"><i class="fa fa-sign-out" aria-hidden="true"></i> Déconnexion</a>
+                            <a class="nav-link" href="?action=connectout"><i class="fa fa-sign-out" aria-hidden="true"></i> Déconnexion</a>
                         </li>
                     {% endif %}
-
-                    {#<li class="nav-item">#}
-                        {#<a class="nav-link active" href="?action=connect"><i class="fa fa-sign-in"#}
-                                                                             {#aria-hidden="true"></i> Se#}
-                            {#connecter</a>#}
-                    {#</li>#}
-                    {#<li class="nav-item">#}
-                        {#<a class="nav-link" href="#!"><i class="fa fa-user" aria-hidden="true"></i> S'enregistrer</a>#}
-                    {#</li>#}
-
+                    {% if not session.firstname %}
+                        <li class="nav-item">
+                            <a class="nav-link active" href="?action=connect"><i class="fa fa-sign-in"
+                                                                                 aria-hidden="true"></i> Se
+                                connecter</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="?action=reg"><i class="fa fa-user" aria-hidden="true"></i>
+                                S'enregistrer</a>
+                        </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
