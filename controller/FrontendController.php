@@ -122,7 +122,7 @@ class FrontendController extends DefaultController
     }
 
     /**
-     * @param $idPost
+     * @param $id
      * @return string
      * @throws Twig_Error_Loader
      * @throws Twig_Error_Runtime
@@ -131,18 +131,43 @@ class FrontendController extends DefaultController
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
-    function getPost($idPost)
+    function getPost($id)
     {
 
-//    $commentManager = new CommentManager();
-//    $comment = $commentManager->getListComment();
+        $commentManager = new CommentManager();
+        $aComments = $commentManager->getlist($id);
+
+        $aListCommentParent = [];
+        foreach ($aComments as $aData) {
+            if ($aData['parentid'] === '0') {
+                $aListCommentParent[$aData['id']] = $aData;
+            }
+
+        }
+        foreach ($aComments as $aData) {
+            if ($aData['parentid'] !== '0') {
+                foreach ($aListCommentParent as $id => $aCommentData) {
+                    if ((int)$aData['parentid'] === $id) {
+                        $aListCommentParent[$id]['commentChild'][] = $aData;
+                    }
+                }
+            }
+
+        }
+        $aListCommentParentChild = array_values($aListCommentParent);
 
         $postManager = new PostManager();
-        $post = $postManager->getPost($idPost);
+        $post = $postManager->getPost($id);
 //        var_dump($post);
         $content = $this->_twig->render('post.html.twig', [
-            'postTitle'   => $post->title(),
-            'postContent' => $post->content(),
+            'title'      => $post['title'],
+            'content'    => $post['content'],
+            'category'   => $post['name'],
+            'author'     => $post['author'],
+            'postimg'    => $post['postimg'],
+            'createDate' => date('d/m/Y', strtotime($post['createDate'])),
+            'comments'   => $aListCommentParentChild,
+//            'postContent' => $post->content(),
         ]);
 
         return $content;
