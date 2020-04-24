@@ -1,13 +1,5 @@
 {% extends 'base.html.twig' %}
 
-{#{% block titlePage %}#}
-    {#<div class="row">#}
-        {#<div class="col-md-6">#}
-            {#<h2 class="mb-4">{{ postTitle }}</h2>#}
-        {#</div>#}
-    {#</div>#}
-{#{% endblock %}#}
-
 {% block content %}
 
     <div class="col-md-12 col-lg-8 main-content">
@@ -22,7 +14,7 @@
                     <span class="author mr-2"><img src="public/images/person_1.jpg" alt="{{ author }}"
                                                    class="mr-2"> {{ author }}</span>&bullet;
                     <span class="mr-2">  {{ createDate }} </span> &bullet;
-                    <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
+                    <span class="ml-2"><span class="fa fa-comments"></span> {{ countcomments }}</span>
                 </div>
                 <h1 class="mb-4">{{ title }}</h1>
                 <a class="category mb-5" href="#">{{ category }}</a>
@@ -39,33 +31,36 @@
 
 
                 <div class="pt-5">
-                    <h3 class="mb-5">6 Commentaires</h3>
+                    <h3 class="mb-5">{{ countcomments }} Commentaires</h3>
+
                     {#//----------------------------------------------------#}
+
                     <ul class="comment-list">
                         {% for commentParent in comments %}
                             <li class="comment">
                                 <div class="vcard">
-                                    <img src="public/images/person_1.jpg" alt="Image placeholder">
+                                    <img src="public/images/avatar.jpg" alt="Image placeholder">
                                 </div>
                                 <div class="comment-body">
                                     <h3>{{ commentParent.firstname }}</h3>
                                     <div class="meta">{{ commentParent.createDate }}</div>
-                                    <p>{{ commentParent.comment }}</p>
-                                    <p><a href="#" class="reply rounded">Reply</a></p>
+                                    <p> {{ commentParent.comment }}</p>
+                                    <p><a href="#" class="reply rounded">Répondre</a></p>
                                 </div>
-                                {% if  commentParent.commentChild %}
+                                {% if  commentParent.commentsChild %}
                                     <ul class="children">
-                                        {% for testtest in commentChild %}
+                                        {% for datacomment in commentParent.commentsChild %}
                                             <li class="comment">
                                                 <div class="vcard">
-                                                    <img src="public/images/person_1.jpg" alt="Image placeholder">
+                                                    <img src="public/images/avatar.jpg" alt="Image placeholder">
                                                 </div>
                                                 <div class="comment-body">
-                                                    <h3>{{ testtest.firstname }}</h3>
-                                                    <div class="meta">{{ testtest.createDate }}</div>
-                                                    <p>{{ testtest.comment }}</p>
-                                                    <p><a href="#" class="reply rounded">Reply</a></p>
+                                                    <h3>{{ datacomment.firstname }}</h3>
+                                                    <div class="meta">{{ datacomment.createDate }}</div>
+                                                    <p>{{ datacomment.comment }}</p>
+                                                    <p><a href="#" class="reply rounded">Répondre</a></p>
                                                 </div>
+
                                             </li>
                                         {% endfor %}
                                     </ul>
@@ -73,105 +68,6 @@
                             </li>
                         {% endfor %}
                     </ul>
-                    {#//----------------------------------------------------#}
-
-                    {#//----------------------------------------------------#}
-                    {#<ul class="comment-list">#}
-                    {#<li class="comment">#}
-                    {#<div class="vcard">#}
-                    {#<img src="images/person_1.jpg" alt="Image placeholder">#}
-                    {#</div>#}
-                    {#<div class="comment-body">#}
-                    {#<h3>Jean Doe</h3>#}
-                    {#<div class="meta">January 9, 2018 at 2:21pm</div>#}
-                    {#<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum#}
-                    {#necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente#}
-                    {#iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>#}
-                    {#<p><a href="#" class="reply rounded">Reply</a></p>#}
-                    {#</div>#}
-                    {#</li>#}
-
-                    {#<li class="comment">#}
-                    {#<div class="vcard">#}
-                    {#<img src="images/person_1.jpg" alt="Image placeholder">#}
-                    {#</div>#}
-                    {#<div class="comment-body">#}
-                    {#<h3>Jean Doe</h3>#}
-                    {#<div class="meta">January 9, 2018 at 2:21pm</div>#}
-                    {#<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum#}
-                    {#necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente#}
-                    {#iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>#}
-                    {#<p><a href="#" class="reply rounded">Reply</a></p>#}
-                    {#</div>#}
-
-                    {#<ul class="children">#}
-                    {#<li class="comment">#}
-                    {#<div class="vcard">#}
-                    {#<img src="images/person_1.jpg" alt="Image placeholder">#}
-                    {#</div>#}
-                    {#<div class="comment-body">#}
-                    {#<h3>Jean Doe</h3>#}
-                    {#<div class="meta">January 9, 2018 at 2:21pm</div>#}
-                    {#<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem#}
-                    {#laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe#}
-                    {#enim sapiente iste iure! Quam voluptas earum impedit necessitatibus,#}
-                    {#nihil?</p>#}
-                    {#<p><a href="#" class="reply rounded">Reply</a></p>#}
-                    {#</div>#}
-
-
-                    {#<ul class="children">#}
-                    {#<li class="comment">#}
-                    {#<div class="vcard">#}
-                    {#<img src="images/person_1.jpg" alt="Image placeholder">#}
-                    {#</div>#}
-                    {#<div class="comment-body">#}
-                    {#<h3>Jean Doe</h3>#}
-                    {#<div class="meta">January 9, 2018 at 2:21pm</div>#}
-                    {#<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur#}
-                    {#quidem laborum necessitatibus, ipsam impedit vitae autem, eum#}
-                    {#officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum#}
-                    {#impedit necessitatibus, nihil?</p>#}
-                    {#<p><a href="#" class="reply rounded">Reply</a></p>#}
-                    {#</div>#}
-
-                    {#<ul class="children">#}
-                    {#<li class="comment">#}
-                    {#<div class="vcard">#}
-                    {#<img src="images/person_1.jpg" alt="Image placeholder">#}
-                    {#</div>#}
-                    {#<div class="comment-body">#}
-                    {#<h3>Jean Doe</h3>#}
-                    {#<div class="meta">January 9, 2018 at 2:21pm</div>#}
-                    {#<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.#}
-                    {#Pariatur quidem laborum necessitatibus, ipsam impedit vitae#}
-                    {#autem, eum officia, fugiat saepe enim sapiente iste iure!#}
-                    {#Quam voluptas earum impedit necessitatibus, nihil?</p>#}
-                    {#<p><a href="#" class="reply rounded">Reply</a></p>#}
-                    {#</div>#}
-                    {#</li>#}
-                    {#</ul>#}
-                    {#</li>#}
-                    {#</ul>#}
-                    {#</li>#}
-                    {#</ul>#}
-                    {#</li>#}
-
-                    {#<li class="comment">#}
-                    {#<div class="vcard">#}
-                    {#<img src="images/person_1.jpg" alt="Image placeholder">#}
-                    {#</div>#}
-                    {#<div class="comment-body">#}
-                    {#<h3>Jean Doe</h3>#}
-                    {#<div class="meta">January 9, 2018 at 2:21pm</div>#}
-                    {#<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum#}
-                    {#necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente#}
-                    {#iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>#}
-                    {#<p><a href="#" class="reply rounded">Reply</a></p>#}
-                    {#</div>#}
-                    {#</li>#}
-                    {#</ul>#}
-                    {#//----------------------------------------------------#}
                     <!-- END comment-list -->
                     {% if session.firstname %}
                         <div class="comment-form-wrap pt-5">

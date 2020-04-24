@@ -24,14 +24,16 @@
 <script src="public/js/main-01.js"></script>
 
 <div class="wrap">
-
+{#{{ dump(nav) }}#}
     <header role="banner">
         {{ include('topBar.html.twig') }}
 
         {{ include('logo.html.twig') }}
 
-        {{ include('nav.html.twig') }}
+        {#{{ include('nav.html.twig') }}#}
+        {% include 'nav.html.twig' with {'aMenu': nav} %}
     </header>
+    {#{{ dump(category) }}#}
     <!-- END header -->
     {% if urlPage %}
         {{ include('slides.html.twig') }}
@@ -41,11 +43,9 @@
 
     <section class="site-section py-sm">
         <div class="container">
-            {% block titlePage %}
-            {% endblock %}
+            {% block titlePage %}{% endblock %}
             <div class="row blog-entries">
-                {% block content %}
-                {% endblock %}
+                {% block content %}{% endblock %}
 
                 <!-- END main-content -->
 

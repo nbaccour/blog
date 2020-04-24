@@ -18,6 +18,39 @@ class FrontendController extends DefaultController
         exit;
     }
 
+    function getCategory()
+    {
+
+        $categoryManager = new CategoryManager();
+        $gategory = $categoryManager->getCategory();
+
+
+        $content = $this->_twig->render('base.html.twig', ['nav' => $gategory]);
+        return $content;
+
+    }
+
+    function getListPost()
+    {
+
+        $manager = new PostManager();
+        $posts = $manager->getListPost();
+
+        foreach ($posts as $key => $aData) {
+            foreach ($aData as $nameColumn => $value) {
+                if ($nameColumn === 'createDate') {
+                    $posts[$key]['createDate'] = date('d/m/Y', strtotime($value));
+                }
+            }
+
+        }
+//        $content = $this->_twig->render('base.html.twig', ['posts' => $posts]);
+//        return $content;
+
+        $content = $this->_twig->render('listPost.html.twig', ['posts' => $posts]);
+        return $content;
+
+    }
     //-------------------------------------------------------------------------------------------------------------
     //----------------------------------------     USER -----------------------------------------------------------
     //-------------------------------------------------------------------------------------------------------------
@@ -101,25 +134,7 @@ class FrontendController extends DefaultController
         return $content;
     }
 
-    function getListPost()
-    {
 
-        $manager = new PostManager();
-        $posts = $manager->getListPost();
-
-        foreach ($posts as $key => $aData) {
-            foreach ($aData as $nameColumn => $value) {
-                if ($nameColumn === 'createDate') {
-                    $posts[$key]['createDate'] = date('d/m/Y', strtotime($value));
-                }
-            }
-
-        }
-
-        $content = $this->_twig->render('listPost.html.twig', ['posts' => $posts]);
-        return $content;
-
-    }
 
     /**
      * @param $id
@@ -146,9 +161,9 @@ class FrontendController extends DefaultController
         }
         foreach ($aComments as $aData) {
             if ($aData['parentid'] !== '0') {
-                foreach ($aListCommentParent as $id => $aCommentData) {
-                    if ((int)$aData['parentid'] === $id) {
-                        $aListCommentParent[$id]['commentChild'][] = $aData;
+                foreach ($aListCommentParent as $idcomment => $aCommentData) {
+                    if ((int)$aData['parentid'] === $idcomment) {
+                        $aListCommentParent[$idcomment]['commentsChild'][] = $aData;
                     }
                 }
             }
@@ -160,13 +175,14 @@ class FrontendController extends DefaultController
         $post = $postManager->getPost($id);
 //        var_dump($post);
         $content = $this->_twig->render('post.html.twig', [
-            'title'      => $post['title'],
-            'content'    => $post['content'],
-            'category'   => $post['name'],
-            'author'     => $post['author'],
-            'postimg'    => $post['postimg'],
-            'createDate' => date('d/m/Y', strtotime($post['createDate'])),
-            'comments'   => $aListCommentParentChild,
+            'title'         => $post['title'],
+            'content'       => $post['content'],
+            'category'      => $post['name'],
+            'author'        => $post['author'],
+            'postimg'       => $post['postimg'],
+            'createDate'    => date('d/m/Y', strtotime($post['createDate'])),
+            'comments'      => $aListCommentParentChild,
+            'countcomments' => count($aComments),
 //            'postContent' => $post->content(),
         ]);
 

@@ -37,6 +37,10 @@ $frontendController = new FrontendController();
 
 $request_method = $_SERVER["REQUEST_METHOD"];
 //print_r($request_method);
+
+$category = $frontendController->getCategory();
+echo $category;
+
 switch ($request_method) {
     case 'GET':
         if (isset($_GET['action']) && $_GET['action'] === 'post') {
@@ -99,38 +103,3 @@ switch ($request_method) {
 }
 
 
-//if (isset($_GET['action'])) {
-//
-//    if ($_GET['action'] == 'connect') {
-//        if (!isset($_SESSION['login'])) {
-//            connect();
-//        }
-//    }
-//    if ($_GET['action'] == 'verifUser') {
-//        verifConnectUser();
-//
-//    }
-//    if ($_GET['action'] == 'project') {
-//        if (isset($_GET['id']) && $_GET['id'] > 0) {
-//            $contentProject = $frontendController->getProject($_GET['id']);
-//            echo $contentProject;
-//            exit;
-//        }
-//    }
-//
-//    if ($_GET['action'] == 'post') {
-//        if (isset($_GET['id']) && $_GET['id'] > 0) {
-//            $contentPost = $frontendController->getPost($_GET['id']);
-//            echo $contentPost;
-//            exit;
-//        } else {
-//            echo("Erreur, aucun ID de billet envoyé");
-//            header("Refresh: 2; URL=index.php");
-//        }
-//    }
-//
-//} else {
-//    $contentListPost = $frontendController->getListPost();
-//    echo $contentListPost;
-//    exit();
-//}

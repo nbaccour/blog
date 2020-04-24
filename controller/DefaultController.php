@@ -16,9 +16,13 @@ class DefaultController
         $loader = new Twig_Loader_Filesystem(['view', 'public/template']); // Dossier contenant les templates
         $this->_twig = new Twig_Environment($loader, [
             'cache' => false,
+            'debug' => true,
         ]);
 
         $this->_twig->addGlobal('session', $_SESSION);
         //var_dump($_SESSION);
+        $this->_twig->addExtension(new \Twig\Extension\DebugExtension());
+
+
     }
 }

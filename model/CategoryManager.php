@@ -38,19 +38,19 @@ class CategoryManager extends DataBase
     {
         $db = $this->dbconnect();
         $aCategory = [];
-        $req = $db->prepare('SELECT * FROM category ORDER BY id ASC') or die(print_r($db->errorInfo()));
+        $req = $db->prepare('SELECT * FROM category ORDER BY name ASC') or die(print_r($db->errorInfo()));
 
         if ($req->execute()) {
             while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
 
                 $category = new Category();
-                $category->hydrate($data);
+                $category->setAttribute($data);
                 array_push($aCategory, $category);
             }
 
             return $aCategory;
         } else {
-            throw new Exception('Impossible trouver les articles !');
+            throw new Exception('Impossible trouver les catégories !');
         }
 
     }
