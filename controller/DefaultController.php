@@ -6,6 +6,7 @@
  * Time: 15:24
  */
 
+namespace App\Blog\DefaultControl;
 
 class DefaultController
 {

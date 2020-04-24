@@ -38,8 +38,8 @@ $frontendController = new FrontendController();
 $request_method = $_SERVER["REQUEST_METHOD"];
 //print_r($request_method);
 
-$category = $frontendController->getCategory();
-echo $category;
+//$category = $frontendController->getCategory();
+//echo $category;
 
 switch ($request_method) {
     case 'GET':

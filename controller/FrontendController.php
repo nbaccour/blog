@@ -6,6 +6,13 @@
  * Time: 15:26
  */
 
+
+
+namespace App\Blog\Controllers;
+
+use \App\Blog\DefaultControl;
+
+
 class FrontendController extends DefaultController
 {
 
@@ -25,7 +32,7 @@ class FrontendController extends DefaultController
         $gategory = $categoryManager->getCategory();
 
 
-        $content = $this->_twig->render('base.html.twig', ['nav' => $gategory]);
+        $content = $this->_twig->render('base.html.twig', ['navCategory' => $gategory]);
         return $content;
 
     }
