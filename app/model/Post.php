@@ -6,6 +6,8 @@
  * Time: 16:02
  */
 
+//namespace model;
+
 class Post
 {
     protected $_id;

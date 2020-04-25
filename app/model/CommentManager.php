@@ -6,6 +6,8 @@
  * Time: 00:50
  */
 
+namespace App\model;
+
 class CommentManager extends DataBase
 {
 //Add Comment method
@@ -37,7 +39,7 @@ LEFT JOIN users AS us ON (co.author = us.id) WHERE co.postid = :id AND co.statut
 
 
 
-        while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+        while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
 
             array_push($aComments, $data);
         }
@@ -107,7 +109,7 @@ LEFT JOIN users AS us ON (co.author = us.id) WHERE co.postid = :id AND co.statut
         $db = $this->dbconnect();
         $req = $db->prepare('SELECT COUNT(*) AS statut FROM comments WHERE statut = 0') or die(print_r($bdd->errorInfo()));
         $req->execute();
-        $data = $req->fetch(PDO::FETCH_ASSOC);
+        $data = $req->fetch(\PDO::FETCH_ASSOC);
         $count = $data['statut'];
         return $count;
     }

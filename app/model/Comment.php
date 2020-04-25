@@ -6,6 +6,8 @@
  * Time: 00:50
  */
 
+//namespace model;
+
 class Comment
 {
     protected $_id;

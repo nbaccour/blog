@@ -6,7 +6,8 @@
  * Time: 15:24
  */
 
-namespace App\Blog\DefaultControl;
+//namespace App\Blog\DefaultControl;
+namespace App\controller;
 
 class DefaultController
 {
@@ -14,8 +15,8 @@ class DefaultController
 
     public function __construct()
     {
-        $loader = new Twig_Loader_Filesystem(['view', 'public/template']); // Dossier contenant les templates
-        $this->_twig = new Twig_Environment($loader, [
+        $loader = new \Twig_Loader_Filesystem(['view', 'public/template']); // Dossier contenant les templates
+        $this->_twig = new \Twig_Environment($loader, [
             'cache' => false,
             'debug' => true,
         ]);

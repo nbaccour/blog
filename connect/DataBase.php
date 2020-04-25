@@ -6,6 +6,8 @@
  * Time: 13:13
  */
 
+namespace App\model;
+
 class DataBase
 {
     protected function dbconnect()
@@ -15,9 +17,9 @@ class DataBase
 
         try {
             if (strpos($_SERVER['REQUEST_URI'], 'blog-02') !== false) {//DEV
-                $db = new PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', '');
+                $db = new \PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', '');
             } else {
-                $db = new PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', '');
+                $db = new \PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', '');
 
             }
             return $db;

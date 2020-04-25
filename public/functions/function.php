@@ -2,12 +2,10 @@
 /**
  * Created by PhpStorm.
  * User: msi-n
- * Date: 03/04/2020
- * Time: 11:11
+ * Date: 25/04/2020
+ * Time: 17:10
  */
-/**
- * @param $aJson
- */
+
 function jsonGenerate($aJson)
 {
     header('Content-Type: application/json');

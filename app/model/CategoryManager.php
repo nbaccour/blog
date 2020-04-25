@@ -6,7 +6,7 @@
  * Time: 11:22
  */
 
-//namespace admin\model;
+namespace App\model;
 
 class CategoryManager extends DataBase
 //class CategoryManager

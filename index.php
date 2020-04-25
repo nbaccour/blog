@@ -6,30 +6,51 @@
  * Time: 16:02
  */
 
+namespace App;
 
+
+use App\controller\FrontendController;
+
+//use App\controller\DefaultController;
+//use App\model\Post;
+//use App\model\PostManager;
+//use App\model\DataBase;
+
+
+define('DS', DIRECTORY_SEPARATOR); // meilleur portabilité sur les différents systeme.
+define('ROOT', dirname(__FILE__) . DS); // pour se simplifier la vie
 session_start();
 
-spl_autoload_register(function ($className) {
-    $extensions = [".php"];
-    $folders = ['', 'model', 'controller'];
+include_once('connect/DataBase.php');
 
-    foreach ($folders as $folder) {
-        foreach ($extensions as $extension) {
-            if ($folder == '') {
-                $path = $folder . $className . $extension;
-            } else {
-                $path = $folder . DIRECTORY_SEPARATOR . $className . $extension;
-            }
+require_once'app/Autoloader.php';
+Autoloader::register();
 
-            if (is_readable($path)) {
-                include_once($path);
-            }
-        }
-    }
-});
+
+
+//spl_autoload_register(function ($className) {
+//    $extensions = [".php"];
+////    $folders = ['', 'app/model', 'app/controller'];
+//    $folders = ['app/model', 'app/controller'];
+//
+//    foreach ($folders as $folder) {
+//        foreach ($extensions as $extension) {
+//            if ($folder == '') {
+//                $path = $folder . $className . $extension;
+//            } else {
+//                $path = $folder . DIRECTORY_SEPARATOR . $className . $extension;
+//            }
+//            var_dump($path);
+//            if (is_readable($path)) {
+//                include_once($path);
+//            }
+//        }
+//    }
+//});
+
 
 require('vendor/autoload.php');
-require('controller/function.php');
+require('public/functions/function.php');
 
 
 $frontendController = new FrontendController();

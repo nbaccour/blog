@@ -7,10 +7,14 @@
  */
 
 
+namespace App\controller;
 
-namespace App\Blog\Controllers;
+use App\model\PostManager;
+use App\model\CommentManager;
 
-use \App\Blog\DefaultControl;
+//namespace App\Blog\Controllers;
+
+//use controller;
 
 
 class FrontendController extends DefaultController
@@ -140,7 +144,6 @@ class FrontendController extends DefaultController
         $content = $this->_twig->render('formConnect.html.twig', ['title' => 'Admin']);
         return $content;
     }
-
 
 
     /**
