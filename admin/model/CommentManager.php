@@ -6,50 +6,47 @@
  * Time: 00:50
  */
 
-namespace App\model;
+//namespace App\model;
 
 class CommentManager extends DataBase
 {
-//Add Comment method
-    public function addComment($POST)
+
+    function deleteComment($id)
     {
 
-
         $db = $this->dbconnect();
-
-        $comment = new Comment();
-        $comment->setAttribute($POST);
-
-        $postId = $comment->postid();
-        $parentId = $comment->parentid();
-        $commentsend = $comment->comment();
-        $author = $comment->author();
-        $createDate = date('Y-m-d H:i:s');
-
-
-        $req = $db->prepare('INSERT INTO comments (postid, parentid, comment, author,createDate) VALUE (:postid,:parentid, :comment, :author, :createDate)')
-        or die(print_r($db->errorInfo()));
-
-        $req->bindParam(':postid', $postId);
-        $req->bindParam(':parentid', $parentId);
-        $req->bindParam(':comment', $commentsend);
-        $req->bindParam(':author', $author);
-        $req->bindParam(':createDate', $createDate);
-
-
-        if ($req->execute()) {
-            return true;
-        } else {
-//                return 'erreur';
-            return ['error' => $db->errorInfo()];
-        }
-
-        $db->close();
+        $req = $db->prepare('DELETE FROM comments WHERE id= :id') or die(print_r($db->errorInfo()));
+        $req->bindValue(':id', $id);
+        return $req->execute();
 
     }
 
+    public function getListAllComment()
+    {
+        $db = $this->dbconnect();
+
+        $aComments = [];
+//        $req = $db->prepare('select * from comments WHERE postid = :id AND statut = 1 AND valid = 1 ORDER BY createDate DESC') or die(print_r($db>errorInfo()));
+        $req = $db->prepare('SELECT co.id, co.postid, co.parentid, co.author, co.comment, co.createDate, us.firstname, po.title 
+FROM comments AS co 
+LEFT JOIN users AS us ON (co.author = us.id) 
+LEFT JOIN posts AS po ON (co.postid = po.id) 
+ORDER BY co.id DESC')
+        or die(print_r($db > errorInfo()));
+
+//        $req->bindValue(':id', $id);
+        $req->execute();
+
+
+        while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
+
+            array_push($aComments, $data);
+        }
+        return $aComments;
+    }
+
     //Get list method
-    public function getlist($id)
+    public function getListComment($id)
     {
         $db = $this->dbconnect();
 
@@ -57,11 +54,10 @@ class CommentManager extends DataBase
 //        $req = $db->prepare('select * from comments WHERE postid = :id AND statut = 1 AND valid = 1 ORDER BY createDate DESC') or die(print_r($db>errorInfo()));
         $req = $db->prepare('SELECT co.id, co.postid, co.parentid, co.author, co.comment, co.createDate, us.firstname 
 FROM comments AS co 
-LEFT JOIN users AS us ON (co.author = us.id) WHERE co.postid = :id AND co.statut = 1 AND co.valid = 1 ORDER BY co.id DESC') or die(print_r($db>errorInfo()));
+LEFT JOIN users AS us ON (co.author = us.id) WHERE co.postid = :id AND co.statut = 1 AND co.valid = 1 ORDER BY co.id DESC') or die(print_r($db > errorInfo()));
 
         $req->bindValue(':id', $id);
         $req->execute();
-
 
 
         while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {

@@ -7,38 +7,22 @@
  */
 
 
-spl_autoload_register(function ($className) {
-    $extensions = [".php"];
-    $folders = ['', '../../model'];
-
-    foreach ($folders as $folder) {
-        foreach ($extensions as $extension) {
-            if ($folder == '') {
-                $path = $folder . $className . $extension;
-            } else {
-                $path = $folder . DIRECTORY_SEPARATOR . $className . $extension;
-            }
-
-            if (is_readable($path)) {
-                include_once($path);
-            }
-        }
-    }
-});
+include_once('../../connect/DataBase.php');
+include_once('../../app/model/UserManager.php');
 
 require('../../vendor/autoload.php');
-require('../../controller-old/function.php');
-
+require('../../public/functions/function.php');
 
 
 if (isset($_POST['login']) && isset($_POST['password'])) {
 
-    $user = new UserManager();
+    $user = new App\model\UserManager();
     $averifConnect = $user->checkUser();
 
     if (isset($averifConnect['login']) === true && $_POST['login'] == $averifConnect['login']) { // Si les infos correspondent...
         session_start();
         $_SESSION['firstname'] = $averifConnect['firstname'];
+        $_SESSION['iduser'] = $averifConnect['id'];
 
         $return['result'] = 'Success';
         jsonGenerate($return);

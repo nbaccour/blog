@@ -130,6 +130,30 @@ class FrontendController extends DefaultController
 
     }
     //-------------------------------------------------------------------------------------------------------------
+    //----------------------------------------     Comment -----------------------------------------------------------
+    //-------------------------------------------------------------------------------------------------------------
+    function getListAllComment()
+    {
+
+        $manager = new CommentManager();
+        $comments = $manager->getListAllComment();
+
+        foreach ($comments as $key => $aData) {
+            foreach ($aData as $nameColumn => $value) {
+                if ($nameColumn === 'createDate') {
+                    $comments[$key]['createDate'] = date('d/m/Y', strtotime($value));
+                }
+
+            }
+
+        }
+
+
+        $content = $this->_twig->render('listAllComment.html.twig', ['comments' => $comments, 'login' => $_SESSION['login']]);
+        return $content;
+
+    }
+    //-------------------------------------------------------------------------------------------------------------
     //----------------------------------------     POST -----------------------------------------------------------
     //-------------------------------------------------------------------------------------------------------------
     function getFormPost($id)

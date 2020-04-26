@@ -18,25 +18,6 @@ class Autoloader
     public static function autoload($class){
 
 
-        //---------------------------
-//        $extensions = [".php"];
-////        $folders = ['', 'model', 'controller'];
-//        $folders = [''];
-//
-//        foreach ($folders as $folder) {
-//            foreach ($extensions as $extension) {
-//                if ($folder == '') {
-//                    $path = $folder . $class . $extension;
-//                } else {
-//                    $path = $folder . DIRECTORY_SEPARATOR . $class . $extension;
-//                }
-////                var_dump($path);
-//                if (is_readable($path)) {
-//                    include_once($path);
-//                }
-//            }
-//        }
-        //---------------------------
 
         // on explose notre variable $class par \
         $parts = preg_split('#\\\#', $class);
@@ -52,7 +33,7 @@ class Autoloader
 
         $filepath = ROOT.strtolower($path).DS.$file;
 
-         var_dump($filepath);
+//         var_dump($filepath);
         //
         require $filepath;
 

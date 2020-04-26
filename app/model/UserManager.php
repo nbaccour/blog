@@ -21,7 +21,7 @@ class UserManager extends DataBase
         $req->bindValue(':login', htmlspecialchars($_POST['login']));
         $req->bindValue(':password', md5($_POST['password']));
         $req->execute();
-        $data = $req->fetch(PDO::FETCH_ASSOC);
+        $data = $req->fetch(\PDO::FETCH_ASSOC);
         if ($data) {
             return $data;
         } else {

@@ -6,7 +6,7 @@
  * Time: 00:50
  */
 
-namespace App\model;
+//namespace App\model;
 
 class Comment
 {

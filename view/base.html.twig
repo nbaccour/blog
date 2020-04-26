@@ -30,9 +30,10 @@
 
         {{ include('logo.html.twig') }}
 
-        {#{{ include('nav.html.twig') }}#}
-        {% include 'nav.html.twig' with {'aMenu': nav} %}
+        {{ include('nav.html.twig') }}
+        {#{% include 'nav.html.twig' with {'aMenu': nav} %}#}
         {#{{ render(controller('App\\controller\\FrontendController::getCategory')) }}#}
+        {#{{ render(path('App\controller\FrontendController::getCategory')) }}#}
     </header>
     {#{{ dump(category) }}#}
     <!-- END header -->

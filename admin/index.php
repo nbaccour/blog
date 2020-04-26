@@ -1,7 +1,11 @@
 <?php
+
+define('DS', DIRECTORY_SEPARATOR); // meilleur portabilité sur les différents systeme.
+define('ROOT', dirname(__FILE__) . DS);
 session_start();
 
 $request_method = $_SERVER["REQUEST_METHOD"];
+
 
 spl_autoload_register(function ($className) {
     $extensions = [".php"];
@@ -70,16 +74,7 @@ if ($isConnect === false) {
                     echo $contentFormPost;
                     exit();
 
-                }
-//                elseif (isset($_GET['action']) && $_GET['action'] === 'post') {
-//                    if (!empty($_GET["id"])) {
-//                        // Récupérer un seul article
-//                        $contentPost = $frontendController->getPost($_GET['id']);
-//                        echo $contentPost;
-//                        exit();
-//                    }
-//                }
-                elseif (isset($_GET['action']) && $_GET['action'] === 'posts') {
+                } elseif (isset($_GET['action']) && $_GET['action'] === 'posts') {
                     $contentListPost = $frontendController->getListPost();
                     echo $contentListPost;
                     exit();
@@ -93,8 +88,13 @@ if ($isConnect === false) {
                     exit();
 
                 } elseif (isset($_GET['action']) && $_GET['action'] === 'users') {
-                    $contentListPost = $frontendController->getListUser();
-                    echo $contentListPost;
+                    $contentListUser = $frontendController->getListUser();
+                    echo $contentListUser;
+                    exit();
+
+                } elseif (isset($_GET['action']) && $_GET['action'] === 'comment') {
+                    $contentListomment = $frontendController->getListAllComment();
+                    echo $contentListomment;
                     exit();
 
                 } elseif (isset($_GET['action']) && $_GET['action'] === 'project') {

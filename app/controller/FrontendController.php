@@ -11,6 +11,7 @@ namespace App\controller;
 
 use App\model\PostManager;
 use App\model\CommentManager;
+use App\model\CategoryManager;
 
 //namespace App\Blog\Controllers;
 
@@ -185,6 +186,8 @@ class FrontendController extends DefaultController
         $post = $postManager->getPost($id);
 //        var_dump($post);
         $content = $this->_twig->render('post.html.twig', [
+            'idauthorcomment'        => (isset($_SESSION['iduser']) === true) ? $_SESSION['iduser'] : '',
+            'postid'        => $post['id'],
             'title'         => $post['title'],
             'content'       => $post['content'],
             'category'      => $post['name'],

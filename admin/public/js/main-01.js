@@ -91,7 +91,50 @@ $(document).ready(function () {
         });
 
     });
+    $(".deleteomment").click(function (e) {
 
+        e.preventDefault();
+        const $this = $(this);
+        // var confirmdelete = false;
+        $.confirm({
+            title: 'Supprimer',
+            content: "Supprimer le commentaire ?",
+            buttons: {
+                Valider: {
+                    text: 'Valider',
+                    btnClass: 'btn-success',
+                    action: function () {
+                        $.ajax({
+                            type: "DELETE",
+                            url: 'public/ajax/delete.php?deletecomment&' + $this[0].dataset.id,
+                            data: {
+                                iduser: $this[0].dataset.id,
+                                action: 'deletecomment',
+                            },
+                            success: function (json) {
+                                if (json.result == 'Success') {
+
+                                    $("#userdeleted").html("<div class=\"alert alert-success\">Le commentaire est supprimé</div>");
+                                    $('#id_' + json.iduser).remove();
+                                }
+                                else {
+                                    $("#userdeleted").html("<div class=\"alert alert-danger\" >Erreur : Commentaire non supprimé</div>");
+                                }
+
+
+                            }	//	SUCCESS
+                        });	//	AJAX
+                    },
+                },
+                Annuler: {
+                    btnClass: 'btn-danger',
+
+                },
+            },
+
+        });
+
+    });
     $('#updateuserform').submit(function (e) {
 
         e.preventDefault();

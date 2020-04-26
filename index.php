@@ -8,45 +8,17 @@
 
 namespace App;
 
-
 use App\controller\FrontendController;
-
-//use App\controller\DefaultController;
-//use App\model\Post;
-//use App\model\PostManager;
-//use App\model\DataBase;
 
 
 define('DS', DIRECTORY_SEPARATOR); // meilleur portabilité sur les différents systeme.
-define('ROOT', dirname(__FILE__) . DS); // pour se simplifier la vie
+define('ROOT', dirname(__FILE__) . DS); //
 session_start();
 
 include_once('connect/DataBase.php');
 
-require_once'app/Autoloader.php';
+require_once 'app/Autoloader.php';
 Autoloader::register();
-
-
-
-//spl_autoload_register(function ($className) {
-//    $extensions = [".php"];
-////    $folders = ['', 'app/model', 'app/controller'];
-//    $folders = ['app/model', 'app/controller'];
-//
-//    foreach ($folders as $folder) {
-//        foreach ($extensions as $extension) {
-//            if ($folder == '') {
-//                $path = $folder . $className . $extension;
-//            } else {
-//                $path = $folder . DIRECTORY_SEPARATOR . $className . $extension;
-//            }
-//            var_dump($path);
-//            if (is_readable($path)) {
-//                include_once($path);
-//            }
-//        }
-//    }
-//});
 
 
 require('vendor/autoload.php');
@@ -58,9 +30,6 @@ $frontendController = new FrontendController();
 
 $request_method = $_SERVER["REQUEST_METHOD"];
 //print_r($request_method);
-
-//$category = $frontendController->getCategory();
-//echo $category;
 
 switch ($request_method) {
     case 'GET':
@@ -103,20 +72,6 @@ switch ($request_method) {
             exit();
         }
         break;
-//    case 'POST':
-//        // Ajouter un article
-//        AddPost();
-//        break;
-//    case 'PUT':
-//        // Modifier un article
-//        $id = intval($_GET["id"]);
-//        updatePost($id);
-//        break;
-//    case 'DELETE':
-//        // Supprimer un article
-//        $id = intval($_GET["id"]);
-//        deletePost($id);
-//        break;
     default:
         // Requête invalide
         header("HTTP/1.0 405 Method Not Allowed");
@@ -124,3 +79,23 @@ switch ($request_method) {
 }
 
 
+
+//spl_autoload_register(function ($className) {
+//    $extensions = [".php"];
+////    $folders = ['', 'app/model', 'app/controller'];
+//    $folders = ['app/model', 'app/controller'];
+//
+//    foreach ($folders as $folder) {
+//        foreach ($extensions as $extension) {
+//            if ($folder == '') {
+//                $path = $folder . $className . $extension;
+//            } else {
+//                $path = $folder . DIRECTORY_SEPARATOR . $className . $extension;
+//            }
+//            var_dump($path);
+//            if (is_readable($path)) {
+//                include_once($path);
+//            }
+//        }
+//    }
+//});

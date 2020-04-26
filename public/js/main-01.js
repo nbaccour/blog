@@ -8,7 +8,7 @@ $(document).ready(function () {
         oPostData.append('password', $("input#password").val());
 
         e.preventDefault();
-
+        console.log('test');
         $.ajax({
             type: "POST",
             url: 'public/ajax/connexion.php',
@@ -17,6 +17,7 @@ $(document).ready(function () {
             data: oPostData,
 
             success: function (json) {
+                console.log('test222');
                 if (json.result == 'Success') {
                     // console.log(document.URL);
                     // console.log(document.location.href);
@@ -74,7 +75,45 @@ $(document).ready(function () {
         ;	//	AJAX
 
     });
+    $('#addcomment').submit(function (e) {
 
+        e.preventDefault();
+
+        var oPostData = new FormData();
+
+        oPostData.append('postid', $("input#postid").val());
+        oPostData.append('author', $("input#author").val());
+        oPostData.append('parentid', $("input#parentid").val());
+        oPostData.append('action', 'addcomment');
+        oPostData.append('comment', $("textarea#comment").val());
+
+        $.ajax({
+            type: "POST",
+            url: 'public/ajax/add.php',
+            contentType: false,
+            processData: false,
+            data: oPostData,
+            // error: function (request, statut, error) {
+            //     console.log(error);
+            // },
+            success: function (json) {
+                if (json.result === 'Success') {
+
+                    $("#commentadd").html("<div class=\"alert alert-success\">Votre commentaire a été envoyé</div>");
+                    $('form input[type="submit"]').prop("disabled", true);
+                    // $('#btsendComment').remove();
+                    // window.location = document.location.origin + document.location.pathname;
+                }
+                else {
+
+                    $("#useradd").html('<div class="alert alert-danger">Erreur : Ajout commentaire</div>');
+                }
+
+            }	//	SUCCESS
+        })
+        ;	//	AJAX
+
+    });
     // $(".deletePost").click(function (e) {
     //
     //     e.preventDefault();

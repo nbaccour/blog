@@ -6,48 +6,36 @@
  * Time: 18:01
  */
 
-spl_autoload_register(function ($className) {
-    $extensions = [".php"];
-    $folders = ['', '../../model'];
-
-    foreach ($folders as $folder) {
-        foreach ($extensions as $extension) {
-            if ($folder == '') {
-                $path = $folder . $className . $extension;
-            } else {
-                $path = $folder . DIRECTORY_SEPARATOR . $className . $extension;
-            }
-
-            if (is_readable($path)) {
-                include_once($path);
-            }
-        }
-    }
-});
+include_once('../../connect/DataBase.php');
+include_once('../../app/model/UserManager.php');
+include_once('../../app/model/User.php');
+include_once('../../app/model/CommentManager.php');
+include_once('../../app/model/Comment.php');
 
 require('../../vendor/autoload.php');
-require('../../controller-old/function.php');
+require('../../public/functions/function.php');
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-//    parse_str(file_get_contents("php://input"), $putVars);
 
+    if ($_POST['action'] === 'addcomment') {
+        $_POST['postid'] = (int)$_POST['postid'];
+        $_POST['parentid'] = (int)$_POST['parentid'];
+        $_POST['author'] = (int)$_POST['author'];
+        $commentManager = new App\model\CommentManager();
+        $addComment = $commentManager->addComment($_POST);
 
-//    if ($_POST['action'] === 'addpost') {
-//        $postManager = new PostManager();
-//        $addPost = $postManager->addPost($_FILES, $_POST);
-//
-//        if ($addPost === true) {
-//            $return['result'] = 'Success';
-//            jsonGenerate($return);
-//        } else {
-//            $return['result'] = 'Failed';
-//            jsonGenerate($return);
-//        }
-//    }
+        if ($addComment === true) {
+            $return['result'] = 'Success';
+            jsonGenerate($return);
+        } else {
+            $return['result'] = 'Failed';
+            jsonGenerate($return);
+        }
+    }
     if ($_POST['action'] === 'adduser' && $_POST['email'] !== '') {
 
-        $userManager = new UserManager();
+        $userManager = new App\model\UserManager();
         $addUser = $userManager->addUser($_POST);
 
         if ($addUser === true) {
@@ -59,9 +47,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $return['result'] = 'Failed';
             jsonGenerate($return);
         }
-    }else {
-        $return['result'] = 'Failed';
-        jsonGenerate($return);
     }
 
 

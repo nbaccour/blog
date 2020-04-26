@@ -41,7 +41,7 @@ class CategoryManager extends DataBase
         $req = $db->prepare('SELECT * FROM category ORDER BY name ASC') or die(print_r($db->errorInfo()));
 
         if ($req->execute()) {
-            while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+            while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
 
                 $category = new Category();
                 $category->setAttribute($data);
