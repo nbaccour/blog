@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block titlePage %}
+    <div class="row">
+        <div class="col-md-6">
+            <h2 class="mb-4">{{ title }}</h2>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    <div class="col-md-12 col-lg-8 main-content">
+        <div class="row">
+            <div id="useredit"></div>
+
+            <form id="updatecommentform" action="" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                        <label for="title">Titre</label>
+                        <input type="text" name="lastname" id="lastname" class="form-control" value="{{ titleComment }}" disabled>
+                        <input type="hidden" name="updateuser" id="updatecomment" class="form-control" value="updateuser">
+                        <input type="hidden" name="id" id="id" class="form-control" value="{{ id }}">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                        <label for="title">Auteur</label>
+                        <input type="text" name="firstname" id="firstname" class="form-control" value="{{ firstname }}" disabled>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                        <label for="content">Contenu article</label>
+                        <textarea name="comment" id="comment" class="form-control " cols="30" rows="8"
+                        >{{ comment }}</textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <input type="submit"
+                               value="Valider"
+                               class="btn btn-primary">
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+{% endblock %}

@@ -132,11 +132,11 @@ class FrontendController extends DefaultController
     //-------------------------------------------------------------------------------------------------------------
     //----------------------------------------     Comment -----------------------------------------------------------
     //-------------------------------------------------------------------------------------------------------------
-    function getListAllComment()
+    function getListAllComment(array $aOptions = [])
     {
 
         $manager = new CommentManager();
-        $comments = $manager->getListAllComment();
+        $comments = $manager->getListAllComment($aOptions);
 
         foreach ($comments as $key => $aData) {
             foreach ($aData as $nameColumn => $value) {
@@ -149,9 +149,34 @@ class FrontendController extends DefaultController
         }
 
 
-        $content = $this->_twig->render('listAllComment.html.twig', ['comments' => $comments, 'login' => $_SESSION['login']]);
+        $content = $this->_twig->render('listAllComment.html.twig',
+            ['comments' => $comments, 'login' => $_SESSION['login']]);
         return $content;
 
+    }
+
+    function getFormComment($id)
+    {
+
+
+        $commentManager = new CommentManager();
+        $comment = $commentManager->getComment($id);
+
+//$test = '';
+        $aDataComment = [
+            'id'           => $comment['id'],
+            'titleComment' => $comment['title'],
+            'firstname'    => $comment['firstname'],
+            'comment'      => $comment['comment'],
+            'author'       => $comment['author'],
+//            'createDate' => $comment['createDate'],
+            'title'        => "Valider le commentaire",
+        ];
+        $fileName = 'formUpdateComment.html.twig';
+
+
+        $content = $this->_twig->render($fileName, $aDataComment);
+        return $content;
     }
     //-------------------------------------------------------------------------------------------------------------
     //----------------------------------------     POST -----------------------------------------------------------

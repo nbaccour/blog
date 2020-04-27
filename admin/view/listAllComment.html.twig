@@ -3,7 +3,7 @@
 {% block titlePage %}
     <div class="row">
         <div class="col-md-6">
-            <h2 class="mb-4">Les ommentaire</h2>
+            <h2 class="mb-4">Les Commentaires</h2>
         </div>
     </div>
 {% endblock %}
@@ -25,7 +25,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <div id="userdeleted"></div>
+                    <div id="commentdeleted"></div>
                     {% for commentshow in comments %}
                         <tr id="id_{{ commentshow.id }}">
                             <td scope="row">{{ commentshow.title }}</td>

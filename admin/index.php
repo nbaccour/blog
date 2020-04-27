@@ -92,8 +92,26 @@ if ($isConnect === false) {
                     echo $contentListUser;
                     exit();
 
+                } elseif (isset($_GET['action']) && $_GET['action'] === 'formcomment') {
+
+                    // Formulaire mettre à jour un commentaire
+                    $id = (isset($_GET['id']) === true) ? $_GET['id'] : '';
+                    $contentFormComment = $frontendController->getFormComment($id);
+                    echo $contentFormComment;
+                    exit();
+
                 } elseif (isset($_GET['action']) && $_GET['action'] === 'comment') {
                     $contentListomment = $frontendController->getListAllComment();
+                    echo $contentListomment;
+                    exit();
+
+                } elseif (isset($_GET['action']) && $_GET['action'] === 'statutcomment') {
+                    $contentListomment = $frontendController->getListAllComment(['statut' => 1]);
+                    echo $contentListomment;
+                    exit();
+
+                } elseif (isset($_GET['action']) && $_GET['action'] === 'validcomment') {
+                    $contentListomment = $frontendController->getListAllComment(['valid' => 1]);
                     echo $contentListomment;
                     exit();
 

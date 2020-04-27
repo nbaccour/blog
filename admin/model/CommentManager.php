@@ -21,9 +21,16 @@ class CommentManager extends DataBase
 
     }
 
-    public function getListAllComment()
+    public function getListAllComment(array $aOptions = [])
     {
         $db = $this->dbconnect();
+        $sWhere = ' WHERE co.statut = 1 AND co.valid = 1 ';
+        if (isset($aOptions['statut'])) {
+            $sWhere = ' WHERE co.statut = 0 AND co.valid = 0 ';
+        }
+        if (isset($aOptions['valid'])) {
+            $sWhere = ' WHERE co.valid = 0 ';
+        }
 
         $aComments = [];
 //        $req = $db->prepare('select * from comments WHERE postid = :id AND statut = 1 AND valid = 1 ORDER BY createDate DESC') or die(print_r($db>errorInfo()));
@@ -31,7 +38,7 @@ class CommentManager extends DataBase
 FROM comments AS co 
 LEFT JOIN users AS us ON (co.author = us.id) 
 LEFT JOIN posts AS po ON (co.postid = po.id) 
-ORDER BY co.id DESC')
+' . $sWhere . ' ORDER BY co.id DESC')
         or die(print_r($db > errorInfo()));
 
 //        $req->bindValue(':id', $id);
@@ -66,7 +73,28 @@ LEFT JOIN users AS us ON (co.author = us.id) WHERE co.postid = :id AND co.statut
         }
         return $aComments;
     }
+    function getComment($id)
+    {
 
+        $db = $this->dbconnect();
+//        $req = $db->prepare('select * from comments WHERE id = :id') or die(print_r($db->errorInfo()));
+
+        $req = $db->prepare('SELECT co.id, co.postid, co.parentid, co.author, co.comment, co.createDate, us.firstname, po.title 
+FROM comments AS co 
+LEFT JOIN users AS us ON (co.author = us.id) 
+LEFT JOIN posts AS po ON (co.postid = po.id) 
+WHERE co.id = :id ORDER BY co.id DESC')
+        or die(print_r($db > errorInfo()));
+
+        $req->bindValue(':id', $id);
+        $req->execute();
+        $data = $req->fetch(PDO::FETCH_ASSOC);
+
+//        $comment = new Comment();
+//        $comment->setAttribute($data);
+//        return $comment;
+        return $data;
+    }
 
 ////Delete Comment method
 //    public function delete($id)
@@ -128,7 +156,7 @@ LEFT JOIN users AS us ON (co.author = us.id) WHERE co.postid = :id AND co.statut
     public function countComment()
     {
         $db = $this->dbconnect();
-        $req = $db->prepare('SELECT COUNT(*) AS statut FROM comments WHERE statut = 0') or die(print_r($bdd->errorInfo()));
+        $req = $db->prepare('SELECT COUNT(*) AS statut FROM comments WHERE statut = 0') or die(print_r($db->errorInfo()));
         $req->execute();
         $data = $req->fetch(\PDO::FETCH_ASSOC);
         $count = $data['statut'];

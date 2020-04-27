@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block titlePage %}
+    <div class="row">
+        <div class="col-md-6">
+            <h2 class="mb-4">{{ title }}</h2>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    <div class="col-md-12 col-lg-8 main-content">
+        <div class="row">
+            <div id="postedit"></div>
+
+            <form id="updatecommentform" action="" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                        <label for="title">Titre</label>
+                        <input type="text" name="title" id="title" class="form-control" value="{{ postTitle }}">
+                        <input type="hidden" name="id" id="id" class="form-control" value="{{ postId }}">
+                        <input type="hidden" name="updatepost" id="updatepost" class="form-control" value="updatepost">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                        <label for="content">Contenu article</label>
+                        <textarea name="content" id="content" class="form-control " cols="30" rows="8"
+                        >{{ postContent }}</textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                        <label for="author">Auteur</label>
+                        <input type="text" name="author" id="author" disabled value="{{ session.ident }}"
+                               class="form-control ">
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <label class="mr-sm-2" for="category">Choisir une catégorie</label>
+                        <select class="custom-select mr-sm-2" id="idcategory" name="idcategory">
+                            {% if categoryList %}
+                                <option value="{{ idcategory }}" selected>{{ namecategory }}</option>
+                                {% for category in categoryList %}
+                                    <option value="{{ category.id }}">{{ category.name }}</option>
+                                {% endfor %}
+                            {% endif %}
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <input type="submit"
+                               value="Modifier"
+                               class="btn btn-primary">
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h4 class="mb-4">Modifier l'image</h4>
+            </div>
+
+        </div>
+        <div class="row">
+            <div id="imgpostedit"></div>
+            <form id="updateimgpost" action="" method="post" enctype="multipart/form-data">
+                {% if postId %}
+                    <div class="col-md-12 form-group">
+                        <img id="postimgupdate" src="public/images/post/{{ postImg }}" width="300" height="200"
+                             alt="{{ postTitle }}"
+                             class="img-thumbnail">
+                    </div>
+                {% endif %}
+                <div class="col-md-12 form-group">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="postimg" name="postimg" lang="fr"
+                               accept=".jpg,.jpeg,.png"/>
+                        <label class="custom-file-label" for="postimg">Sélectionner une image</label>
+                    </div>
+                </div>
+                {#</div>#}
+                <input type="hidden" id="id" name="id" value="{{ postId }}">
+                {#<div class="row">#}
+                <div class="col-md-6 form-group">
+                    <input type="submit"
+                           value="Modifier"
+                           class="btn btn-primary">
+                </div>
+            </form>
+        </div>
+
+    </div>
+{% endblock %}

@@ -114,11 +114,11 @@ $(document).ready(function () {
                             success: function (json) {
                                 if (json.result == 'Success') {
 
-                                    $("#userdeleted").html("<div class=\"alert alert-success\">Le commentaire est supprimé</div>");
+                                    $("#commentdeleted").html("<div class=\"alert alert-success\">Le commentaire est supprimé</div>");
                                     $('#id_' + json.iduser).remove();
                                 }
                                 else {
-                                    $("#userdeleted").html("<div class=\"alert alert-danger\" >Erreur : Commentaire non supprimé</div>");
+                                    $("#commentdeleted").html("<div class=\"alert alert-danger\" >Erreur : Commentaire non supprimé</div>");
                                 }
 
 
