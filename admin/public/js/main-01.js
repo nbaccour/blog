@@ -135,10 +135,37 @@ $(document).ready(function () {
         });
 
     });
+
+    $('#updatecommentform').submit(function (e) {
+
+        e.preventDefault();
+        $('form input[type="submit"]').prop("disabled", true);
+        $.ajax({
+            type: "PUT",
+            url: 'public/ajax/update.php',
+            contentType: false,
+            processData: false,
+            data: $(this).serialize(),
+
+            success: function (json) {
+                if (json.result == 'Success') {
+
+                    $("#useredit").html("<div class=\"alert alert-success\">Commentaire validé</div>");
+                }
+                else {
+
+                    $("#useredit").html('<div class="alert alert-danger">Erreur : Commentaire non validé </div>');
+                }
+
+            }	//	SUCCESS
+        });	//	AJAX
+
+    });
+
     $('#updateuserform').submit(function (e) {
 
         e.preventDefault();
-
+        $('form input[type="submit"]').prop("disabled", true);
         $.ajax({
             type: "PUT",
             url: 'public/ajax/update.php',
@@ -164,7 +191,7 @@ $(document).ready(function () {
     $('#updatepostform').submit(function (e) {
 
         e.preventDefault();
-
+        $('form #btupdatepost input[type="submit"]').prop("disabled", true);
         $.ajax({
             type: "PUT",
             url: 'public/ajax/update.php',
@@ -268,7 +295,7 @@ $(document).ready(function () {
 
         e.preventDefault();
         // console.log($(this));
-
+        $('form #btupdatepostImg input[type="submit"]').prop("disabled", true);
         var oFileData = new FormData();
         var files = $('#postimg')[0].files[0];
 
@@ -304,38 +331,6 @@ $(document).ready(function () {
         });	//	AJAX
 
     });
-
-// $("#submit").click(function (e) {
-//
-//     e.preventDefault();
-//
-//     $.ajax({
-//         type: "POST",
-//         url: 'public/ajax/connexion.php',
-//         data: {
-//             username: $("#username").val(),  // Nous récupérons la valeur de nos input que l'on fait passer à connexion.php
-//             password: $("#password").val()
-//         },
-//         success: function (json) {
-//
-//             console.log('testtesttetstet');
-//             console.log(json.result);
-//             if (json.result == 'Success') {
-//                 // Le membre est connecté. Ajoutons lui un message dans la page HTML.
-//
-//                 $("#resultat").html("<p>Vous avez été connecté avec succès !</p>");
-//             }
-//             else {
-//                 // Le membre n'a pas été connecté. (data vaut ici "failed")
-//
-//                 $("#resultat").html("<p>Erreur lors de la connexion...</p>");
-//             }
-//
-//
-//         }	//	SUCCESS
-//     });	//	AJAX
-//
-// });
 
 
 })

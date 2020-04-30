@@ -25,10 +25,10 @@ class CommentManager extends DataBase
     {
         $db = $this->dbconnect();
         $sWhere = ' WHERE co.statut = 1 AND co.valid = 1 ';
-        if (isset($aOptions['statut'])) {
+        if (isset($aOptions['mode']) && $aOptions['mode'] === 'statut') {
             $sWhere = ' WHERE co.statut = 0 AND co.valid = 0 ';
         }
-        if (isset($aOptions['valid'])) {
+        if (isset($aOptions['mode']) && $aOptions['mode'] === 'valid') {
             $sWhere = ' WHERE co.valid = 0 ';
         }
 
@@ -46,7 +46,7 @@ LEFT JOIN posts AS po ON (co.postid = po.id)
 
 
         while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
-
+            $data['mode'] = (isset($aOptions['mode'])) ? $aOptions['mode'] : 'valid';
             array_push($aComments, $data);
         }
         return $aComments;
@@ -96,6 +96,39 @@ WHERE co.id = :id ORDER BY co.id DESC')
         return $data;
     }
 
+    //// Valid comment method
+
+    function validComment(array $PUT)
+    {
+        $db = $this->dbconnect();
+
+        $comment = new Comment();
+        $comment->setAttribute($PUT);
+
+        $updateDate = date('Y-m-d H:i:s');
+
+
+        if (intval($comment->id()) !== '') {
+            $req = $db->prepare('UPDATE comments SET  comment = :comment, statut = :statut, valid = :valid, updateDate = :updateDate WHERE id = :id')
+            or die(print_r($db->errorInfo()));
+
+            $req->bindValue(':id', intval($comment->id()));
+            $req->bindValue(':comment', $comment->comment());
+            $req->bindValue(':statut', 1);
+            $req->bindValue(':valid', 1);
+            $req->bindValue(':updateDate', $updateDate);
+//            return $req->execute();
+            if ($req->execute()) {
+
+                return true;
+            } else {
+//                return ['error' => $db->errorInfo()];
+                return ['result' => $db->errorInfo()];
+            }
+
+        }
+
+    }
 ////Delete Comment method
 //    public function delete($id)
 //    {
@@ -120,14 +153,7 @@ WHERE co.id = :id ORDER BY co.id DESC')
 //        return $comments;
 //    }
 
-//// Valid comment method
-//    public function valid($id)
-//    {
-//        $db = $this->dbconnect();
-//        $req = $db->prepare('UPDATE comments SET statut = 1 WHERE id = :id');
-//        $req->bindValue(':id', $id);
-//        $req->execute();
-//    }
+
 
 //// Cancel Report method
 //    public function cancelReport($id)

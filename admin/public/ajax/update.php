@@ -32,6 +32,19 @@ require('../../controller/function.php');
 if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     parse_str(file_get_contents("php://input"), $putVars);
 
+    if (isset($putVars['updatecomment'])) {
+        $commentManager = new CommentManager();
+        $validcomment = $commentManager->validComment($putVars);
+
+        if ($validcomment === true) {
+            $return['result'] = 'Success';
+            jsonGenerate($return);
+        } else {
+            $return['result'] = 'Failed';
+            jsonGenerate($return);
+        }
+
+    }
     if (isset($putVars['updateuser'])) {
         $userManager = new UserManager();
         $updateUser = $userManager->updateUser($putVars);

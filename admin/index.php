@@ -1,7 +1,6 @@
 <?php
 
-define('DS', DIRECTORY_SEPARATOR); // meilleur portabilité sur les différents systeme.
-define('ROOT', dirname(__FILE__) . DS);
+
 session_start();
 
 $request_method = $_SERVER["REQUEST_METHOD"];
@@ -32,7 +31,6 @@ require('controller/function.php');
 
 
 $frontendController = new FrontendController();
-
 
 $isConnect = false;
 
@@ -96,7 +94,7 @@ if ($isConnect === false) {
 
                     // Formulaire mettre à jour un commentaire
                     $id = (isset($_GET['id']) === true) ? $_GET['id'] : '';
-                    $contentFormComment = $frontendController->getFormComment($id);
+                    $contentFormComment = $frontendController->getFormComment($id, $_GET['mode']);
                     echo $contentFormComment;
                     exit();
 
@@ -106,12 +104,12 @@ if ($isConnect === false) {
                     exit();
 
                 } elseif (isset($_GET['action']) && $_GET['action'] === 'statutcomment') {
-                    $contentListomment = $frontendController->getListAllComment(['statut' => 1]);
+                    $contentListomment = $frontendController->getListAllComment(['mode' => 'statut']);
                     echo $contentListomment;
                     exit();
 
                 } elseif (isset($_GET['action']) && $_GET['action'] === 'validcomment') {
-                    $contentListomment = $frontendController->getListAllComment(['valid' => 1]);
+                    $contentListomment = $frontendController->getListAllComment(['mode' => 'valid']);
                     echo $contentListomment;
                     exit();
 

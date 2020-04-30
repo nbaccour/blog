@@ -27,7 +27,7 @@ require('public/functions/function.php');
 
 $frontendController = new FrontendController();
 
-
+//$menu = $frontendController
 $request_method = $_SERVER["REQUEST_METHOD"];
 //print_r($request_method);
 

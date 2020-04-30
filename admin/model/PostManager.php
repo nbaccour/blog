@@ -118,15 +118,21 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC') or d
             if ($file_size > 2097152) {
                 $errorFilePost = 'Le poids de l\'image ne doit pas dépasser le 2 MB';
             }
-            //$uploaddir = '/var/www/admin/upload/';
-            $url = 'C:\xampp\htdocs\openclassroom\projet-blog\blog-02';
-            $uploaddir = $url . '/admin/public/images/post/';
+
+            $uploaddir = $_SERVER['DOCUMENT_ROOT'] . substr($_SERVER['REQUEST_URI'], 0, 14) . 'images/post/';
+            $pathImg = $_SERVER['DOCUMENT_ROOT'] . substr($_SERVER['REQUEST_URI'], 6, 8) . 'images/post/';
+
+            if (strpos($_SERVER['REQUEST_URI'], 'blog-02') !== false) {//DEV
+                $uploaddir = $_SERVER['DOCUMENT_ROOT'] . '/openclassroom/projet-blog/blog-02/admin/public/images/post/';
+                $pathImg = $_SERVER['DOCUMENT_ROOT'] . '/openclassroom/projet-blog/blog-02/public/images/post/';;
+            }
             $uploadfile = $uploaddir . basename($Files['file']['name']);
+
 
             if (move_uploaded_file($Files['file']['tmp_name'], $uploadfile) === true) {
 
-                copy($url . '/admin/public/images/post/' . basename($Files['file']['name']),
-                    $url . '/public/images/post/' . basename($Files['file']['name']));
+                copy($pathImg . basename($Files['file']['name']),
+                    $pathImg . basename($Files['file']['name']));
 
             } else {
                 $errorFilePost = true;

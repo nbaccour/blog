@@ -12,6 +12,7 @@ namespace App\controller;
 use App\model\PostManager;
 use App\model\CommentManager;
 use App\model\CategoryManager;
+use App\model\ProjectManager;
 
 //namespace App\Blog\Controllers;
 
@@ -36,8 +37,9 @@ class FrontendController extends DefaultController
         $categoryManager = new CategoryManager();
         $gategory = $categoryManager->getCategory();
 
-
-        $content = $this->_twig->render('base.html.twig', ['navCategory' => $gategory]);
+//        return $gategory;
+//        $content = $this->_twig->render('base.html.twig', ['navCategory' => $gategory]);
+        $content = $this->_twig->render('nav.html.twig', ['navCategory' => $gategory]);
         return $content;
 
     }
@@ -56,8 +58,6 @@ class FrontendController extends DefaultController
             }
 
         }
-//        $content = $this->_twig->render('base.html.twig', ['posts' => $posts]);
-//        return $content;
 
         $content = $this->_twig->render('listPost.html.twig', ['posts' => $posts]);
         return $content;
@@ -98,47 +98,6 @@ class FrontendController extends DefaultController
         return $content;
     }
 
-//    function checkUser()
-//    {
-//        $manager = new UserManager();
-//        $checkConnect = $manager->checkUser();
-//
-//        if (is_array($checkConnect) && isset($checkConnect['error']) === false) {
-//
-//            $aConnectagent = ['Administrator', 'Moderator', 'user'];
-//
-//            if (in_array($checkConnect['role'], $aConnectagent) === true) {
-//
-//                $_SESSION['login'] = true;
-//                $_SESSION['ident'] = $checkConnect['login'];
-//                $_SESSION['lastnameUser'] = $checkConnect['lastname'];
-//                $_SESSION['firstnameUser'] = $checkConnect['firstname'];
-//                $_SESSION['mailUser'] = $checkConnect['email'];
-//
-////                header("Refresh: 1; URL=index.php");
-//
-////                $manager = new PostManager();
-////                $posts = $manager->getListPost();
-////
-////                $content = $this->_twig->render('listPost.html.twig', ['posts' => $posts]);
-////
-////                return $content;
-//            } else {
-////                $content = $this->_twig->render('formConnect.html.twig', [
-////                    'title' => 'Admin',
-////                    'error' => 'Identifiant ou mot de passe invalide',
-////                ]);
-//
-////                return $content;
-//            }
-//
-//        } else {
-////            $content = $this->_twig->render('formConnect.html.twig', ['title' => 'Admin', 'error' => $checkConnect]);
-////
-////            return $content;
-//        }
-//
-//    }
 
     function getFormConnect()
     {
@@ -186,104 +145,40 @@ class FrontendController extends DefaultController
         $post = $postManager->getPost($id);
 //        var_dump($post);
         $content = $this->_twig->render('post.html.twig', [
-            'idauthorcomment'        => (isset($_SESSION['iduser']) === true) ? $_SESSION['iduser'] : '',
-            'postid'        => $post['id'],
-            'title'         => $post['title'],
-            'content'       => $post['content'],
-            'category'      => $post['name'],
-            'author'        => $post['author'],
-            'postimg'       => $post['postimg'],
-            'createDate'    => date('d/m/Y', strtotime($post['createDate'])),
-            'comments'      => $aListCommentParentChild,
-            'countcomments' => count($aComments),
+            'idauthorcomment' => (isset($_SESSION['iduser']) === true) ? $_SESSION['iduser'] : '',
+            'postid'          => $post['id'],
+            'title'           => $post['title'],
+            'content'         => $post['content'],
+            'category'        => $post['name'],
+            'author'          => $post['author'],
+            'postimg'         => $post['postimg'],
+            'createDate'      => date('d/m/Y', strtotime($post['createDate'])),
+            'comments'        => $aListCommentParentChild,
+            'countcomments'   => count($aComments),
 //            'postContent' => $post->content(),
         ]);
 
         return $content;
 
     }
+    //-------------------------------------------------------------------------------------------------------------
+    //----------------------------------------     PROJECT  -----------------------------------------------------------
+    //-------------------------------------------------------------------------------------------------------------
 
-
-    function getProject($idProject)
+    function getProject($id)
     {
 
 
-        switch ($idProject) {
-            case 1:
-                $title = 'Festival des films';
-                $content = 'Projeter des films d\'auteur en plein air du 5 au 8 août au parc Monceau à Paris.';
-                $comment = 'commentprojet1.jpg';
-                $mentor = 'Gaetan De Smet';
-                $evaluator = 'Soma-Giuseppe Bini';
-                $validDate = 'Projet validé le mercredi 22 janvier 2020';
-                break;
-            case 2:
-                $title = 'Application de restauration en ligne';
-                $content = 'Livrer des plats de qualité à domicile en moins de 20 minutes...';
-                $comment = 'commentprojet2.jpg';
-                $mentor = 'Gaetan De Smet';
-                $evaluator = 'Wenceslas Baridon';
-                $validDate = 'Projet validé le samedi 14 mars 2020';
-                break;
-            case 3:
-                $title = 'Créez mon premier blog en PHP';
-                $content = 'Développer mon blog professionnel sans Framework';
-                $comment = '';
-                $mentor = 'Gaetan De Smet';
-                $evaluator = '';
-                $validDate = 'En cours';
-                break;
-            default:
-                $title = '';
-                $content = '';
-                $comment = '';
-                $mentor = '';
-                $evaluator = '';
-                $validDate = '';
-        }
-        $content = $this->_twig->render('project.html.twig', [
-            'projectTitle'     => $title,
-            'projectContent'   => $content,
-            'projectComment'   => $comment,
-            'projectMentor'    => $mentor,
-            'projectEvaluator' => $evaluator,
-            'projectValidDat'  => $validDate,
-        ]);
 
+        $manager = new ProjectManager();
+        $project = $manager->getProject($id);
+
+
+
+        $content = $this->_twig->render('project.html.twig', ['project' => $project]);
         return $content;
+
+
     }
 
-//
-//    function login()
-//    {
-//
-//        $content = $this->_twig->render('topBar.html.twig', [
-//            'login' => $_SESSION['login'],
-//        ]);
-//
-//        return $content;
-//    }
-//
-//
-//    function getPage()
-//    {
-////        $content = $this->_twig->render('base.html.twig', ['urlPage' => $_SERVER['QUERY_STRING']]);
-////        $content = $_SERVER['QUERY_STRING'];
-//        $content = $this->_twig->render('base.html.twig', ['urlPage' => $_SERVER['QUERY_STRING']]);
-//        return $content;
-//    }
-//
-//
-//    function getListPostTest()
-//    {
-//
-//        $manager = new PostManager();
-//        $posts = $manager->getListPost();
-//
-//        header('Content-Type: application/json');
-//
-//        echo json_encode($posts, JSON_PRETTY_PRINT);
-////        return $posts;
-//
-//    }
 }

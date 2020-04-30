@@ -150,7 +150,6 @@ class UserManager extends DataBase
 //                return ['error' => $db->errorInfo()];
                 return ['result' => $db->errorInfo()];
             }
-//            $test = '';
 
         }
 

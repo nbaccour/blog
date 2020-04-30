@@ -155,7 +155,7 @@ class FrontendController extends DefaultController
 
     }
 
-    function getFormComment($id)
+    function getFormComment($id, $mode)
     {
 
 
@@ -169,8 +169,10 @@ class FrontendController extends DefaultController
             'firstname'    => $comment['firstname'],
             'comment'      => $comment['comment'],
             'author'       => $comment['author'],
+            'mode'         => $mode,
 //            'createDate' => $comment['createDate'],
-            'title'        => "Valider le commentaire",
+            'title'        => ($mode === 'statut') ? "Modérer le commentaire" : "Valider le commentaire",
+            'texteBt'      => ($mode === 'statut') ? "Modérer" : "Valider",
         ];
         $fileName = 'formUpdateComment.html.twig';
 

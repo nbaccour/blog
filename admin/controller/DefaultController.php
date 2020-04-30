@@ -23,6 +23,9 @@ class DefaultController
         ]);
 
         $this->_twig->addGlobal('session', $_SESSION);
-        //var_dump($_SESSION);
+        //
+
     }
+
+
 }
