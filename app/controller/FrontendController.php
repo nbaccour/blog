@@ -78,11 +78,12 @@ class FrontendController extends DefaultController
         return $content;
 
     }
+
     function getListPostByName($name)
     {
 
         $manager = new PostManager();
-        $posts = $manager->getListPost();
+        $posts = $manager->getListPostByName($name);
 
 
         foreach ($posts as $key => $aData) {
@@ -100,7 +101,7 @@ class FrontendController extends DefaultController
         }
 
 
-        $content = $this->_twig->render('listPost.html.twig', ['posts' => $posts]);
+        $content = $this->_twig->render('listPostByName.html.twig', ['posts' => $posts, 'Category' => $name]);
         return $content;
 
     }

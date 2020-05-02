@@ -50,7 +50,31 @@ class CategoryManager extends DataBase
 
             return $aCategory;
         } else {
-            throw new Exception('Impossible trouver les catégories !');
+            throw new \Exception('Impossible trouver les catégories !');
+        }
+
+    }
+
+    function getIdCategoryByName($name)
+    {
+        $db = $this->dbconnect();
+        $aCategory = [];
+        $req = $db->prepare('SELECT * FROM category WHERE name =:name ORDER BY name ASC') or die(print_r($db->errorInfo()));
+
+        $req->bindValue(':name', $name);
+
+        if ($req->execute()) {
+            $data = $req->fetch(\PDO::FETCH_ASSOC);
+            return $data;
+//            while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
+//
+//                $category = new Category();
+//                $category->setAttribute($data);
+//                array_push($aCategory, $category);
+//            }
+//            return $aCategory;
+        } else {
+            throw new \Exception('Impossible de trouver les catégories !');
         }
 
     }

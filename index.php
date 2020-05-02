@@ -66,14 +66,14 @@ switch ($request_method) {
 
         } elseif (isset($_GET['action']) && $_GET['action'] === 'cat') {
             if (isset($_GET['name']) && $_GET['name'] !== '') {
-                $contentProject = $frontendController->getProject($_GET['id']);
+                $contentProject = $frontendController->getListPostByName($_GET['name']);
                 echo $contentProject;
                 exit;
             }
 
         } else {
             // Récupérer tous les articles
-            $contentListPost = $frontendController->getListPostByName();
+            $contentListPost = $frontendController->getListPost();
             echo $contentListPost;
             exit();
         }

@@ -8,9 +8,10 @@
 
 namespace App\model;
 
+use App\model\CategoryManager;
+
 class PostManager extends DataBase
 {
-
 
 
     function getListPost()
@@ -31,8 +32,41 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC') or d
             return $posts;
 //            return $aData;
         } else {
-            throw new Exception('Impossible de trouver les articles !');
+            throw new \Exception('Impossible de trouver les articles !');
         }
+
+    }
+
+    function getListPostByName($name)
+    {
+        $db = $this->dbconnect();
+
+        $manager = new CategoryManager();
+        $category = $manager->getIdCategoryByName($name);
+
+        $posts = [];
+
+        if (count($category) !== 0) {
+            $req = $db->prepare('SELECT * FROM posts WHERE idcategory =:idcategory ORDER BY id DESC') or die(print_r($db->errorInfo()));
+            $req->bindValue(':idcategory', (int)$category['id']);
+            if ($req->execute()) {
+
+                while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
+                    $data['namecategory'] = $category['name'];
+
+                    array_push($posts, $data);
+                }
+
+
+                return $posts;
+//            return $aData;
+            } else {
+                throw new \Exception('Impossible de trouver les articles !');
+            }
+        } else {
+            throw new \Exception('Impossible de trouver les articles !');
+        }
+
 
     }
 
