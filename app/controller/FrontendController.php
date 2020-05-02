@@ -78,7 +78,32 @@ class FrontendController extends DefaultController
         return $content;
 
     }
+    function getListPostByName($name)
+    {
 
+        $manager = new PostManager();
+        $posts = $manager->getListPost();
+
+
+        foreach ($posts as $key => $aData) {
+            foreach ($aData as $nameColumn => $value) {
+                if ($nameColumn === 'createDate') {
+                    $posts[$key]['createDate'] = date('d/m/Y', strtotime($value));
+                }
+            }
+
+        }
+        foreach ($posts as $key => $aData) {
+            $commentManager = new CommentManager();
+            $aComments = $commentManager->getCommentValidByIdPost($aData['id']);
+            $posts[$key]['nbrcomment'] = count($aComments);
+        }
+
+
+        $content = $this->_twig->render('listPost.html.twig', ['posts' => $posts]);
+        return $content;
+
+    }
 
     /**
      * @param $id

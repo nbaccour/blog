@@ -40,8 +40,7 @@ switch ($request_method) {
                 echo $contentPost;
                 exit();
             }
-        }
-        if (isset($_GET['action']) && $_GET['action'] === 'connectout') {
+        } elseif (isset($_GET['action']) && $_GET['action'] === 'connectout') {
 
             // Deconnexion
             $connectOut = $frontendController->connectOut();
@@ -65,9 +64,16 @@ switch ($request_method) {
             echo $contentFormUser;
             exit();
 
+        } elseif (isset($_GET['action']) && $_GET['action'] === 'cat') {
+            if (isset($_GET['name']) && $_GET['name'] !== '') {
+                $contentProject = $frontendController->getProject($_GET['id']);
+                echo $contentProject;
+                exit;
+            }
+
         } else {
             // Récupérer tous les articles
-            $contentListPost = $frontendController->getListPost();
+            $contentListPost = $frontendController->getListPostByName();
             echo $contentListPost;
             exit();
         }
