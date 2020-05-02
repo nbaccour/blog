@@ -4,7 +4,7 @@
     <title>OC-BLOG</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300, 400,700|Inconsolata:400,700" rel="stylesheet">
 
     <link rel="stylesheet" href="public/css/bootstrap.css">
@@ -21,10 +21,11 @@
 </head>
 <body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="public/js/functions.js"></script>
 <script src="public/js/main-01.js"></script>
 
 <div class="wrap">
-{#{{ dump(nav) }}#}
+    {#{{ dump(nav) }}#}
     <header role="banner">
         {{ include('topBar.html.twig') }}
 

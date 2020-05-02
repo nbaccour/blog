@@ -19,16 +19,31 @@ require('../../public/functions/function.php');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($_POST['action'] === 'addcomment') {
-        $_POST['postid'] = (int)$_POST['postid'];
-        $_POST['parentid'] = (int)$_POST['parentid'];
-        $_POST['author'] = (int)$_POST['author'];
-        $commentManager = new App\model\CommentManager();
-        $addComment = $commentManager->addComment($_POST);
+
+        $explodeData = explode('&', $_POST['data']);
+        $aSend = [];
+        foreach ($explodeData as $inputData) {
+            $explod = explode('=', $inputData);
+            $aSend[$explod[0]] = $explod[1];
+        }
+
+        $aSend['postid'] = (int)$aSend['postid'];
+        $aSend['parentid'] = (int)$aSend['parentid'];
+        $aSend['author'] = (int)$aSend['author'];
+
+        $addComment = false;
+        if ($aSend['comment'] !== '') {
+            $commentManager = new App\model\CommentManager();
+            $addComment = $commentManager->addComment($aSend);
+        }
+
 
         if ($addComment === true) {
+            $return['parentid'] = (int)$aSend['parentid'];
             $return['result'] = 'Success';
             jsonGenerate($return);
         } else {
+            $return['parentid'] = (int)$aSend['parentid'];
             $return['result'] = 'Failed';
             jsonGenerate($return);
         }

@@ -151,10 +151,12 @@ $(document).ready(function () {
                 if (json.result == 'Success') {
 
                     $("#useredit").html("<div class=\"alert alert-success\">Commentaire validé</div>");
+                    $('form #updatecommentform input[type="submit"]').prop("disabled", true);
                 }
                 else {
 
                     $("#useredit").html('<div class="alert alert-danger">Erreur : Commentaire non validé </div>');
+                    $('form #updatecommentform input[type="submit"]').prop("disabled", true);
                 }
 
             }	//	SUCCESS
@@ -177,10 +179,12 @@ $(document).ready(function () {
                 if (json.result == 'Success') {
 
                     $("#useredit").html("<div class=\"alert alert-success\">Les données du membre ont étaient modifiées</div>");
+                    $('form #updateuserform input[type="submit"]').prop("disabled", true);
                 }
                 else {
 
                     $("#useredit").html('<div class="alert alert-danger">Erreur : Données non modifiées </div>');
+                    $('form #updateuserform input[type="submit"]').prop("disabled", true);
                 }
 
             }	//	SUCCESS
@@ -203,10 +207,12 @@ $(document).ready(function () {
                 if (json.result == 'Success') {
 
                     $("#postedit").html("<div class=\"alert alert-success\">L'article est modifié</div>");
+                    $('form #updatepostform input[type="submit"]').prop("disabled", true);
                 }
                 else {
 
                     $("#postedit").html('<div class="alert alert-danger">Erreur : Article non modifié </div>');
+                    $('form #updatepostform input[type="submit"]').prop("disabled", true);
                 }
 
             }	//	SUCCESS
@@ -240,10 +246,12 @@ $(document).ready(function () {
                 if (json.result === 'Success') {
 
                     $("#postadd").html("<div class=\"alert alert-success\">Votre article a été ajouté</div>");
+                    $('form #addpostform input[type="submit"]').prop("disabled", true);
                 }
                 else {
 
                     $("#postadd").html('<div class="alert alert-danger">Erreur : Ajout Article </div>');
+                    $('form #addpostform input[type="submit"]').prop("disabled", true);
                 }
 
             }	//	SUCCESS
@@ -279,10 +287,12 @@ $(document).ready(function () {
                 if (json.result === 'Success') {
 
                     $("#useradd").html("<div class=\"alert alert-success\">L'utilisateur a été ajouté</div>");
+                    $('form #adduser input[type="submit"]').prop("disabled", true);
                 }
                 else {
 
                     $("#useradd").html('<div class="alert alert-danger">Erreur : Ajout Utilisateur </div>');
+                    $('form #adduser input[type="submit"]').prop("disabled", true);
                 }
 
             }	//	SUCCESS
@@ -320,10 +330,12 @@ $(document).ready(function () {
 
                     $("#imgpostedit").html("<div class=\"alert alert-success\">Image modifiée</div>");
                     $('#postimgupdate').attr('src', 'public/images/post/' + json.filename);
+                    $('form #updateimgpost input[type="submit"]').prop("disabled", true);
                 }
                 else {
 
                     $("#imgpostedit").html('<div class="alert alert-danger">json.error </div>');
+                    $('form #updateimgpost input[type="submit"]').prop("disabled", true);
                 }
 
             }	//	SUCCESS

@@ -31,24 +31,33 @@ class FrontendController extends DefaultController
         exit;
     }
 
-    function getCategory()
+    function getFormConnect()
     {
-
-        $categoryManager = new CategoryManager();
-        $gategory = $categoryManager->getCategory();
-
-//        return $gategory;
-//        $content = $this->_twig->render('base.html.twig', ['navCategory' => $gategory]);
-        $content = $this->_twig->render('nav.html.twig', ['navCategory' => $gategory]);
+        $content = $this->_twig->render('formConnect.html.twig', ['title' => 'Admin']);
         return $content;
-
     }
 
+//    function getCategory()
+//    {
+//
+//        $categoryManager = new CategoryManager();
+//        $gategory = $categoryManager->getCategory();
+//
+////        return $gategory;
+////        $content = $this->_twig->render('base.html.twig', ['navCategory' => $gategory]);
+//        $content = $this->_twig->render('nav.html.twig', ['navCategory' => $gategory]);
+//        return $content;
+//
+//    }
+    //-------------------------------------------------------------------------------------------------------------
+    //----------------------------------------     POST -----------------------------------------------------------
+    //-------------------------------------------------------------------------------------------------------------
     function getListPost()
     {
 
         $manager = new PostManager();
         $posts = $manager->getListPost();
+
 
         foreach ($posts as $key => $aData) {
             foreach ($aData as $nameColumn => $value) {
@@ -58,8 +67,82 @@ class FrontendController extends DefaultController
             }
 
         }
+        foreach ($posts as $key => $aData) {
+            $commentManager = new CommentManager();
+            $aComments = $commentManager->getCommentValidByIdPost($aData['id']);
+            $posts[$key]['nbrcomment'] = count($aComments);
+        }
+
 
         $content = $this->_twig->render('listPost.html.twig', ['posts' => $posts]);
+        return $content;
+
+    }
+
+
+    /**
+     * @param $id
+     * @return string
+     * @throws Twig_Error_Loader
+     * @throws Twig_Error_Runtime
+     * @throws Twig_Error_Syntax
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
+    function getPost($id)
+    {
+
+        $commentManager = new CommentManager();
+        $aComments = $commentManager->getlist($id);
+
+        $disableBtSendComment = 0;
+        if (isset($_SESSION['iduser'])) {
+            $aCommentsAuthorNotValid = $commentManager->getCommentNotValidByIdAuthor($_SESSION['iduser']);
+            if (count($aCommentsAuthorNotValid) !== 0) {
+                $disableBtSendComment = 1;
+            }
+        }
+
+
+        $aListCommentParent = [];
+        foreach ($aComments as $aData) {
+            if ($aData['parentid'] === '0') {
+                $aListCommentParent[$aData['id']] = $aData;
+            }
+
+        }
+        foreach ($aComments as $aData) {
+            if ($aData['parentid'] !== '0') {
+                foreach ($aListCommentParent as $idcomment => $aCommentData) {
+                    if ((int)$aData['parentid'] === $idcomment) {
+                        $aListCommentParent[$idcomment]['commentsChild'][] = $aData;
+                    }
+                }
+            }
+
+        }
+        $aListCommentParentChild = array_values($aListCommentParent);
+
+        $postManager = new PostManager();
+        $post = $postManager->getPost($id);
+//        var_dump($post);
+        $content = $this->_twig->render('post.html.twig', [
+            'idauthorcomment' => (isset($_SESSION['iduser']) === true) ? (int)$_SESSION['iduser'] : '',
+            'connectid'       => (isset($_SESSION['iduser'])) ? $_SESSION['iduser'] : '',
+            'postid'          => $post['id'],
+            'disabledBt'      => $disableBtSendComment,
+            'title'           => $post['title'],
+            'content'         => $post['content'],
+            'category'        => $post['name'],
+            'author'          => $post['author'],
+            'postimg'         => $post['postimg'],
+            'createDate'      => date('d/m/Y', strtotime($post['createDate'])),
+            'comments'        => $aListCommentParentChild,
+            'countcomments'   => count($aComments),
+//            'postContent' => $post->content(),
+        ]);
+
         return $content;
 
     }
@@ -99,68 +182,6 @@ class FrontendController extends DefaultController
     }
 
 
-    function getFormConnect()
-    {
-        $content = $this->_twig->render('formConnect.html.twig', ['title' => 'Admin']);
-        return $content;
-    }
-
-
-    /**
-     * @param $id
-     * @return string
-     * @throws Twig_Error_Loader
-     * @throws Twig_Error_Runtime
-     * @throws Twig_Error_Syntax
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
-     */
-    function getPost($id)
-    {
-
-        $commentManager = new CommentManager();
-        $aComments = $commentManager->getlist($id);
-
-        $aListCommentParent = [];
-        foreach ($aComments as $aData) {
-            if ($aData['parentid'] === '0') {
-                $aListCommentParent[$aData['id']] = $aData;
-            }
-
-        }
-        foreach ($aComments as $aData) {
-            if ($aData['parentid'] !== '0') {
-                foreach ($aListCommentParent as $idcomment => $aCommentData) {
-                    if ((int)$aData['parentid'] === $idcomment) {
-                        $aListCommentParent[$idcomment]['commentsChild'][] = $aData;
-                    }
-                }
-            }
-
-        }
-        $aListCommentParentChild = array_values($aListCommentParent);
-
-        $postManager = new PostManager();
-        $post = $postManager->getPost($id);
-//        var_dump($post);
-        $content = $this->_twig->render('post.html.twig', [
-            'idauthorcomment' => (isset($_SESSION['iduser']) === true) ? $_SESSION['iduser'] : '',
-            'postid'          => $post['id'],
-            'title'           => $post['title'],
-            'content'         => $post['content'],
-            'category'        => $post['name'],
-            'author'          => $post['author'],
-            'postimg'         => $post['postimg'],
-            'createDate'      => date('d/m/Y', strtotime($post['createDate'])),
-            'comments'        => $aListCommentParentChild,
-            'countcomments'   => count($aComments),
-//            'postContent' => $post->content(),
-        ]);
-
-        return $content;
-
-    }
     //-------------------------------------------------------------------------------------------------------------
     //----------------------------------------     PROJECT  -----------------------------------------------------------
     //-------------------------------------------------------------------------------------------------------------
@@ -169,10 +190,8 @@ class FrontendController extends DefaultController
     {
 
 
-
         $manager = new ProjectManager();
         $project = $manager->getProject($id);
-
 
 
         $content = $this->_twig->render('project.html.twig', ['project' => $project]);

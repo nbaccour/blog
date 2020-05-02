@@ -45,7 +45,48 @@
                                     <h3>{{ commentParent.firstname }}</h3>
                                     <div class="meta">{{ commentParent.createDate }}</div>
                                     <p> {{ commentParent.comment }}</p>
-                                    <p><a href="#" class="reply rounded">Répondre</a></p>
+                                    {% if session.firstname %}
+                                        {#{% if connectid != commentParent.author %}#}
+                                        <button id="{{ commentParent.id }}"
+                                                class="replycommentchild btn btn-primary"
+                                                type="submit" {% if disabledBt == 1 %} disabled title="Vous avez des commentaires non valide" {% endif %}>
+                                            Répondre
+                                        </button>
+                                        {#{% endif %}#}
+                                        <div id="replycommentform_{{ commentParent.id }}"
+                                             class="comment-form-wrap pt-1 d-none">
+                                            {#<h3 class="mb-5">Ajouter un commentaire</h3>#}
+                                            <div id="childcommentadd_{{ commentParent.id }}"></div>
+                                            <form class="addcommentChild p-1 bg-light">
+
+                                                <div class="form-group">
+                                                    {#<label for="message">Votre avis</label>#}
+                                                    <textarea name="comment"
+                                                              id="comment_{{ commentParent.id }}" cols="30" rows="4"
+                                                              class="form-control"></textarea>
+                                                    <input type="hidden" name="postid"
+                                                           id="postid_{{ commentParent.id }}" value="{{ postid }}"
+                                                           class="form-control">
+                                                    <input type="hidden" name="author"
+                                                           id="author_{{ commentParent.id }}"
+                                                           value="{{ idauthorcomment }}"
+                                                           class="form-control">
+                                                    <input type="hidden" name="parentid"
+                                                           id="parentid_{{ commentParent.id }}"
+                                                           value={{ commentParent.id }}
+                                                           class="form-control">
+                                                </div>
+                                                <div class="form-group" id="btsendCommentChild">
+                                                    <input id="bt_{{ commentParent.id }}" type="submit"
+                                                           class="btn btn-primary btn-sm" value="Envoyer">
+                                                    <input id="cancellchild_{{ commentParent.id }}" type="submit"
+                                                           class="cancelsendcommentchild btn btn-secondary btn-sm btn-danger"
+                                                           value="Annuler">
+                                                </div>
+
+                                            </form>
+                                        </div>
+                                    {% endif %}
                                 </div>
                                 {% if  commentParent.commentsChild %}
                                     <ul class="children">
@@ -58,7 +99,9 @@
                                                     <h3>{{ datacomment.firstname }}</h3>
                                                     <div class="meta">{{ datacomment.createDate }}</div>
                                                     <p>{{ datacomment.comment }}</p>
-                                                    <p><a href="#" class="reply rounded">Répondre</a></p>
+                                                    {#{% if session.firstname %}#}
+                                                    {#<p><a href="#" class="reply rounded">Répondre</a></p>#}
+                                                    {#{% endif %}#}
                                                 </div>
 
                                             </li>
@@ -88,7 +131,9 @@
                                            class="form-control">
                                 </div>
                                 <div class="form-group" id="btsendComment">
-                                    <input type="submit" value="Envoyer" class="btn btn-primary">
+                                    <input type="submit"
+                                           value="Envoyer" {% if disabledBt == 1 %} disabled title="Vous avez des commentaires non valide" {% endif %}
+                                           class="btn btn-primary">
                                 </div>
 
                             </form>
