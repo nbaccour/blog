@@ -37,6 +37,11 @@ class FrontendController extends DefaultController
         return $content;
     }
 
+    function getPage($namePage)
+    {
+        $content = $this->_twig->render($namePage . '.html.twig', ['title' => 'Admin']);
+        return $content;
+    }
 //    function getCategory()
 //    {
 //

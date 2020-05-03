@@ -95,6 +95,50 @@ $(document).ready(function () {
         ;	//	AJAX
 
     });
+    $('#contactadmin').submit(function (e) {
+
+        e.preventDefault();
+
+
+        var inputs = $(this).serializeArray();
+        var oCommentData = new FormData();
+        // console.log(inputs);
+
+        $.each(inputs, function (i, field) {
+            oCommentData.append(field.name, field.value);
+        });
+        // console.log(oCommentData);
+        oCommentData.append('action', 'contactadmin');
+
+        $.ajax({
+            type: "POST",
+            url: 'public/ajax/add.php',
+            contentType: false,
+            processData: false,
+            // data: oPostData,
+            data: oCommentData,
+            // error: function (request, statut, error) {
+            //     console.log(error);
+            // },
+            success: function (json) {
+                if (json.result === 'Success') {
+
+                    $("#contactadminmessage").html("<div class=\"alert alert-success\">Votre message a été envoyé</div>");
+                    $('form #btsendmessage input[type="submit"]').prop("disabled", true);
+
+                }
+                else {
+
+                    $("#contactadminmessage").html('<div class="alert alert-danger">Erreur : Ajout message</div>');
+                    $('form #btsendmessage input[type="submit"]').prop("disabled", true);
+                }
+
+            }	//	SUCCESS
+        })
+        ;	//	AJAX
+
+    });
+
     $('#addcomment').submit(function (e) {
 
         e.preventDefault();

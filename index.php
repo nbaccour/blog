@@ -47,6 +47,20 @@ switch ($request_method) {
             echo $connectOut;
             exit();
 
+        } elseif (isset($_GET['action']) && $_GET['action'] === 'about') {
+
+            // about
+            $connectOut = $frontendController->getPage('about');
+            echo $connectOut;
+            exit();
+
+        } elseif (isset($_GET['action']) && $_GET['action'] === 'contact') {
+
+            // about
+            $connectOut = $frontendController->getPage('contact');
+            echo $connectOut;
+            exit();
+
         } elseif (isset($_GET['action']) && $_GET['action'] === 'project') {
             if (isset($_GET['id']) && $_GET['id'] > 0) {
                 $contentProject = $frontendController->getProject($_GET['id']);

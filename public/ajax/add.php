@@ -11,12 +11,32 @@ include_once('../../app/model/UserManager.php');
 include_once('../../app/model/User.php');
 include_once('../../app/model/CommentManager.php');
 include_once('../../app/model/Comment.php');
+include_once('../../app/model/MessageManager.php');
+include_once('../../app/model/Message.php');
 
 require('../../vendor/autoload.php');
 require('../../public/functions/function.php');
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    if ($_POST['action'] === 'contactadmin') {
+
+        $addMessage = false;
+        if ($_POST['content'] !== '' && $_POST['email'] !== '') {
+            $messageManager = new App\model\MessageManager();
+            $addMessage = $messageManager->addMessage($_POST);
+        }
+
+
+        if ($addMessage === true) {
+            $return['result'] = 'Success';
+            jsonGenerate($return);
+        } else {
+            $return['result'] = 'Failed';
+            jsonGenerate($return);
+        }
+    }
 
     if ($_POST['action'] === 'addcomment') {
 
