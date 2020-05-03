@@ -89,6 +89,25 @@ LEFT JOIN users AS us ON (co.author = us.id) WHERE co.postid = :id AND co.statut
         }
         return $aComments;
     }
+    public function getCommentNotValidByIdAuthorByIdPost($id, $postId)
+    {
+        $db = $this->dbconnect();
+
+        $aComments = [];
+        $req = $db->prepare('select * from comments WHERE author = :author AND postid = :postid AND valid = 0 ORDER BY createDate DESC') or die(print_r($db>errorInfo()));
+
+        $req->bindValue(':author', $id);
+        $req->bindValue(':postid', $postId);
+        $req->execute();
+
+
+
+        while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
+
+            array_push($aComments, $data);
+        }
+        return $aComments;
+    }
 
     public function getCommentValidByIdPost($id)
     {

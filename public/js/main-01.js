@@ -99,18 +99,15 @@ $(document).ready(function () {
 
         e.preventDefault();
 
-        // var oPostData = new FormData();
-        //
-        // oPostData.append('postid', $("input#postid").val());
-        // oPostData.append('author', $("input#author").val());
-        // oPostData.append('parentid', $("input#parentid").val());
-        // oPostData.append('action', 'addcomment');
-        // oPostData.append('comment', $("textarea#comment").val());
 
-        var inputs = $(this).serialize();
+        var inputs = $(this).serializeArray();
         var oCommentData = new FormData();
+        // console.log(inputs);
 
-        oCommentData.append('data', inputs);
+        $.each(inputs, function (i, field) {
+            oCommentData.append(field.name, field.value);
+        });
+        // console.log(oCommentData);
         oCommentData.append('action', 'addcomment');
 
         $.ajax({
@@ -146,11 +143,14 @@ $(document).ready(function () {
 
         e.preventDefault();
 
-        // var inputs = $.extend(formAsObject($(".addcommentChild")), {"action": 'addcomment'});
-        var inputs = $(this).serialize();
+        var inputs = $(this).serializeArray();
         var oCommentData = new FormData();
+        // console.log(inputs);
 
-        oCommentData.append('data', inputs);
+        $.each(inputs, function (i, field) {
+            oCommentData.append(field.name, field.value);
+        });
+        // console.log(oCommentData);
         oCommentData.append('action', 'addcomment');
 
         ;$.ajax({

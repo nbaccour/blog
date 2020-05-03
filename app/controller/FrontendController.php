@@ -124,7 +124,8 @@ class FrontendController extends DefaultController
 
         $disableBtSendComment = 0;
         if (isset($_SESSION['iduser'])) {
-            $aCommentsAuthorNotValid = $commentManager->getCommentNotValidByIdAuthor($_SESSION['iduser']);
+//            $aCommentsAuthorNotValid = $commentManager->getCommentNotValidByIdAuthor($_SESSION['iduser']);
+            $aCommentsAuthorNotValid = $commentManager->getCommentNotValidByIdAuthorByIdPost($_SESSION['iduser'], $id);
             if (count($aCommentsAuthorNotValid) !== 0) {
                 $disableBtSendComment = 1;
             }
