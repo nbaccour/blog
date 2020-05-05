@@ -27,4 +27,11 @@ class DefaultController
 
 
     }
+
+    public function getUrlPage()
+    {
+        $requestUri = $_SERVER['REQUEST_URI'];
+        return $requestUri;
+
+    }
 }

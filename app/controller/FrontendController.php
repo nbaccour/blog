@@ -42,6 +42,7 @@ class FrontendController extends DefaultController
         $content = $this->_twig->render($namePage . '.html.twig', ['title' => 'Admin']);
         return $content;
     }
+
 //    function getCategory()
 //    {
 //
@@ -78,8 +79,8 @@ class FrontendController extends DefaultController
             $posts[$key]['nbrcomment'] = count($aComments);
         }
 
-
-        $content = $this->_twig->render('listPost.html.twig', ['posts' => $posts]);
+        $urlPage = $this->getUrlPage();
+        $content = $this->_twig->render('listPost.html.twig', ['posts' => $posts, 'requestUri' => $urlPage]);
         return $content;
 
     }

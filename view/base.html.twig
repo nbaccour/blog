@@ -32,13 +32,10 @@
         {{ include('logo.html.twig') }}
 
         {{ include('nav.html.twig') }}
-        {#{% include 'nav.html.twig' with {'aMenu': nav} %}#}
-        {#{{ render(controller('App\\controller\\FrontendController::getCategory')) }}#}
-        {#{{ render(path('App\controller\FrontendController::getCategory')) }}#}
     </header>
     {#{{ dump(category) }}#}
     <!-- END header -->
-    {% if urlPage %}
+    {% if requestUri %}
         {{ include('slides.html.twig') }}
     {% endif %}
 
@@ -63,7 +60,7 @@
             </div>
         </div>
     </section>
-    {#{{ include('footer.html.twig') }}#}
+    {{ include('footer.html.twig') }}
     <!-- END footer -->
 
 </div>
