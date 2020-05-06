@@ -44,7 +44,8 @@ if ($isConnect === false) {
     if (isset($_GET['action']) && $_GET['action'] === 'connectAdmin') {
 
         $checkUser = $frontendController->checkUser();
-        echo $checkUser;
+//        echo $checkUser;
+        print_r($checkUser);
         exit();
     } else {
         $contentFormConnect = $frontendController->getFormConnect();
@@ -126,39 +127,6 @@ if ($isConnect === false) {
                     exit();
                 }
                 break;
-            case 'POST':
-//                if (isset($_GET['action']) && $_GET['action'] === 'addpost') {
-//                    // Ajouter un article
-//                    $contentAddPost = $frontendController->addPost();
-//                    echo $contentAddPost;
-//                    exit();
-//                } elseif (isset($_GET['action']) && $_GET['action'] === 'updatepost') {
-//                    if (!empty($_GET["id"])) {
-//                        // Récupérer un seul article
-//                        $contentPost = $frontendController->updatePost($_GET['id']);
-//                        echo $contentPost;
-//                        exit();
-//                    }
-//                }
-
-                break;
-//    case 'PUT':
-//        // Modifier un article
-//        $id = intval($_GET["id"]);
-//        updatePost($id);
-//        break;
-            case 'DELETE':
-//                if (isset($_GET['action']) && $_GET['action'] === 'deletepost') {
-//                    if (!empty($_GET["id"])) {
-////                var_dump($_GET);
-//                        // Supprimer un article
-//                        $id = intval($_GET["id"]);
-//                        $contentDeletePost = $frontendController->deletePost($id);
-//                        echo $contentDeletePost;
-//                        exit();
-//                    }
-//
-//                }
             default:
                 // Requête invalide
                 header("HTTP/1.0 405 Method Not Allowed");
