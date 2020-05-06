@@ -167,7 +167,7 @@ $(document).ready(function () {
             success: function (json) {
                 if (json.result === 'Success') {
 
-                    $("#commentadd").html("<div class=\"alert alert-success\">Votre commentaire a été envoyé</div>");
+                    $("#commentadd").html("<div class=\"alert alert-success\">Votre commentaire a été envoyé et en attente de validation</div>");
                     $('form #btsendComment input[type="submit"]').prop("disabled", true);
 
                 }
@@ -208,7 +208,7 @@ $(document).ready(function () {
             // },
             success: function (json) {
                 if (json.result === 'Success') {
-                    $("#childcommentadd_" + json.parentid).html("<div class=\"alert alert-success\">Votre commentaire a été envoyé</div>");
+                    $("#childcommentadd_" + json.parentid).html("<div class=\"alert alert-success\">Votre commentaire a été envoyé et en attente de validation</div>");
                     $('form #btsendCommentChild input[type="submit"]').prop("disabled", true);
 
                     // $("#childcommentadd").html("<div class=\"alert alert-success\">Votre commentaire a été envoyé</div>");

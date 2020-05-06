@@ -32,7 +32,13 @@
 
                 <div class="pt-5">
                     <h3 class="mb-5">{{ countcomments }} Commentaires</h3>
-
+                    {% if disabledBt == 1 %}
+                        <div class="alert alert-info" role="alert">Vous ne pouvez pas envoyer des commentaires pour cet
+                            article car vous
+                            avez un ou des commentaires en attente de
+                            validation
+                        </div>
+                    {% endif %}
                     {#//----------------------------------------------------#}
 
                     <ul class="comment-list">
@@ -48,8 +54,8 @@
                                     {% if session.firstname %}
                                         {#{% if connectid != commentParent.author %}#}
                                         <button id="{{ commentParent.id }}"
-                                                class="replycommentchild btn btn-primary"
-                                                type="submit" {% if disabledBt == 1 %} disabled title="Vous avez des commentaires non valide" {% endif %}>
+                                                class="replycommentchild btn btn-primary {% if disabledBt == 1 %}  d-none{% endif %}"
+                                                type="submit">
                                             Répondre
                                         </button>
                                         {#{% endif %}#}
@@ -114,7 +120,7 @@
                     <!-- END comment-list -->
                     {% if session.firstname %}
 
-                        <div class="comment-form-wrap pt-5">
+                        <div class="comment-form-wrap pt-5 {% if disabledBt == 1 %}  d-none{% endif %}">
                             <h3 class="mb-5">Ajouter un commentaire</h3>
                             <div id="commentadd"></div>
                             <form id="addcomment" class="p-5 bg-light">
@@ -132,8 +138,8 @@
                                 </div>
                                 <div class="form-group" id="btsendComment">
                                     <input type="submit"
-                                           value="Envoyer" {% if disabledBt == 1 %} disabled title="Vous avez des commentaires non valide" {% endif %}
-                                           class="btn btn-primary">
+                                           value="Envoyer"
+                                           class="btn btn-primary ">
                                 </div>
 
                             </form>
