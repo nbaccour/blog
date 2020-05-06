@@ -10,9 +10,9 @@ Utilisez les commande
 
 L'installation est terminée.
 
-2- Site Backoffice : Administration 
+2- Site Backoffice ( Administration ):
 dans le repertoire admin, avec l'invite de commande git executer la commande ci-dessous
-composer install
+- composer install
 
 
 
