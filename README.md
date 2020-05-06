@@ -1,5 +1,5 @@
 # blog
-1- Site frontoffice : blog
+1- Site : blog
 Pour installer le projet sur le client vous devez vous rendre sur le lien suivant : "https://github.com/nbaccour/blog". 
 Après avoir copié l'URL du projet qui apparaît lorsque vous appuyez sur le bouton "clone or download", 
 rendez-vous dans l'invite de commande git, ouverte à l'endroit où vous souhaitez placer le projet. 
@@ -14,15 +14,6 @@ L'installation est terminée.
 dans le repertoire admin, avec l'invite de commande git executer la commande ci-dessous
 composer install
 
-Données connexion utilisateur du site :
 
-identifiant : ndupond
-mot de passe : test
 
-identifiant : mrezeau
-mot de passe : test
 
-Données connexion administrateur du site :
-
-identifiant : admin
-mot de passe : testtest
