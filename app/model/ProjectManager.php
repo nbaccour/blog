@@ -31,25 +31,5 @@ class ProjectManager extends DataBase
     }
 
 
-//    function getListProject()
-//    {
-//        $db = $this->dbconnect();
-//        $projects = [];
-//        $req = $db->prepare('SELECT * FROM projects ORDER BY id DESC') or die(print_r($db->errorInfo()));
-//        if ($req->execute()) {
-//
-//            while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
-//                array_push($projects, $data);
-//            }
-//
-//
-//            return $projects;
-////            return $aData;
-//        } else {
-//            throw new Exception('Impossible de trouver les projets !');
-//        }
-//
-//    }
-
 
 }

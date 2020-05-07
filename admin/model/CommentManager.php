@@ -73,6 +73,7 @@ LEFT JOIN users AS us ON (co.author = us.id) WHERE co.postid = :id AND co.statut
         }
         return $aComments;
     }
+
     function getComment($id)
     {
 
@@ -129,56 +130,7 @@ WHERE co.id = :id ORDER BY co.id DESC')
         }
 
     }
-////Delete Comment method
-//    public function delete($id)
-//    {
-//        $db = $this->dbconnect();
-//        $req = $db->prepare('DELETE FROM comments WHERE id = :id');
-//        $req->bindValue(':id', $id);
-//        $req->execute();
-//    }
-////Get Status method
-//    public function getStatus($status)
-//    {
-//        $db = $this->dbconnect();
-//        $comments = [];
-//        $req = $db->prepare('select * from comments WHERE  statut = :status') or die(print_r($db->errorInfo()));
-//        $req->bindValue(':status', $status);
-//        $req->execute();
-//        while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
-//            $comment = new Cmt();
-//            $comment->hydrate($data);
-//            array_push($comments, $comment);
-//        }
-//        return $comments;
-//    }
 
-
-
-//// Cancel Report method
-//    public function cancelReport($id)
-//    {
-//        $db = $this->dbconnect();
-//        $req = $db->prepare('UPDATE comments SET reporting = 0 WHERE id = :id');
-//        $req->bindValue(':id', $id);
-//        $req->execute();
-//    }
-//// Get reporting method
-//    public function getReporting($reporting)
-//    {
-//        $db = $this->dbconnect();
-//        $comments = [];
-//        $req = $db->prepare('select * from comments WHERE  reporting = :reporting') or die(print_r($bdd->errorInfo()));
-//        $req->bindValue(':reporting', $reporting);
-//        $req->execute();
-//        while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
-//            $comment = new Cmt();
-//            $comment->hydrate($data);
-//            array_push($comments, $comment);
-//        }
-//        return $comments;
-//    }
-// Count comment method
     public function countComment()
     {
         $db = $this->dbconnect();
@@ -188,14 +140,4 @@ WHERE co.id = :id ORDER BY co.id DESC')
         $count = $data['statut'];
         return $count;
     }
-//// Count reporting comment method
-//    public function countReporting()
-//    {
-//        $db = $this->dbconnect();
-//        $req = $db->prepare('SELECT COUNT(*) AS reporting FROM comments WHERE reporting = 1') or die(print_r($bdd->errorInfo()));
-//        $req->execute();
-//        $data = $req->fetch(PDO::FETCH_ASSOC);
-//        $count = $data['reporting'];
-//        return $count;
-//    }
 }
