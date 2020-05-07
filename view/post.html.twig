@@ -32,6 +32,11 @@
 
                 <div class="pt-5">
                     <h3 class="mb-5">{{ countcomments }} Commentaires</h3>
+                    {% if not  session.firstname %}
+                        <div class="alert alert-info" role="alert">Pour ajouter votre commentaire, vous
+                            devez être connecté.
+                        </div>
+                    {% endif %}
                     {% if disabledBt == 1 %}
                         <div class="alert alert-info" role="alert">Vous ne pouvez pas envoyer des commentaires pour cet
                             article car vous
