@@ -4,7 +4,7 @@
 
 2- url blog(Amin) : http://oc-blog.nizarbaccour.org/admin
 
-3- Site frontoffice : blog
+3- Site : blog
 
 Pour installer le projet en localhost vous devez vous rendre sur le lien suivant : "https://github.com/nbaccour/blog". 
 Après avoir copié l'URL du projet qui apparaît lorsque vous appuyez sur le bouton "clone or download", 
