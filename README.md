@@ -17,7 +17,7 @@ Utilisez les commandes :
 'URL du projet' = "https://github.com/nbaccour/blog.git"
 
 
-4- Site Backoffice : Administration 
+4- Site Backoffice (Administration):  
 dans le repertoire admin, avec l'invite de commande git executer la commande ci-dessous
 - composer install
 
