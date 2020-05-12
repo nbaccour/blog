@@ -1,8 +1,8 @@
 # blog
 
-1- url blog : "http://oc-blog.nizarbaccour.org/"
+1- url blog : [http://oc-blog.nizarbaccour.org/]
 
-2- url blog(Amin) : "http://oc-blog.nizarbaccour.org/admin"
+2- url blog(Amin) : [http://oc-blog.nizarbaccour.org/admin]
 
 3- Site : blog
 
@@ -14,7 +14,7 @@ Utilisez les commandes :
 - composer install
 - executer le fichier donnees-bdd.sql
 
-'URL du projet' = "https://github.com/nbaccour/blog.git"
+'URL du projet' = [https://github.com/nbaccour/blog.git]
 
 
 4- Site Backoffice (Administration):  
