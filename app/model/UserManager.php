@@ -16,55 +16,60 @@ class UserManager extends DataBase
 
 
         $db = $this->dbconnect();
-        $req = $db->prepare('SELECT * FROM users WHERE login = :login AND password = :password');
-        $req->bindValue(':login', htmlspecialchars($_POST['login']));
-        $req->bindValue(':password', md5($_POST['password']));
-        $req->execute();
-        $data = $req->fetch(\PDO::FETCH_ASSOC);
-        if ($data) {
-            return $data;
-        } else {
-            return ['error' => 'Nom utilisateur ou mot de passe invalide'];
+        try {
+            $req = $db->prepare('SELECT * FROM users WHERE login = :login AND password = :password');
+            $req->bindValue(':login', htmlspecialchars($_POST['login']));
+            $req->bindValue(':password', md5($_POST['password']));
+            $req->execute();
+            $data = $req->fetch(\PDO::FETCH_ASSOC);
+            if ($data) {
+                return $data;
+            } else {
+                return ['error' => 'Nom utilisateur ou mot de passe invalide'];
+            }
+
+        } catch (Exception $e) {
+
+            throw new \Exception($e->getMessage());
         }
+
 
     }
 
     function addUser($POST)
     {
         $db = $this->dbconnect();
+        try {
+            $user = new User();
+            $user->setAttribute($POST);
 
-        $user = new User();
-        $user->setAttribute($POST);
+            $lastname = $user->lastname();
+            $firstname = $user->firstname();
+            $email = $user->email();
+            $role = $user->role();
+            $login = $user->login();
+            $password = md5($user->password());
 
-        $lastname = $user->lastname();
-        $firstname = $user->firstname();
-        $email = $user->email();
-        $role = $user->role();
-        $login = $user->login();
-        $password = md5($user->password());
-
-        $createDate = date('Y-m-d H:i:s');
-
-
-        $req = $db->prepare('INSERT INTO users(lastname, firstname, email, role, login,password, createDate) VALUE (:lastname,:firstname,:email,:role,:login,:password,:createDate)')
-        or die(print_r($db->errorInfo()));
-
-        $req->bindParam(':lastname', $lastname);
-        $req->bindParam(':firstname', $firstname);
-        $req->bindParam(':email', $email);
-        $req->bindParam(':role', $role);
-        $req->bindParam(':login', $login);
-        $req->bindParam(':password', $password);
-        $req->bindParam(':createDate', $createDate);
+            $createDate = date('Y-m-d H:i:s');
 
 
-        if ($req->execute()) {
-            return true;
-        } else {
-//                return 'erreur';
-            return ['error' => $db->errorInfo()];
+            $req = $db->prepare('INSERT INTO users(lastname, firstname, email, role, login,password, createDate) VALUE (:lastname,:firstname,:email,:role,:login,:password,:createDate)');
+
+            $req->bindParam(':lastname', $lastname);
+            $req->bindParam(':firstname', $firstname);
+            $req->bindParam(':email', $email);
+            $req->bindParam(':role', $role);
+            $req->bindParam(':login', $login);
+            $req->bindParam(':password', $password);
+            $req->bindParam(':createDate', $createDate);
+
+            return $req->execute();
+
+
+        } catch (Exception $e) {
+
+            throw new \Exception($e->getMessage());
         }
 
-        $db->close();
     }
 }

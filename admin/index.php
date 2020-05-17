@@ -31,6 +31,9 @@ require('controller/function.php');
 
 
 $frontendController = new FrontendController();
+$userController = new UserController();
+$postController = new PostController();
+$commentController = new CommentController();
 
 $isConnect = false;
 
@@ -42,7 +45,7 @@ if (isset($_SESSION['login']) === true) {
 if ($isConnect === false) {
     if (isset($_GET['action']) && $_GET['action'] === 'connectAdmin') {
 
-        $checkUser = $frontendController->checkUser();
+        $checkUser = $userController->checkUser();
         print_r($checkUser);
         exit();
     } else {
@@ -66,12 +69,12 @@ if ($isConnect === false) {
 
                     // Formulaire ajouter un article
                     $id = (isset($_GET['id']) === true) ? $_GET['id'] : '';
-                    $contentFormPost = $frontendController->getFormPost($id);
+                    $contentFormPost = $postController->getFormPost($id);
                     echo $contentFormPost;
                     exit();
 
                 } elseif (isset($_GET['action']) && $_GET['action'] === 'posts') {
-                    $contentListPost = $frontendController->getListPost();
+                    $contentListPost = $postController->getListPost();
                     echo $contentListPost;
                     exit();
 
@@ -79,12 +82,12 @@ if ($isConnect === false) {
 
                     // Formulaire ajouter un membre
                     $id = (isset($_GET['id']) === true) ? $_GET['id'] : '';
-                    $contentFormPost = $frontendController->getFormUser($id);
+                    $contentFormPost = $userController->getFormUser($id);
                     echo $contentFormPost;
                     exit();
 
                 } elseif (isset($_GET['action']) && $_GET['action'] === 'users') {
-                    $contentListUser = $frontendController->getListUser();
+                    $contentListUser = $userController->getListUser();
                     echo $contentListUser;
                     exit();
 
@@ -92,22 +95,22 @@ if ($isConnect === false) {
 
                     // Formulaire mettre à jour un commentaire
                     $id = (isset($_GET['id']) === true) ? $_GET['id'] : '';
-                    $contentFormComment = $frontendController->getFormComment($id, $_GET['mode']);
+                    $contentFormComment = $commentController->getFormComment($id, $_GET['mode']);
                     echo $contentFormComment;
                     exit();
 
                 } elseif (isset($_GET['action']) && $_GET['action'] === 'comment') {
-                    $contentListomment = $frontendController->getListAllComment();
+                    $contentListomment = $commentController->getListAllComment();
                     echo $contentListomment;
                     exit();
 
                 } elseif (isset($_GET['action']) && $_GET['action'] === 'statutcomment') {
-                    $contentListomment = $frontendController->getListAllComment(['mode' => 'statut']);
+                    $contentListomment = $commentController->getListAllComment(['mode' => 'statut']);
                     echo $contentListomment;
                     exit();
 
                 } elseif (isset($_GET['action']) && $_GET['action'] === 'validcomment') {
-                    $contentListomment = $frontendController->getListAllComment(['mode' => 'valid']);
+                    $contentListomment = $commentController->getListAllComment(['mode' => 'valid']);
                     echo $contentListomment;
                     exit();
 
@@ -119,7 +122,7 @@ if ($isConnect === false) {
                     }
                 } else {
                     // Récupérer tous les articles
-                    $contentListPost = $frontendController->getListPost();
+                    $contentListPost = $postController->getListPost();
                     echo $contentListPost;
                     exit();
                 }
@@ -132,8 +135,6 @@ if ($isConnect === false) {
     } catch (Exception $e) { // S'il y a eu une erreur, alors...
         echo 'Erreur : ' . $e->getMessage();
 
-//    $errorMessage = $e->getMessage();
-//    require('view/errorView.php');
     }
 }
 

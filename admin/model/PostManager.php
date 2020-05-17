@@ -14,83 +14,98 @@ class PostManager extends DataBase
     function getListPost()
     {
         $db = $this->dbconnect();
-        $posts = [];
-        $req = $db->prepare('SELECT po.id, po.title, po.content, po.author, po.postimg, po.idcategory, po.createDate, cat.name 
+
+        try {
+            $posts = [];
+            $req = $db->prepare('SELECT po.id, po.title, po.content, po.author, po.postimg, po.idcategory, po.createDate, cat.name 
 FROM posts AS po 
-LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC') or die(print_r($db->errorInfo()));
-//        $req = $db->prepare('SELECT * FROM posts ORDER BY id DESC') or die(print_r($db->errorInfo()));
-        if ($req->execute()) {
+LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC');
 
-            while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
-                array_push($posts, $data);
+            if ($req->execute()) {
+
+                while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+                    array_push($posts, $data);
+                }
+
+                return $posts;
+
+            } else {
+                throw new Exception('Impossible de trouver les articles !');
             }
+        } catch (Exception $e) {
 
-
-            return $posts;
-//            return $aData;
-        } else {
-            throw new Exception('Impossible trouver les articles !');
+            throw new Exception($e->getMessage());
         }
+
 
     }
 
-    /**
-     * @param $idPost
-     * @return Post
-     */
+
     function getPost($idPost)
     {
 
         $db = $this->dbconnect();
-        $req = $db->prepare('select * from posts WHERE id = :id') or die(print_r($db->errorInfo()));
-        $req->bindValue(':id', $idPost);
-        $req->execute();
-        $data = $req->fetch(PDO::FETCH_ASSOC);
+        try {
+            $req = $db->prepare('select * from posts WHERE id = :id');
+            $req->bindValue(':id', $idPost);
+            $req->execute();
+            $data = $req->fetch(PDO::FETCH_ASSOC);
 
-        $post = new Post();
-        $post->setAttribute($data);
-        return $post;
+            $post = new Post();
+            $post->setAttribute($data);
+            return $post;
+
+        } catch (Exception $e) {
+
+            throw new Exception($e->getMessage());
+        }
+
     }
 
     function deletePost($id)
     {
 
         $db = $this->dbconnect();
-        $req = $db->prepare('DELETE FROM posts WHERE id= :id') or die(print_r($db->errorInfo()));
-        $req->bindValue(':id', $id);
-        return $req->execute();
+        try {
+            $req = $db->prepare('DELETE FROM posts WHERE id= :id');
+            $req->bindValue(':id', $id);
+            return $req->execute();
+        } catch (Exception $e) {
+
+            throw new Exception($e->getMessage());
+        }
+
 
     }
 
     function updatePost(array $PUT)
     {
         $db = $this->dbconnect();
+        try {
+            $post = new Post();
+            $post->setAttribute($PUT);
 
-        $post = new Post();
-        $post->setAttribute($PUT);
-
-        $modifDate = date('Y-m-d H:i:s');
+            $modifDate = date('Y-m-d H:i:s');
 
 
-        if (intval($post->id()) !== '') {
-            $req = $db->prepare('UPDATE posts SET  title = :title, content = :content, modifDate = :modifDate, idcategory = :idcategory WHERE id = :id')
-            or die(print_r($db->errorInfo()));
+            if (intval($post->id()) !== '') {
+                $req = $db->prepare('UPDATE posts SET  title = :title, content = :content, modifDate = :modifDate, idcategory = :idcategory WHERE id = :id');
 
-            $req->bindValue(':id', intval($post->id()));
-            $req->bindValue(':title', $post->title());
-            $req->bindValue(':content', $post->content());
-            $req->bindValue(':idcategory', intval($post->idcategory()));
-            $req->bindValue(':modifDate', $modifDate);
-//            return $req->execute();
-            if ($req->execute()) {
+                $req->bindValue(':id', intval($post->id()));
+                $req->bindValue(':title', $post->title());
+                $req->bindValue(':content', $post->content());
+                $req->bindValue(':idcategory', intval($post->idcategory()));
+                $req->bindValue(':modifDate', $modifDate);
 
-                return true;
-            } else {
-//                return ['error' => $db->errorInfo()];
-                return ['result' => $db->errorInfo()];
+                return $req->execute();
+
+
             }
+        } catch (Exception $e) {
 
+            throw new Exception($e->getMessage());
         }
+
 
     }
 
@@ -149,20 +164,21 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC') or d
         $errorFilePost = $this->uploadFile($Files);
 
         if ($errorFilePost === false) {
-            $req = $db->prepare('UPDATE posts SET  postimg = :postimg, modifDate = :modifDate  WHERE id = :id')
-            or die(print_r($db->errorInfo()));
+            try {
+                $req = $db->prepare('UPDATE posts SET  postimg = :postimg, modifDate = :modifDate  WHERE id = :id');
 
-            $req->bindValue(':id', intval($id));
-            $req->bindValue(':postimg', $postimg);
-            $req->bindValue(':modifDate', $modifDate);
+                $req->bindValue(':id', intval($id));
+                $req->bindValue(':postimg', $postimg);
+                $req->bindValue(':modifDate', $modifDate);
+                return $req->execute();
 
-            if ($req->execute()) {
-                return true;
-            } else {
-                return 'Erreur : SQL';
+            } catch (Exception $e) {
+
+                throw new Exception($e->getMessage());
             }
+
         } else {
-            return $errorFilePost;
+            throw new Exception($errorFilePost);
         }
     }
 
@@ -186,31 +202,28 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC') or d
 
 
         if ($errorFilePost === false) {
-            $req = $db->prepare('INSERT INTO posts(title, content, author, postimg, idcategory, createDate) VALUE (:title,:content,:author,:postimg,:idcategory,:createDate)')
-            or die(print_r($db->errorInfo()));
+            try {
+                $req = $db->prepare('INSERT INTO posts(title, content, author, postimg, idcategory, createDate) VALUE (:title,:content,:author,:postimg,:idcategory,:createDate)');
 
-            $req->bindParam(':title', $title);
-            $req->bindParam(':content', $content);
-            $req->bindParam(':idcategory', $idcategory);
-            $req->bindParam(':author', $author);
-            $req->bindParam(':postimg', $postimg);
-            $req->bindParam(':createDate', $createDate);
+                $req->bindParam(':title', $title);
+                $req->bindParam(':content', $content);
+                $req->bindParam(':idcategory', $idcategory);
+                $req->bindParam(':author', $author);
+                $req->bindParam(':postimg', $postimg);
+                $req->bindParam(':createDate', $createDate);
 
+                return $req->execute();
 
-            if ($req->execute()) {
-//                return 'Votre produit a été ajouté';
-//                return ['valid' => 'Votre article a été ajouté'];
-                return true;
-            } else {
-//                return 'erreur';
-                return ['error' => $db->errorInfo()];
+            } catch (Exception $e) {
+
+                throw new Exception($e->getMessage());
             }
+
         } else {
-//            return $errorFilePost;
-            return ['error' => $errorFilePost];
+
+            throw new Exception($errorFilePost);
         }
 
-        $db->close();
 
     }
 

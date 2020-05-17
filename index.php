@@ -30,72 +30,75 @@ $frontendController = new FrontendController();
 //$menu = $frontendController
 $request_method = $_SERVER["REQUEST_METHOD"];
 //print_r($request_method);
+try {
+    switch ($request_method) {
+        case 'GET':
+            if (isset($_GET['action']) && $_GET['action'] === 'post') {
+                if (!empty($_GET["id"])) {
+                    // Récupérer un seul article
+                    $contentPost = $frontendController->getPost($_GET['id']);
+                    echo $contentPost;
+                    exit();
+                }
+            } elseif (isset($_GET['action']) && $_GET['action'] === 'connectout') {
 
-switch ($request_method) {
-    case 'GET':
-        if (isset($_GET['action']) && $_GET['action'] === 'post') {
-            if (!empty($_GET["id"])) {
-                // Récupérer un seul article
-                $contentPost = $frontendController->getPost($_GET['id']);
-                echo $contentPost;
+                // Deconnexion
+                $connectOut = $frontendController->connectOut();
+                echo $connectOut;
+                exit();
+
+            } elseif (isset($_GET['action']) && $_GET['action'] === 'about') {
+
+                // about
+                $connectOut = $frontendController->getPage('about');
+                echo $connectOut;
+                exit();
+
+            } elseif (isset($_GET['action']) && $_GET['action'] === 'contact') {
+
+                // about
+                $connectOut = $frontendController->getPage('contact');
+                echo $connectOut;
+                exit();
+
+            } elseif (isset($_GET['action']) && $_GET['action'] === 'project') {
+                if (isset($_GET['id']) && $_GET['id'] > 0) {
+                    $contentProject = $frontendController->getProject($_GET['id']);
+                    echo $contentProject;
+                    exit;
+                }
+            } elseif (isset($_GET['action']) && $_GET['action'] === 'connect') {
+                $contentFormConnect = $frontendController->getFormConnect();
+                echo $contentFormConnect;
+                exit();
+
+            } elseif (isset($_GET['action']) && $_GET['action'] === 'reg') {
+                $id = '';
+                $contentFormUser = $frontendController->getFormUser($id);
+                echo $contentFormUser;
+                exit();
+
+            } elseif (isset($_GET['action']) && $_GET['action'] === 'cat') {
+                if (isset($_GET['name']) && $_GET['name'] !== '') {
+                    $contentProject = $frontendController->getListPostByName($_GET['name']);
+                    echo $contentProject;
+                    exit;
+                }
+
+            } else {
+                // Récupérer tous les articles
+                $contentListPost = $frontendController->getListPost();
+                echo $contentListPost;
                 exit();
             }
-        } elseif (isset($_GET['action']) && $_GET['action'] === 'connectout') {
+            break;
+        default:
+            // Requête invalide
+            header("HTTP/1.0 405 Method Not Allowed");
+            break;
+    }
+} catch (Exception $e) { // S'il y a eu une erreur, alors...
+    echo 'Erreur : ' . $e->getMessage();
 
-            // Deconnexion
-            $connectOut = $frontendController->connectOut();
-            echo $connectOut;
-            exit();
-
-        } elseif (isset($_GET['action']) && $_GET['action'] === 'about') {
-
-            // about
-            $connectOut = $frontendController->getPage('about');
-            echo $connectOut;
-            exit();
-
-        } elseif (isset($_GET['action']) && $_GET['action'] === 'contact') {
-
-            // about
-            $connectOut = $frontendController->getPage('contact');
-            echo $connectOut;
-            exit();
-
-        } elseif (isset($_GET['action']) && $_GET['action'] === 'project') {
-            if (isset($_GET['id']) && $_GET['id'] > 0) {
-                $contentProject = $frontendController->getProject($_GET['id']);
-                echo $contentProject;
-                exit;
-            }
-        } elseif (isset($_GET['action']) && $_GET['action'] === 'connect') {
-            $contentFormConnect = $frontendController->getFormConnect();
-            echo $contentFormConnect;
-            exit();
-
-        } elseif (isset($_GET['action']) && $_GET['action'] === 'reg') {
-            $id = '';
-            $contentFormUser = $frontendController->getFormUser($id);
-            echo $contentFormUser;
-            exit();
-
-        } elseif (isset($_GET['action']) && $_GET['action'] === 'cat') {
-            if (isset($_GET['name']) && $_GET['name'] !== '') {
-                $contentProject = $frontendController->getListPostByName($_GET['name']);
-                echo $contentProject;
-                exit;
-            }
-
-        } else {
-            // Récupérer tous les articles
-            $contentListPost = $frontendController->getListPost();
-            echo $contentListPost;
-            exit();
-        }
-        break;
-    default:
-        // Requête invalide
-        header("HTTP/1.0 405 Method Not Allowed");
-        break;
 }
-
 

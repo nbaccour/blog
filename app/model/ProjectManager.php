@@ -12,24 +12,25 @@ class ProjectManager extends DataBase
 {
 
 
-    /**
-     * @param $id
-     * @return Project
-     */
     function getProject($id)
     {
 
         $db = $this->dbconnect();
-        $req = $db->prepare('select * from projects WHERE id = :id') or die(print_r($db->errorInfo()));
-        $req->bindValue(':id', $id);
-        $req->execute();
-        $data = $req->fetch(\PDO::FETCH_ASSOC);
+        try {
+            $req = $db->prepare('select * from projects WHERE id = :id');
+            $req->bindValue(':id', $id);
+            $req->execute();
+            $data = $req->fetch(\PDO::FETCH_ASSOC);
 
-        $project = new Project();
-        $project->setAttribute($data);
-        return $project;
+            $project = new Project();
+            $project->setAttribute($data);
+            return $project;
+        } catch (Exception $e) {
+
+            throw new \Exception($e->getMessage());
+        }
+
     }
-
 
 
 }
