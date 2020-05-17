@@ -24,8 +24,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $addMessage = false;
         if ($_POST['content'] !== '' && $_POST['email'] !== '') {
-            $messageManager = new App\model\MessageManager();
-            $addMessage = $messageManager->addMessage($_POST);
+            $messageManager = new App\model\ContactManager();
+            $addMessage = $messageManager->sendMessage($_POST);
         }
 
 

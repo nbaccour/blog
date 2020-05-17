@@ -8,7 +8,7 @@
 
 namespace App\model;
 
-class Message
+class Contact
 {
 
     protected $_id;

@@ -116,7 +116,7 @@ $(document).ready(function () {
                 }
                 else {
 
-                    $("#contactadminmessage").html('<div class="alert alert-danger">Erreur : Ajout message</div>');
+                    $("#contactadminmessage").html('<div class="alert alert-danger">Erreur : Contact Admin</div>');
                     $('form #btsendmessage input[type="submit"]').prop("disabled", true);
                 }
 
