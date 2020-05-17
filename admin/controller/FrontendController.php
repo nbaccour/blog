@@ -249,23 +249,7 @@ class FrontendController extends DefaultController
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
-//    function getPost($idPost)
-//    {
-//
-////    $commentManager = new CommentManager();
-////    $comment = $commentManager->getListComment();
-//
-//        $postManager = new PostManager();
-//        $post = $postManager->getPost($idPost);
-////        var_dump($post);
-//        $content = $this->_twig->render('post.html.twig', [
-//            'postTitle'   => $post->title(),
-//            'postContent' => $post->content(),
-//        ]);
-//
-//        return $content;
-//
-//    }
+
 
     function updatePost($id)
     {
@@ -312,54 +296,54 @@ class FrontendController extends DefaultController
 
     }
 
-    function getProject($idProject)
-    {
-
-
-        switch ($idProject) {
-            case 1:
-                $title = 'Festival des films';
-                $content = 'Projeter des films d\'auteur en plein air du 5 au 8 août au parc Monceau à Paris.';
-                $comment = 'commentprojet1.jpg';
-                $mentor = 'Gaetan De Smet';
-                $evaluator = 'Soma-Giuseppe Bini';
-                $validDate = 'Projet validé le mercredi 22 janvier 2020';
-                break;
-            case 2:
-                $title = 'Application de restauration en ligne';
-                $content = 'Livrer des plats de qualité à domicile en moins de 20 minutes...';
-                $comment = 'commentprojet2.jpg';
-                $mentor = 'Gaetan De Smet';
-                $evaluator = 'Wenceslas Baridon';
-                $validDate = 'Projet validé le samedi 14 mars 2020';
-                break;
-            case 3:
-                $title = 'Créez mon premier blog en PHP';
-                $content = 'Développer mon blog professionnel sans Framework';
-                $comment = '';
-                $mentor = 'Gaetan De Smet';
-                $evaluator = '';
-                $validDate = 'En cours';
-                break;
-            default:
-                $title = '';
-                $content = '';
-                $comment = '';
-                $mentor = '';
-                $evaluator = '';
-                $validDate = '';
-        }
-        $content = $this->_twig->render('project.html.twig', [
-            'projectTitle'     => $title,
-            'projectContent'   => $content,
-            'projectComment'   => $comment,
-            'projectMentor'    => $mentor,
-            'projectEvaluator' => $evaluator,
-            'projectValidDat'  => $validDate,
-        ]);
-
-        return $content;
-    }
+//    function getProject($idProject)
+//    {
+//
+//
+//        switch ($idProject) {
+//            case 1:
+//                $title = 'Festival des films';
+//                $content = 'Projeter des films d\'auteur en plein air du 5 au 8 août au parc Monceau à Paris.';
+//                $comment = 'commentprojet1.jpg';
+//                $mentor = 'Gaetan De Smet';
+//                $evaluator = 'Soma-Giuseppe Bini';
+//                $validDate = 'Projet validé le mercredi 22 janvier 2020';
+//                break;
+//            case 2:
+//                $title = 'Application de restauration en ligne';
+//                $content = 'Livrer des plats de qualité à domicile en moins de 20 minutes...';
+//                $comment = 'commentprojet2.jpg';
+//                $mentor = 'Gaetan De Smet';
+//                $evaluator = 'Wenceslas Baridon';
+//                $validDate = 'Projet validé le samedi 14 mars 2020';
+//                break;
+//            case 3:
+//                $title = 'Créez mon premier blog en PHP';
+//                $content = 'Développer mon blog professionnel sans Framework';
+//                $comment = '';
+//                $mentor = 'Gaetan De Smet';
+//                $evaluator = '';
+//                $validDate = 'En cours';
+//                break;
+//            default:
+//                $title = '';
+//                $content = '';
+//                $comment = '';
+//                $mentor = '';
+//                $evaluator = '';
+//                $validDate = '';
+//        }
+//        $content = $this->_twig->render('project.html.twig', [
+//            'projectTitle'     => $title,
+//            'projectContent'   => $content,
+//            'projectComment'   => $comment,
+//            'projectMentor'    => $mentor,
+//            'projectEvaluator' => $evaluator,
+//            'projectValidDat'  => $validDate,
+//        ]);
+//
+//        return $content;
+//    }
 
 
     function addPost()

@@ -6,8 +6,6 @@ $(document).ready(function () {
 
         e.preventDefault();
         const $this = $(this);
-        // console.log($this);
-        // console.log($this[0].id);
         $(".comment-list").find('#replycommentform_' + $this[0].id).removeClass('d-none');
         $(".comment-list").find("#" + $this[0].id).addClass('d-none');
     });
@@ -39,10 +37,6 @@ $(document).ready(function () {
 
             success: function (json) {
                 if (json.result == 'Success') {
-                    // console.log(document.URL);
-                    // console.log(document.location.href);
-                    // console.log(document.location.pathname);
-                    // console.log(document.location.origin);
                     window.location = document.location.origin + document.location.pathname;
                 }
                 else {
@@ -75,9 +69,6 @@ $(document).ready(function () {
             contentType: false,
             processData: false,
             data: oPostData,
-            // error: function (request, statut, error) {
-            //     console.log(error);
-            // },
             success: function (json) {
                 if (json.result === 'Success') {
 
@@ -115,11 +106,7 @@ $(document).ready(function () {
             url: 'public/ajax/add.php',
             contentType: false,
             processData: false,
-            // data: oPostData,
             data: oCommentData,
-            // error: function (request, statut, error) {
-            //     console.log(error);
-            // },
             success: function (json) {
                 if (json.result === 'Success') {
 
@@ -159,11 +146,7 @@ $(document).ready(function () {
             url: 'public/ajax/add.php',
             contentType: false,
             processData: false,
-            // data: oPostData,
             data: oCommentData,
-            // error: function (request, statut, error) {
-            //     console.log(error);
-            // },
             success: function (json) {
                 if (json.result === 'Success') {
 
@@ -189,12 +172,10 @@ $(document).ready(function () {
 
         var inputs = $(this).serializeArray();
         var oCommentData = new FormData();
-        // console.log(inputs);
 
         $.each(inputs, function (i, field) {
             oCommentData.append(field.name, field.value);
         });
-        // console.log(oCommentData);
         oCommentData.append('action', 'addcomment');
 
         ;$.ajax({
@@ -203,17 +184,11 @@ $(document).ready(function () {
             contentType: false,
             processData: false,
             data: oCommentData,
-            // error: function (request, statut, error) {
-            //     console.log(error);
-            // },
             success: function (json) {
                 if (json.result === 'Success') {
                     $("#childcommentadd_" + json.parentid).html("<div class=\"alert alert-success\">Votre commentaire a été envoyé et en attente de validation</div>");
                     $('form #btsendCommentChild input[type="submit"]').prop("disabled", true);
 
-                    // $("#childcommentadd").html("<div class=\"alert alert-success\">Votre commentaire a été envoyé</div>");
-                    // $('form #addcommentChild input[type="submit"]').prop("disabled", true);
-                    // $(".comment-list").find('#replycommentform').addClass('d-none');
                 }
                 else {
                     $("#childcommentadd_" + json.parentid).html("<div class=\"alert alert-danger\">Erreur : Ajout commentaire</div>");

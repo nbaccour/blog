@@ -12,8 +12,7 @@ class DataBase
 {
     protected function dbconnect()
     {
-//        $db = new PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', '');
-//        return $db;
+
 
         try {
             if (strpos($_SERVER['REQUEST_URI'], 'blog-02') !== false) {//DEV

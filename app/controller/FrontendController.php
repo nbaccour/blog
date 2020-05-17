@@ -14,10 +14,6 @@ use App\model\CommentManager;
 use App\model\CategoryManager;
 use App\model\ProjectManager;
 
-//namespace App\Blog\Controllers;
-
-//use controller;
-
 
 class FrontendController extends DefaultController
 {
@@ -43,18 +39,7 @@ class FrontendController extends DefaultController
         return $content;
     }
 
-//    function getCategory()
-//    {
-//
-//        $categoryManager = new CategoryManager();
-//        $gategory = $categoryManager->getCategory();
-//
-////        return $gategory;
-////        $content = $this->_twig->render('base.html.twig', ['navCategory' => $gategory]);
-//        $content = $this->_twig->render('nav.html.twig', ['navCategory' => $gategory]);
-//        return $content;
-//
-//    }
+
     //-------------------------------------------------------------------------------------------------------------
     //----------------------------------------     POST -----------------------------------------------------------
     //-------------------------------------------------------------------------------------------------------------

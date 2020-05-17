@@ -9,7 +9,6 @@
 namespace App\model;
 
 class CategoryManager extends DataBase
-//class CategoryManager
 {
 
 

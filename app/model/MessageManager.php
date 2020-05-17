@@ -9,7 +9,6 @@
 namespace App\model;
 
 class MessageManager extends DataBase
-//class UserManager
 {
 
 

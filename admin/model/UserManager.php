@@ -6,10 +6,8 @@
  * Time: 11:22
  */
 
-//namespace admin\model;
 
 class UserManager extends DataBase
-//class UserManager
 {
 
 

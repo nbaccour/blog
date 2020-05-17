@@ -99,23 +99,3 @@ switch ($request_method) {
 }
 
 
-
-//spl_autoload_register(function ($className) {
-//    $extensions = [".php"];
-////    $folders = ['', 'app/model', 'app/controller'];
-//    $folders = ['app/model', 'app/controller'];
-//
-//    foreach ($folders as $folder) {
-//        foreach ($extensions as $extension) {
-//            if ($folder == '') {
-//                $path = $folder . $className . $extension;
-//            } else {
-//                $path = $folder . DIRECTORY_SEPARATOR . $className . $extension;
-//            }
-//            var_dump($path);
-//            if (is_readable($path)) {
-//                include_once($path);
-//            }
-//        }
-//    }
-//});

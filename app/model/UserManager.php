@@ -9,7 +9,6 @@
 namespace App\model;
 
 class UserManager extends DataBase
-//class UserManager
 {
 
     public function checkUser()

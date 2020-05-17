@@ -33,7 +33,6 @@ class CommentManager extends DataBase
         }
 
         $aComments = [];
-//        $req = $db->prepare('select * from comments WHERE postid = :id AND statut = 1 AND valid = 1 ORDER BY createDate DESC') or die(print_r($db>errorInfo()));
         $req = $db->prepare('SELECT co.id, co.postid, co.parentid, co.author, co.comment, co.createDate, us.firstname, po.title 
 FROM comments AS co 
 LEFT JOIN users AS us ON (co.author = us.id) 
@@ -41,7 +40,6 @@ LEFT JOIN posts AS po ON (co.postid = po.id)
 ' . $sWhere . ' ORDER BY co.id DESC')
         or die(print_r($db > errorInfo()));
 
-//        $req->bindValue(':id', $id);
         $req->execute();
 
 
@@ -58,7 +56,6 @@ LEFT JOIN posts AS po ON (co.postid = po.id)
         $db = $this->dbconnect();
 
         $aComments = [];
-//        $req = $db->prepare('select * from comments WHERE postid = :id AND statut = 1 AND valid = 1 ORDER BY createDate DESC') or die(print_r($db>errorInfo()));
         $req = $db->prepare('SELECT co.id, co.postid, co.parentid, co.author, co.comment, co.createDate, us.firstname 
 FROM comments AS co 
 LEFT JOIN users AS us ON (co.author = us.id) WHERE co.postid = :id AND co.statut = 1 AND co.valid = 1 ORDER BY co.id DESC') or die(print_r($db > errorInfo()));
@@ -97,7 +94,6 @@ WHERE co.id = :id ORDER BY co.id DESC')
         return $data;
     }
 
-    //// Valid comment method
 
     function validComment(array $PUT)
     {

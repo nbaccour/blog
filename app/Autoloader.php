@@ -11,12 +11,13 @@ namespace App;
 
 class Autoloader
 {
-    public static function register(){
-        spl_autoload_register(array(__CLASS__, 'autoload'));
+    public static function register()
+    {
+        spl_autoload_register([__CLASS__, 'autoload']);
     }
 
-    public static function autoload($class){
-
+    public static function autoload($class)
+    {
 
 
         // on explose notre variable $class par \
@@ -26,20 +27,15 @@ class Autoloader
         $className = array_pop($parts);
 
         // on créé le chemin vers la classe
-        // on utilise DS car plus propre et meilleure portabilité entre les différents systèmes (windows/linux)
 
         $path = implode(DS, $parts);
-        $file = $className.'.php';
+        $file = $className . '.php';
 
-        $filepath = ROOT.strtolower($path).DS.$file;
+        $filepath = ROOT . strtolower($path) . DS . $file;
 
-//         var_dump($filepath);
-        //
         require $filepath;
 
-        //----------------------
     }
-
 
 
 }

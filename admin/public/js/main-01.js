@@ -1,4 +1,3 @@
-//GET, POST, DELETE, PUT
 $(document).ready(function () {
 
 
@@ -239,9 +238,6 @@ $(document).ready(function () {
             contentType: false,
             processData: false,
             data: oPostData,
-            // error: function (request, statut, error) {
-            //     console.log(error);
-            // },
             success: function (json) {
                 if (json.result === 'Success') {
 
@@ -280,9 +276,6 @@ $(document).ready(function () {
             contentType: false,
             processData: false,
             data: oPostData,
-            // error: function (request, statut, error) {
-            //     console.log(error);
-            // },
             success: function (json) {
                 if (json.result === 'Success') {
 
@@ -304,7 +297,6 @@ $(document).ready(function () {
     $('#updateimgpost').submit(function (e) {
 
         e.preventDefault();
-        // console.log($(this));
         $('form #btupdatepostImg input[type="submit"]').prop("disabled", true);
         var oFileData = new FormData();
         var files = $('#postimg')[0].files[0];
@@ -320,9 +312,6 @@ $(document).ready(function () {
             contentType: false,
             processData: false,
             data: oFileData,
-            // error: function (request, statut, error) {
-            //     console.log(error);
-            // },
             dataType: 'json',
             success: function (json) {
 

@@ -9,7 +9,6 @@
 //namespace admin\model;
 
 class CategoryManager extends DataBase
-//class CategoryManager
 {
 
 

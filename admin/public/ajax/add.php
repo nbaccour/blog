@@ -62,23 +62,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 }
 
-//if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-//
-//    $postManager = new PostManager();
-//    $updateImgPost = $postManager->updateImgPost($_FILES, $_POST['id']);
-//
-//
-//    if ($updateImgPost === true) {
-//        header('Location: ' . $_SERVER['REQUEST_URI']);
-////        location . reload();
-//        $return['result'] = 'Success';
-//        jsonGenerate($return);
-//    } else {
-//        $return['result'] = 'Failed';
-//        jsonGenerate($return);
-//    }
-//
-////    $return['result'] = 'Success';
-////    jsonGenerate($return);
-//}
 

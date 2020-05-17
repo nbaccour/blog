@@ -40,11 +40,9 @@ if (isset($_SESSION['login']) === true) {
 
 
 if ($isConnect === false) {
-//if (isset($_SESSION['login']) === true) {
     if (isset($_GET['action']) && $_GET['action'] === 'connectAdmin') {
 
         $checkUser = $frontendController->checkUser();
-//        echo $checkUser;
         print_r($checkUser);
         exit();
     } else {
@@ -55,7 +53,6 @@ if ($isConnect === false) {
 
 } else {
     try {
-//print_r($request_method);
         switch ($request_method) {
             case 'GET':
                 if (isset($_GET['action']) && $_GET['action'] === 'connectout') {

@@ -6,10 +6,8 @@
  * Time: 16:02
  */
 
-//namespace admin\model;
 
 class PostManager extends DataBase
-//class PostManager
 {
 
 
@@ -105,7 +103,6 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC') or d
 
             $file_name = $Files['file']['name'];
             $file_size = $Files['file']['size'];
-//            $file_tmp = $Files['file']['tmp_name'];
             $aExplodeImg = explode('.', $file_name);
             $file_ext = strtolower(end($aExplodeImg));
 
