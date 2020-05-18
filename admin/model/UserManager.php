@@ -15,30 +15,20 @@ class UserManager extends DataBase
     {
         $db = $this->dbconnect();
         $aDataUser = [];
-        $oUser = new User();
+
 
         try {
             $req = $db->prepare('SELECT * FROM users ORDER BY id DESC');
-            if ($req->execute()) {
 
+            $req->execute();
 
-                while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
-
-                    $oUser->setAttribute($data);
-
-                    $aDataUser[] = [
-                        'id'        => $oUser->id(),
-                        'lastname'  => $oUser->lastname(),
-                        'firstname' => $oUser->firstname(),
-                        'email'     => $oUser->email(),
-                        'role'      => $oUser->role(),
-                        'roleShow'  => ($oUser->role() === 'user') ? 'Membre' : 'Administrateur',
-                    ];
-
-
-                }
-                return $aDataUser;
+            while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
+                $oUser = new User();
+                $oUser->setAttribute($data);
+                array_push($aDataUser, $oUser);
             }
+            return $aDataUser;
+
 
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
@@ -89,7 +79,6 @@ class UserManager extends DataBase
 
         try {
             $req = $db->prepare('INSERT INTO users(lastname, firstname, email, role, login,password, createDate) VALUE (:lastname,:firstname,:email,:role,:login,:password,:createDate)');
-//            or die(print_r($db->errorInfo()));
 
             $req->bindParam(':lastname', $lastname);
             $req->bindParam(':firstname', $firstname);
@@ -177,7 +166,6 @@ class UserManager extends DataBase
         if ($data) {
             return $data;
         } else {
-//            echo('Nom utilisateur ou mot de passe invalide');
             return 'Identifiant ou mot de passe invalide';
         }
 

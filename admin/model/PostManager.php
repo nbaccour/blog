@@ -20,18 +20,14 @@ class PostManager extends DataBase
             $req = $db->prepare('SELECT po.id, po.title, po.content, po.author, po.imgPost, po.idcategory, po.createDate, cat.name 
 FROM posts AS po 
 LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC');
-
-            if ($req->execute()) {
-
-                while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
-                    array_push($posts, $data);
-                }
-
-                return $posts;
-
-            } else {
-                throw new Exception('Impossible de trouver les articles !');
+            $req->execute();
+            while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
+                $post = new Post();
+                $post->setAttribute($data);
+                array_push($posts, $post);
             }
+            return $posts;
+
         } catch (Exception $e) {
 
             throw new Exception($e->getMessage());

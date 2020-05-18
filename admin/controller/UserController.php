@@ -92,18 +92,14 @@ class UserController extends DefaultController
         $manager = new UserManager();
         $users = $manager->getListUser();
 
+
         foreach ($users as $key => $aData) {
-            foreach ($aData as $nameColumn => $value) {
-                if ($nameColumn === 'createDate') {
-                    $users[$key]['createDate'] = date('d/m/Y', strtotime($value));
-                }
-                if ($nameColumn === 'role') {
-                    $roleShow = ($value === 'user') ? 'Membre' : 'Administrateur';
-                    $users[$key]['roleShow'] = $roleShow;
-                }
-            }
+
+            $aData->createDateFormat = date('d/m/Y', strtotime($aData->createDate()));
+            $aData->roleShow = ($aData->role() === 'user')? 'Membre' : 'Administrateur';
 
         }
+
 
 
         $content = $this->_twig->render('listUser.html.twig', ['users' => $users, 'login' => $_SESSION['login']]);

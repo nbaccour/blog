@@ -47,15 +47,18 @@ LEFT JOIN users AS us ON (co.author = us.id)
 LEFT JOIN posts AS po ON (co.postid = po.id) 
 ' . $sWhere . ' ORDER BY co.id DESC');
 
+
             $req->execute();
-
-
             while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
-                $data['mode'] = (isset($aOptions['mode'])) ? $aOptions['mode'] : 'valid';
-                array_push($aComments, $data);
-            }
+                $comment = new Comment();
+                $comment->setAttribute($data);
+                $comment->firstname = $data['firstname'];
+                $comment->title = $data['title'];
 
+                array_push($aComments, $comment);
+            }
             return $aComments;
+
 
         } catch (Exception $e) {
 
@@ -64,32 +67,6 @@ LEFT JOIN posts AS po ON (co.postid = po.id)
 
     }
 
-    //Get list method
-    public function getListComment($id)
-    {
-        $db = $this->dbconnect();
-        try {
-            $aComments = [];
-            $req = $db->prepare('SELECT co.id, co.postid, co.parentid, co.author, co.comment, co.createDate, us.firstname 
-FROM comments AS co 
-LEFT JOIN users AS us ON (co.author = us.id) WHERE co.postid = :id AND co.statut = 1 AND co.valid = 1 ORDER BY co.id DESC');
-
-            $req->bindValue(':id', $id);
-            $req->execute();
-
-
-            while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
-
-                array_push($aComments, $data);
-            }
-            return $aComments;
-
-        } catch (Exception $e) {
-
-            throw new Exception($e->getMessage());
-        }
-
-    }
 
     function getComment($id)
     {
@@ -107,7 +84,12 @@ WHERE co.id = :id ORDER BY co.id DESC');
             $req->execute();
             $data = $req->fetch(PDO::FETCH_ASSOC);
 
-            return $data;
+            $comment = new Comment();
+            $comment->setAttribute($data);
+            $comment->firstname = $data['firstname'];
+            $comment->title = $data['title'];
+
+            return $comment;
 
         } catch (Exception $e) {
 
@@ -138,11 +120,6 @@ WHERE co.id = :id ORDER BY co.id DESC');
                 $req->bindValue(':updateDate', $updateDate);
 
                 return $req->execute();
-//                if ($req->execute()) {
-//                    return true;
-//                } else {
-//                    return ['result' => $db->errorInfo()];
-//                }
 
             }
         } catch (Exception $e) {

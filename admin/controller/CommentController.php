@@ -16,13 +16,10 @@ class CommentController extends DefaultController
         $manager = new CommentManager();
         $comments = $manager->getListAllComment($aOptions);
 
-        foreach ($comments as $key => $aData) {
-            foreach ($aData as $nameColumn => $value) {
-                if ($nameColumn === 'createDate') {
-                    $comments[$key]['createDate'] = date('d/m/Y', strtotime($value));
-                }
 
-            }
+        foreach ($comments as $key => $aData) {
+
+            $aData->createDateFormat = date('d/m/Y', strtotime($aData->createDate()));
 
         }
 
@@ -40,15 +37,13 @@ class CommentController extends DefaultController
         $commentManager = new CommentManager();
         $comment = $commentManager->getComment($id);
 
-//$test = '';
         $aDataComment = [
-            'id'           => $comment['id'],
-            'titleComment' => $comment['title'],
-            'firstname'    => $comment['firstname'],
-            'comment'      => $comment['comment'],
-            'author'       => $comment['author'],
+            'id'           => $comment->id(),
+            'titleComment' => $comment->title,
+            'firstname'    => $comment->firstname,
+            'comment'      => $comment->comment(),
+            'author'       => $comment->author(),
             'mode'         => $mode,
-//            'createDate' => $comment['createDate'],
             'title'        => ($mode === 'statut') ? "Modérer le commentaire" : "Valider le commentaire",
             'texteBt'      => ($mode === 'statut') ? "Modérer" : "Valider",
         ];
