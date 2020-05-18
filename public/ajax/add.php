@@ -11,8 +11,8 @@ include_once('../../app/model/UserManager.php');
 include_once('../../app/model/User.php');
 include_once('../../app/model/CommentManager.php');
 include_once('../../app/model/Comment.php');
-include_once('../../app/model/MessageManager.php');
-include_once('../../app/model/Message.php');
+include_once('../../app/model/ContactManager.php');
+include_once('../../app/model/Contact.php');
 
 require('../../vendor/autoload.php');
 require('../../public/functions/function.php');

@@ -27,7 +27,7 @@ class ContactManager extends DataBase
 
         $to = 'contact@oc-blog.com';
         $subject = '[OC-BLOG][CONTACT]';
-        $message = 'Nom : ' . $lastname . 'Prénom : ' . $firstname . 'Email : ' . $email . 'Message : ' . $content;
+        $message = 'Nom : ' . $lastname . ' Prénom : ' . $firstname . ' Email : ' . $email . ' Message : ' . $content;
         $headers[] = 'MIME-Version: 1.0';
         $headers[] = 'Content-type: text/html; charset=iso-8859-1';
 
