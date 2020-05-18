@@ -6,16 +6,16 @@
  * Time: 16:02
  */
 
-//namespace model;
+namespace App\model;
 
 class Post
 {
     protected $_id;
     protected $_title;
     protected $_content;
-    protected $_createDate;
     protected $_author;
     protected $_imgPost;
+    protected $_createDate;
 
     public function setAttribute(array $data)
     {

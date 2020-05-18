@@ -9,9 +9,6 @@
 
 namespace App\controller;
 
-//use App\model\CommentManager;
-//use App\model\CategoryManager;
-//use App\model\ProjectManager;
 
 
 class FrontendController extends DefaultController

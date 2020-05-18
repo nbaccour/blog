@@ -9,6 +9,7 @@
 namespace App\model;
 
 use App\model\CategoryManager;
+use App\model\Post;
 
 class PostManager extends DataBase
 {
@@ -19,21 +20,18 @@ class PostManager extends DataBase
         $db = $this->dbconnect();
         try {
             $posts = [];
-            $req = $db->prepare('SELECT po.id, po.title, po.content, po.author, po.postimg, po.idcategory, po.createDate, cat.name 
+            $req = $db->prepare('SELECT po.id, po.title, po.content, po.author, po.imgPost, po.idcategory, po.createDate, cat.name 
 FROM posts AS po 
 LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC');
-            if ($req->execute()) {
 
-                while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
-                    array_push($posts, $data);
-                }
-
-
-                return $posts;
-//            return $aData;
-            } else {
-                throw new \Exception('Impossible de trouver les articles !');
+            $req->execute();
+            while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
+                $post = new Post();
+                $post->setAttribute($data);
+                array_push($posts, $post);
             }
+            return $posts;
+
         } catch (Exception $e) {
 
             throw new \Exception($e->getMessage());
@@ -51,51 +49,52 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC');
 
         $posts = [];
 
-        if (count($category) !== 0) {
-            try {
-                $req = $db->prepare('SELECT * FROM posts WHERE idcategory =:idcategory ORDER BY id DESC');
-                $req->bindValue(':idcategory', (int)$category['id']);
-                if ($req->execute()) {
 
-                    while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
-                        $data['namecategory'] = $category['name'];
+        try {
+            $req = $db->prepare('SELECT * FROM posts WHERE idcategory =:idcategory ORDER BY id DESC');
+            $req->bindValue(':idcategory', (int)$category->id());
 
-                        array_push($posts, $data);
-                    }
+            $req->execute();
 
+            while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
 
-                    return $posts;
+                $post = new Post();
+                $post->setAttribute($data);
+                $post->namecategory = $category->name();
 
-                } else {
-                    throw new \Exception('Impossible de trouver les articles !');
-                }
-            } catch (Exception $e) {
-
-                throw new \Exception($e->getMessage());
+                array_push($posts, $post);
             }
 
-        } else {
-            throw new \Exception('Impossible de trouver les articles !');
+            return $posts;
+
+        } catch (Exception $e) {
+
+            throw new \Exception($e->getMessage());
         }
 
 
     }
 
 
-    function getPost($idPost)
+    function getPost($id)
     {
 
         $db = $this->dbconnect();
         try {
-            $req = $db->prepare('SELECT po.id, po.title, po.content, po.author, po.postimg, po.idcategory, po.createDate, cat.name 
-FROM posts AS po 
-LEFT JOIN category AS cat ON (cat.id = po.idcategory) WHERE po.id = :id ORDER BY po.id DESC');
 
-            $req->bindValue(':id', $idPost);
+            $req = $db->prepare('SELECT po.id, po.title, po.content, po.author, po.imgPost, po.idcategory, po.createDate, cat.name 
+FROM posts AS po 
+LEFT JOIN category AS cat ON (cat.id = po.idcategory) WHERE po.id = :id');
+
+            $req->bindValue(':id', $id);
             $req->execute();
             $data = $req->fetch(\PDO::FETCH_ASSOC);
+            $post = new Post();
+            $post->setAttribute($data);
+            $post->name = $data['name'];
 
-            return $data;
+            return $post;
+
         } catch (Exception $e) {
 
             throw new \Exception($e->getMessage());

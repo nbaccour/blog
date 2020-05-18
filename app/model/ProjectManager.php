@@ -25,6 +25,7 @@ class ProjectManager extends DataBase
             $project = new Project();
             $project->setAttribute($data);
             return $project;
+
         } catch (Exception $e) {
 
             throw new \Exception($e->getMessage());

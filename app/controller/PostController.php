@@ -24,17 +24,12 @@ class PostController extends DefaultController
 
 
         foreach ($posts as $key => $aData) {
-            foreach ($aData as $nameColumn => $value) {
-                if ($nameColumn === 'createDate') {
-                    $posts[$key]['createDate'] = date('d/m/Y', strtotime($value));
-                }
-            }
 
-        }
-        foreach ($posts as $key => $aData) {
+            $aData->createDateFormat = date('d/m/Y', strtotime($aData->createDate()));
+
             $commentManager = new CommentManager();
-            $aComments = $commentManager->getCommentValidByIdPost($aData['id']);
-            $posts[$key]['nbrcomment'] = count($aComments);
+            $aComments = $commentManager->getCommentValidByIdPost($aData->id());
+            $aData->nbrcomment = count($aComments);
         }
 
         $urlPage = $this->getUrlPage();
@@ -49,19 +44,13 @@ class PostController extends DefaultController
         $manager = new PostManager();
         $posts = $manager->getListPostByName($name);
 
-
         foreach ($posts as $key => $aData) {
-            foreach ($aData as $nameColumn => $value) {
-                if ($nameColumn === 'createDate') {
-                    $posts[$key]['createDate'] = date('d/m/Y', strtotime($value));
-                }
-            }
 
-        }
-        foreach ($posts as $key => $aData) {
+            $aData->createDateFormat = date('d/m/Y', strtotime($aData->createDate()));
+
             $commentManager = new CommentManager();
-            $aComments = $commentManager->getCommentValidByIdPost($aData['id']);
-            $posts[$key]['nbrcomment'] = count($aComments);
+            $aComments = $commentManager->getCommentValidByIdPost($aData->id());
+            $aData->nbrcomment = count($aComments);
         }
 
 
@@ -94,19 +83,21 @@ class PostController extends DefaultController
             }
         }
 
-
         $aListCommentParent = [];
-        foreach ($aComments as $aData) {
-            if ($aData['parentid'] === '0') {
-                $aListCommentParent[$aData['id']] = $aData;
+        foreach ($aComments as $key => $aData) {
+
+            if ($aData->parentid() === '0') {
+                $aListCommentParent[$aData->id()] = $aData;
             }
 
         }
+
         foreach ($aComments as $aData) {
-            if ($aData['parentid'] !== '0') {
+            if ($aData->parentid() !== '0') {
                 foreach ($aListCommentParent as $idcomment => $aCommentData) {
-                    if ((int)$aData['parentid'] === $idcomment) {
-                        $aListCommentParent[$idcomment]['commentsChild'][] = $aData;
+                    if ((int)$aData->parentid() === $idcomment) {
+
+                        $aListCommentParent[$idcomment]->commentsChild[] = $aData;
                     }
                 }
             }
@@ -116,17 +107,18 @@ class PostController extends DefaultController
 
         $postManager = new PostManager();
         $post = $postManager->getPost($id);
+
         $content = $this->_twig->render('post.html.twig', [
             'idauthorcomment' => (isset($_SESSION['iduser']) === true) ? (int)$_SESSION['iduser'] : '',
             'connectid'       => (isset($_SESSION['iduser'])) ? $_SESSION['iduser'] : '',
-            'postid'          => $post['id'],
+            'postid'          => $post->id(),
             'disabledBt'      => $disableBtSendComment,
-            'title'           => $post['title'],
-            'content'         => $post['content'],
-            'category'        => $post['name'],
-            'author'          => $post['author'],
-            'postimg'         => $post['postimg'],
-            'createDate'      => date('d/m/Y', strtotime($post['createDate'])),
+            'title'           => $post->title(),
+            'content'         => $post->content(),
+            'category'        => $post->name,
+            'author'          => $post->author(),
+            'postimg'         => $post->imgPost(),
+            'createDate'      => date('d/m/Y', strtotime($post->createDate())),
             'comments'        => $aListCommentParentChild,
             'countcomments'   => count($aComments),
         ]);

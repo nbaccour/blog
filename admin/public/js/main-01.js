@@ -224,7 +224,7 @@ $(document).ready(function () {
         e.preventDefault();
 
         var oPostData = new FormData();
-        var files = $('#postimg')[0].files[0];
+        var files = $('#imgPost')[0].files[0];
 
         oPostData.append('file', files);
         oPostData.append('title', $("input#title").val());
@@ -299,11 +299,10 @@ $(document).ready(function () {
         e.preventDefault();
         $('form #btupdatepostImg input[type="submit"]').prop("disabled", true);
         var oFileData = new FormData();
-        var files = $('#postimg')[0].files[0];
+        var files = $('#imgPost')[0].files[0];
 
         oFileData.append('file', files);
         oFileData.append('id', $("input#id").val());
-        // oFileData.append('url', the_slug());
 
 
         $.ajax({

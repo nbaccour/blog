@@ -61,7 +61,10 @@ LEFT JOIN users AS us ON (co.author = us.id) WHERE co.postid = :id AND co.statut
 
             while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
 
-                array_push($aComments, $data);
+                $comment = new Comment();
+                $comment->setAttribute($data);
+                $comment->firstname = $data['firstname'];
+                array_push($aComments, $comment);
             }
             return $aComments;
         } catch (Exception $e) {
@@ -71,28 +74,6 @@ LEFT JOIN users AS us ON (co.author = us.id) WHERE co.postid = :id AND co.statut
 
     }
 
-    public function getCommentNotValidByIdAuthor($id)
-    {
-        $db = $this->dbconnect();
-        try {
-            $aComments = [];
-            $req = $db->prepare('select * from comments WHERE author = :author AND valid = 0 ORDER BY createDate DESC');
-
-            $req->bindValue(':author', $id);
-            $req->execute();
-
-
-            while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
-
-                array_push($aComments, $data);
-            }
-            return $aComments;
-        } catch (Exception $e) {
-
-            throw new \Exception($e->getMessage());
-        }
-
-    }
 
     public function getCommentNotValidByIdAuthorByIdPost($id, $postId)
     {
@@ -108,8 +89,12 @@ LEFT JOIN users AS us ON (co.author = us.id) WHERE co.postid = :id AND co.statut
 
             while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
 
-                array_push($aComments, $data);
+                $comment = new Comment();
+                $comment->setAttribute($data);
+                array_push($aComments, $comment);
             }
+
+
             return $aComments;
 
         } catch (Exception $e) {
@@ -129,11 +114,13 @@ LEFT JOIN users AS us ON (co.author = us.id) WHERE co.postid = :id AND co.statut
             $req->bindValue(':postid', $id);
             $req->execute();
 
-
             while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
 
-                array_push($aComments, $data);
+                $comment = new Comment();
+                $comment->setAttribute($data);
+                array_push($aComments, $comment);
             }
+
             return $aComments;
 
         } catch (Exception $e) {
@@ -142,21 +129,21 @@ LEFT JOIN users AS us ON (co.author = us.id) WHERE co.postid = :id AND co.statut
         }
 
     }
-
-    public function countComment()
-    {
-        $db = $this->dbconnect();
-        try {
-            $req = $db->prepare('SELECT COUNT(*) AS statut FROM comments WHERE statut = 0');
-            $req->execute();
-            $data = $req->fetch(\PDO::FETCH_ASSOC);
-            $count = $data['statut'];
-            return $count;
-
-        } catch (Exception $e) {
-
-            throw new \Exception($e->getMessage());
-        }
-
-    }
+//
+//    public function countComment()
+//    {
+//        $db = $this->dbconnect();
+//        try {
+//            $req = $db->prepare('SELECT COUNT(*) AS statut FROM comments WHERE statut = 0');
+//            $req->execute();
+//            $data = $req->fetch(\PDO::FETCH_ASSOC);
+//            $count = $data['statut'];
+//            return $count;
+//
+//        } catch (Exception $e) {
+//
+//            throw new \Exception($e->getMessage());
+//        }
+//
+//    }
 }

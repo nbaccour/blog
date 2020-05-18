@@ -17,7 +17,7 @@ class PostManager extends DataBase
 
         try {
             $posts = [];
-            $req = $db->prepare('SELECT po.id, po.title, po.content, po.author, po.postimg, po.idcategory, po.createDate, cat.name 
+            $req = $db->prepare('SELECT po.id, po.title, po.content, po.author, po.imgPost, po.idcategory, po.createDate, cat.name 
 FROM posts AS po 
 LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC');
 
@@ -159,16 +159,16 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC');
         $db = $this->dbconnect();
 
         $modifDate = date('Y-m-d H:i:s');
-        $postimg = $Files['file']['name'];
+        $imgPost = $Files['file']['name'];
 
         $errorFilePost = $this->uploadFile($Files);
 
         if ($errorFilePost === false) {
             try {
-                $req = $db->prepare('UPDATE posts SET  postimg = :postimg, modifDate = :modifDate  WHERE id = :id');
+                $req = $db->prepare('UPDATE posts SET  imgPost = :imgPost, modifDate = :modifDate  WHERE id = :id');
 
                 $req->bindValue(':id', intval($id));
-                $req->bindValue(':postimg', $postimg);
+                $req->bindValue(':imgPost', $imgPost);
                 $req->bindValue(':modifDate', $modifDate);
                 return $req->execute();
 
@@ -196,20 +196,20 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC');
         $author = $_SESSION["ident"];
 
         $createDate = date('Y-m-d H:i:s');
-        $postimg = $FILES['file']['name'];
+        $imgPost = $FILES['file']['name'];
 
         $errorFilePost = $this->uploadFile($FILES);
 
 
         if ($errorFilePost === false) {
             try {
-                $req = $db->prepare('INSERT INTO posts(title, content, author, postimg, idcategory, createDate) VALUE (:title,:content,:author,:postimg,:idcategory,:createDate)');
+                $req = $db->prepare('INSERT INTO posts(title, content, author, imgPost, idcategory, createDate) VALUE (:title,:content,:author,:imgPost,:idcategory,:createDate)');
 
                 $req->bindParam(':title', $title);
                 $req->bindParam(':content', $content);
                 $req->bindParam(':idcategory', $idcategory);
                 $req->bindParam(':author', $author);
-                $req->bindParam(':postimg', $postimg);
+                $req->bindParam(':imgPost', $imgPost);
                 $req->bindParam(':createDate', $createDate);
 
                 return $req->execute();

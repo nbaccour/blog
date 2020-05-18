@@ -14,11 +14,10 @@
 
             <div class="col-md-12">
                 {% for post in posts %}
-                    {#{{ dump(post) }}#}
                     <div class="post-entry-horzontal">
                         <a href="?action=post&id={{ post.id }}">
                             <div class="image element-animate" data-animate-effect="fadeIn"
-                                 style="background-image: url('public/images/post/{{ post.postImg }}');"></div>
+                                 style="background-image: url('public/images/post/{{ post.imgPost }}');"></div>
                             <span class="text">
                       <div class="post-meta">
                         <span class="author mr-2"><img src="public/images/person_1.jpg"
