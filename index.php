@@ -9,6 +9,9 @@
 namespace App;
 
 use App\controller\FrontendController;
+use App\controller\PostController;
+use App\controller\UserController;
+use App\controller\ProjectController;
 
 
 define('DS', DIRECTORY_SEPARATOR); // meilleur portabilité sur les différents systeme.
@@ -26,17 +29,19 @@ require('public/functions/function.php');
 
 
 $frontendController = new FrontendController();
+$postController = new PostController();
+$userController = new UserController();
+$projectController = new ProjectController();
 
-//$menu = $frontendController
 $request_method = $_SERVER["REQUEST_METHOD"];
-//print_r($request_method);
+
 try {
     switch ($request_method) {
         case 'GET':
             if (isset($_GET['action']) && $_GET['action'] === 'post') {
                 if (!empty($_GET["id"])) {
                     // Récupérer un seul article
-                    $contentPost = $frontendController->getPost($_GET['id']);
+                    $contentPost = $postController->getPost($_GET['id']);
                     echo $contentPost;
                     exit();
                 }
@@ -63,7 +68,7 @@ try {
 
             } elseif (isset($_GET['action']) && $_GET['action'] === 'project') {
                 if (isset($_GET['id']) && $_GET['id'] > 0) {
-                    $contentProject = $frontendController->getProject($_GET['id']);
+                    $contentProject = $projectController->getProject($_GET['id']);
                     echo $contentProject;
                     exit;
                 }
@@ -74,20 +79,20 @@ try {
 
             } elseif (isset($_GET['action']) && $_GET['action'] === 'reg') {
                 $id = '';
-                $contentFormUser = $frontendController->getFormUser($id);
+                $contentFormUser = $userController->getFormUser($id);
                 echo $contentFormUser;
                 exit();
 
             } elseif (isset($_GET['action']) && $_GET['action'] === 'cat') {
                 if (isset($_GET['name']) && $_GET['name'] !== '') {
-                    $contentProject = $frontendController->getListPostByName($_GET['name']);
+                    $contentProject = $postController->getListPostByName($_GET['name']);
                     echo $contentProject;
                     exit;
                 }
 
             } else {
                 // Récupérer tous les articles
-                $contentListPost = $frontendController->getListPost();
+                $contentListPost = $postController->getListPost();
                 echo $contentListPost;
                 exit();
             }
