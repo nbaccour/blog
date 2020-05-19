@@ -6,23 +6,31 @@
  * Time: 16:02
  */
 
-namespace App;
-
-use App\controller\FrontendController;
-use App\controller\PostController;
-use App\controller\UserController;
-use App\controller\ProjectController;
-
-
 define('DS', DIRECTORY_SEPARATOR); // meilleur portabilité sur les différents systeme.
 define('ROOT', dirname(__FILE__) . DS); //
 session_start();
 
 include_once('connect/DataBase.php');
 
-require_once 'app/Autoloader.php';
-Autoloader::register();
 
+spl_autoload_register(function ($className) {
+    $extensions = [".php"];
+    $folders = ['', 'app/model', 'app/controller'];
+
+    foreach ($folders as $folder) {
+        foreach ($extensions as $extension) {
+            if ($folder == '') {
+                $path = $folder . $className . $extension;
+            } else {
+                $path = $folder . DIRECTORY_SEPARATOR . $className . $extension;
+            }
+
+            if (is_readable($path)) {
+                include_once($path);
+            }
+        }
+    }
+});
 
 require('vendor/autoload.php');
 require('public/functions/function.php');

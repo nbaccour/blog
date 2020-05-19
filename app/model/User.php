@@ -6,7 +6,6 @@
  * Time: 16:02
  */
 
-namespace App\model;
 
 class User {
 

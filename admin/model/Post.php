@@ -14,7 +14,7 @@ class Post
     protected $_title;
     protected $_content;
     protected $_author;
-    protected $_postImg;
+    protected $_imgPost;
     protected $_idcategory;
     protected $_createDate;
     protected $_modifDate;
@@ -50,9 +50,9 @@ class Post
         return $this->_author;
     }
 
-    public function postImg()
+    public function imgPost()
     {
-        return $this->_postImg;
+        return $this->_imgPost;
     }
 
     public function idcategory()
@@ -100,9 +100,9 @@ class Post
         }
     }
 
-    public function setPostImg($postImg)
+    public function setImgPost($imgPost)
     {
-        $this->_postImg = $postImg;
+        $this->_imgPost = $imgPost;
     }
 
     public function setIdcategory($idcategory)

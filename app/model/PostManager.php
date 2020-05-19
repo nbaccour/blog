@@ -6,10 +6,6 @@
  * Time: 16:02
  */
 
-namespace App\model;
-
-use App\model\CategoryManager;
-use App\model\Post;
 
 /**
  *

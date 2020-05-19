@@ -7,9 +7,7 @@
  */
 
 
-namespace App\controller;
 
-use App\model\ProjectManager;
 
 
 /**

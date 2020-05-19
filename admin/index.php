@@ -9,7 +9,6 @@ $request_method = $_SERVER["REQUEST_METHOD"];
 spl_autoload_register(function ($className) {
     $extensions = [".php"];
     $folders = ['', 'model', 'controller'];
-//    $folders = ['', 'model', 'admin\controller'];
 
     foreach ($folders as $folder) {
         foreach ($extensions as $extension) {
@@ -69,7 +68,7 @@ if ($isConnect === false) {
 
                     // Formulaire ajouter un article
                     $id = (isset($_GET['id']) === true) ? $_GET['id'] : '';
-                    $contentFormPost = $postController->getFormPost($id);
+                    $contentFormPost = $postController->getFormPost((int)$id);
                     echo $contentFormPost;
                     exit();
 
@@ -82,7 +81,7 @@ if ($isConnect === false) {
 
                     // Formulaire ajouter un membre
                     $id = (isset($_GET['id']) === true) ? $_GET['id'] : '';
-                    $contentFormPost = $userController->getFormUser($id);
+                    $contentFormPost = $userController->getFormUser((int)$id);
                     echo $contentFormPost;
                     exit();
 

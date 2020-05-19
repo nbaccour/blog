@@ -7,10 +7,6 @@
  */
 
 
-namespace App\controller;
-
-use App\model\PostManager;
-use App\model\CommentManager;
 
 
 /**

@@ -33,7 +33,7 @@ class PostController extends DefaultController
         $aCategory = $manager->getCategory();
         $aDataPost = [];
         $fileName = 'formAddPost.html.twig';
-        if ($id !== '') {
+        if ($id !== 0) {
             $postManager = new PostManager();
             $post = $postManager->getPost($id);
 
@@ -45,7 +45,7 @@ class PostController extends DefaultController
                 'postTitle'    => $post->title(),
                 'postContent'  => $post->content(),
                 'idcategory'   => $post->idcategory(),
-                'postImg'      => $post->postImg(),
+                'imgPost'      => $post->imgPost(),
                 'namecategory' => $aDataCategory->name(),
                 'title'        => "Modifier l'article",
             ];
@@ -131,7 +131,7 @@ class PostController extends DefaultController
                 'postTitle'    => $post->title(),
                 'postContent'  => $post->content(),
                 'idcategory'   => $post->idcategory(),
-                'postImg'      => $post->postImg(),
+                'imgPost'      => $post->imgPost(),
                 'namecategory' => $aDataCategory->name(),
             ];
         }

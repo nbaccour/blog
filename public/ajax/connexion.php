@@ -16,7 +16,8 @@ require('../../public/functions/function.php');
 
 if (isset($_POST['login']) && isset($_POST['password'])) {
 
-    $user = new App\model\UserManager();
+//    $user = new App\model\UserManager();
+    $user = new UserManager();
     $averifConnect = $user->checkUser();
 
     if (isset($averifConnect['login']) === true && $_POST['login'] == $averifConnect['login']) { // Si les infos correspondent...

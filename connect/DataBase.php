@@ -6,7 +6,7 @@
  * Time: 13:13
  */
 
-namespace App\model;
+
 
 class DataBase
 {

@@ -6,6 +6,7 @@
  * Time: 16:02
  */
 
+//namespace admin\model;
 
 class Category
 {

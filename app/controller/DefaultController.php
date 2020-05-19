@@ -6,7 +6,6 @@
  * Time: 15:24
  */
 
-namespace App\controller;
 
 /**
  *

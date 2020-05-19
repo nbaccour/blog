@@ -6,7 +6,6 @@
  * Time: 11:22
  */
 
-namespace App\model;
 
 /**
  *

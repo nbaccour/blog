@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $addMessage = false;
         if ($_POST['content'] !== '' && $_POST['email'] !== '') {
-            $messageManager = new App\model\ContactManager();
+            $messageManager = new ContactManager();
             $addMessage = $messageManager->sendMessage($_POST);
         }
 
@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $addComment = false;
         if ($_POST['comment'] !== '') {
-            $commentManager = new App\model\CommentManager();
+            $commentManager = new CommentManager();
             $addComment = $commentManager->addComment($_POST);
         }
 
@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     if ($_POST['action'] === 'adduser' && $_POST['email'] !== '') {
 
-        $userManager = new App\model\UserManager();
+        $userManager = new UserManager();
         $addUser = $userManager->addUser($_POST);
 
         if ($addUser === true) {

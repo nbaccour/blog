@@ -88,9 +88,9 @@ class UserController extends DefaultController
 
         $aDataUser = [];
         $fileName = 'formAddUser.html.twig';
-        if ($id !== '') {
+        if ($id !== 0) {
             $userManager = new UserManager();
-            $user = $userManager->getUser($id);
+            $user = $userManager->getUser((int)$id);
 
 
             $aDataUser = [
