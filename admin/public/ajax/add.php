@@ -26,7 +26,7 @@ spl_autoload_register(function ($className) {
 });
 
 require('../../vendor/autoload.php');
-require('../../controller/function.php');
+require('../../public/functions/function.php');
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

@@ -6,12 +6,18 @@
  * Time: 11:22
  */
 
-
+/**
+ * UserManager est une classe pour gérer les utilisateurs (ajout, suppression et mise à jour)
+ *
+ * Class UserManager
+ */
 class UserManager extends DataBase
 {
 
 
     /**
+     * recuperer la liste des utilisateurs de la table users
+     *
      * @return array
      * @throws Exception
      */
@@ -42,6 +48,9 @@ class UserManager extends DataBase
     }
 
     /**
+     * recuperer un utilisateur
+     *
+     *
      * @param int $id
      * @return User
      * @throws Exception
@@ -71,6 +80,9 @@ class UserManager extends DataBase
     }
 
     /**
+     * ajouter un utilisateur
+     *
+     *
      * @param array $POST
      * @return bool
      * @throws Exception
@@ -113,6 +125,9 @@ class UserManager extends DataBase
     }
 
     /**
+     * supprimer un utilisateur
+     *
+     *
      * @param int $id
      * @return bool
      * @throws Exception
@@ -135,6 +150,9 @@ class UserManager extends DataBase
     }
 
     /**
+     * mettre à jour un utilisateur
+     *
+     *
      * @param array $PUT
      * @return bool
      * @throws Exception
@@ -174,6 +192,9 @@ class UserManager extends DataBase
     }
 
     /**
+     * vérifier les identifiants d'un utilisateur
+     *
+     *
      * @return mixed|string
      * @throws Exception
      */

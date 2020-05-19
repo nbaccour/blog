@@ -17,6 +17,9 @@ class ContactManager extends DataBase
 
 
     /**
+     * envoyer un email de contact à l'administrateur du site
+     *
+     *
      * @param $POST
      * @return bool
      */

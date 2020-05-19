@@ -20,6 +20,7 @@ class PostManager extends DataBase
 
 
     /**
+     * recuperer la liste des articles de la table posts
      * @return array
      * @throws \Exception
      */
@@ -49,6 +50,9 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC');
     }
 
     /**
+     * recuperer la liste des articles en fonction du nom
+     *
+     *
      * @param $name
      * @return array
      * @throws \Exception
@@ -90,6 +94,9 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC');
 
 
     /**
+     * recuperer les données s'un article
+     *
+     *
      * @param $id
      * @return \App\model\Post
      * @throws \Exception

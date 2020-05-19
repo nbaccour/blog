@@ -17,6 +17,9 @@ class CategoryManager extends DataBase
 
 
     /**
+     * recuperer les gategorie
+     *
+     *
      * @param $name
      * @return Category
      * @throws \Exception

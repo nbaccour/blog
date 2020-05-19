@@ -11,6 +11,9 @@ class CommentController extends DefaultController
 {
 
     /**
+     * recuperer la liste de tous les commentaires
+     *
+     *
      * @param array $aOptions
      * @return string
      * @throws Twig_Error_Loader
@@ -41,6 +44,9 @@ class CommentController extends DefaultController
     }
 
     /**
+     * recuperer les données d'un commentaire
+     *
+     *
      * @param $id
      * @param $mode
      * @return string

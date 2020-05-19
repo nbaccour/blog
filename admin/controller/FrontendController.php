@@ -6,11 +6,14 @@
  * Time: 15:26
  */
 
-
+/**
+ * Class FrontendController
+ */
 class FrontendController extends DefaultController
 {
 
     /**
+     * déconnexion de l'utilisateur
      *
      */
     function connectOut()
@@ -24,6 +27,9 @@ class FrontendController extends DefaultController
 
 
     /**
+     * formulaire de connexion
+     *
+     *
      * @return string
      * @throws Twig_Error_Loader
      * @throws Twig_Error_Runtime

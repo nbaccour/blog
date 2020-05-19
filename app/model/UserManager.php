@@ -16,6 +16,9 @@ class UserManager extends DataBase
 {
 
     /**
+     * verifier les identifiants de connexion
+     *
+     *
      * @return array|mixed
      * @throws \Exception
      */
@@ -46,6 +49,9 @@ class UserManager extends DataBase
     }
 
     /**
+     * ajouter un utilisateur
+     *
+     *
      * @param $POST
      * @return bool
      * @throws \Exception

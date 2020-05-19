@@ -21,6 +21,9 @@ class ProjectController extends DefaultController
 
 
     /**
+     * recuperer les données d'un projet
+     *
+     *
      * @param $id
      * @return string
      * @throws \Twig\Error\LoaderError

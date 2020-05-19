@@ -6,12 +6,17 @@
  * Time: 15:26
  */
 
-
+/**
+ * Class UserController
+ */
 class UserController extends DefaultController
 {
 
 
     /**
+     * vérifier les identifiants de connexion d'un utilisateur
+     *
+     *
      * @return string
      * @throws Twig_Error_Loader
      * @throws Twig_Error_Runtime
@@ -64,6 +69,8 @@ class UserController extends DefaultController
 
 
     /**
+     * recuperer les données d'un utilisateur
+     *
      * @param int $id
      * @return string
      * @throws Twig_Error_Loader
@@ -106,6 +113,9 @@ class UserController extends DefaultController
     }
 
     /**
+     * recupérer les données des utilisateurs
+     *
+     *
      * @return string
      * @throws Twig_Error_Loader
      * @throws Twig_Error_Runtime
@@ -124,10 +134,9 @@ class UserController extends DefaultController
         foreach ($users as $key => $aData) {
 
             $aData->createDateFormat = date('d/m/Y', strtotime($aData->createDate()));
-            $aData->roleShow = ($aData->role() === 'user')? 'Membre' : 'Administrateur';
+            $aData->roleShow = ($aData->role() === 'user') ? 'Membre' : 'Administrateur';
 
         }
-
 
 
         $content = $this->_twig->render('listUser.html.twig', ['users' => $users, 'login' => $_SESSION['login']]);

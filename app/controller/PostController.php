@@ -21,6 +21,9 @@ class PostController extends DefaultController
 {
 
     /**
+     * recuperer la liste des articles
+     *
+     *
      * @return string
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
@@ -52,6 +55,9 @@ class PostController extends DefaultController
     }
 
     /**
+     * recuperer la liste des articles en fonction du nom
+     *
+     *
      * @param $name
      * @return string
      * @throws \Twig\Error\LoaderError
@@ -83,6 +89,9 @@ class PostController extends DefaultController
     }
 
     /**
+     * recuperer les données d'un article
+     *
+     *
      * @param $id
      * @return string
      * @throws Twig_Error_Loader

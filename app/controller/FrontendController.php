@@ -18,6 +18,7 @@ class FrontendController extends DefaultController
 {
 
     /**
+     * deconnexion
      *
      */
     function connectOut()
@@ -30,6 +31,9 @@ class FrontendController extends DefaultController
     }
 
     /**
+     * formulaire de contact
+     *
+     *
      * @return string
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
@@ -45,6 +49,9 @@ class FrontendController extends DefaultController
     }
 
     /**
+     * recuperer une page en fonction du nom
+     *
+     *
      * @param $namePage
      * @return string
      * @throws \Twig\Error\LoaderError

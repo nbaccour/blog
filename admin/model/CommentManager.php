@@ -6,11 +6,18 @@
  * Time: 00:50
  */
 
-
+/**
+ * CommentManager est une classe pour gérer les commentaires (ajout, suppression et mise à jour)
+ *
+ * Class CommentManager
+ */
 class CommentManager extends DataBase
 {
 
     /**
+     * supprimer un commentaire
+     *
+     *
      * @param $id
      * @return bool
      * @throws Exception
@@ -32,6 +39,9 @@ class CommentManager extends DataBase
     }
 
     /**
+     * recuperer la liste des commentaires de la table comments
+     *
+     *
      * @param array $aOptions
      * @return array
      * @throws Exception
@@ -78,6 +88,9 @@ LEFT JOIN posts AS po ON (co.postid = po.id)
 
 
     /**
+     * recuperer un commentaire en fonction de son id
+     *
+     *
      * @param $id
      * @return Comment
      * @throws Exception
@@ -114,6 +127,9 @@ WHERE co.id = :id ORDER BY co.id DESC');
 
 
     /**
+     * valider un commentaire
+     *
+     *
      * @param array $PUT
      * @return bool
      * @throws Exception
@@ -150,6 +166,9 @@ WHERE co.id = :id ORDER BY co.id DESC');
     }
 
     /**
+     * recuperer le nombre des commentaires
+     *
+     *
      * @return mixed
      * @throws Exception
      */

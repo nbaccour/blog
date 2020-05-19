@@ -6,11 +6,16 @@
  * Time: 15:26
  */
 
-
+/**
+ * Class PostController
+ */
 class PostController extends DefaultController
 {
 
     /**
+     * recuperer les données d'un article pour les affichées dans le formulaire de l'article
+     *
+     *
      * @param int $id
      * @return string
      * @throws Twig_Error_Loader
@@ -56,6 +61,9 @@ class PostController extends DefaultController
 
 
     /**
+     * recuperer la liste des articles
+     *
+     *
      * @return string
      * @throws Twig_Error_Loader
      * @throws Twig_Error_Runtime
@@ -87,6 +95,9 @@ class PostController extends DefaultController
 
 
     /**
+     * mettre à jour un article
+     *
+     *
      * @param int $id
      * @return string
      * @throws Twig_Error_Loader
@@ -139,6 +150,9 @@ class PostController extends DefaultController
 
 
     /**
+     * ajouter un article
+     *
+     *
      * @return string
      * @throws Twig_Error_Loader
      * @throws Twig_Error_Runtime

@@ -17,6 +17,9 @@ class ProjectManager extends DataBase
 
 
     /**
+     * recuperer les données des projets
+     *
+     *
      * @param $id
      * @return Project
      * @throws \Exception

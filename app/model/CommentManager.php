@@ -15,6 +15,9 @@ namespace App\model;
 class CommentManager extends DataBase
 {
     /**
+     * ajouter un commentaire
+     *
+     *
      * @param $POST
      * @return bool
      * @throws \Exception
@@ -57,6 +60,9 @@ class CommentManager extends DataBase
     //Get list method
 
     /**
+     * recuperer la liste des commentaires
+     *
+     *
      * @param $id
      * @return array
      * @throws \Exception
@@ -91,6 +97,9 @@ LEFT JOIN users AS us ON (co.author = us.id) WHERE co.postid = :id AND co.statut
 
 
     /**
+     * recuperer les commentaires non validé pour un utilisateur par article
+     *
+     *
      * @param $id
      * @param $postId
      * @return array
@@ -126,6 +135,9 @@ LEFT JOIN users AS us ON (co.author = us.id) WHERE co.postid = :id AND co.statut
     }
 
     /**
+     * recuperer les commentaires validés pour un article
+     *
+     *
      * @param $id
      * @return array
      * @throws \Exception

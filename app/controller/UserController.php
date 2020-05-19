@@ -19,6 +19,9 @@ class UserController extends DefaultController
 
 
     /**
+     * recuperer les données d'un utilisateur
+     *
+     *
      * @param $id
      * @return string
      * @throws \Twig\Error\LoaderError

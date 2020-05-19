@@ -6,7 +6,9 @@
  * Time: 15:24
  */
 
-
+/**
+ * Class DefaultController
+ */
 class DefaultController
 {
     /**

@@ -8,6 +8,8 @@
 
 
 /**
+ * PostManager est une classe pour gérer les articles (ajout, suppression et mise à jour)
+ *
  * Class PostManager
  */
 class PostManager extends DataBase
@@ -15,6 +17,8 @@ class PostManager extends DataBase
 
 
     /**
+     * récuperer la liste des articles de la table posts sous forme d'un tableau d'objet
+     *
      * @return array
      * @throws Exception
      */
@@ -44,6 +48,9 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC');
     }
 
     /**
+     * recuperer un article
+     *
+     *
      * @param int $idPost
      * @return Post
      * @throws Exception
@@ -70,6 +77,8 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC');
     }
 
     /**
+     * supprimer un article
+     *
      * @param int $id
      * @return bool
      * @throws Exception
@@ -91,6 +100,8 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC');
     }
 
     /**
+     * mettre à jour un article
+     *
      * @param array $PUT
      * @return bool
      * @throws Exception
@@ -127,6 +138,9 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC');
     }
 
     /**
+     * telecharger un fichier (image de l'article)
+     *
+     *
      * @param array $Files
      * @return bool|string
      */
@@ -176,6 +190,9 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC');
     }
 
     /**
+     * mettre à jour l'image de l'article
+     *
+     *
      * @param array $Files
      * @param $id
      * @return bool
@@ -210,6 +227,9 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC');
     }
 
     /**
+     * ajouter un article
+     *
+     *
      * @param array $FILES
      * @param array $POST
      * @return bool
