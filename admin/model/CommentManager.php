@@ -9,6 +9,7 @@
 /**
  * CommentManager est une classe pour gérer les commentaires (ajout, suppression et mise à jour)
  *
+ * @author nizar BACCOUR <nbaccour@gmail.com>
  * Class CommentManager
  */
 class CommentManager extends DataBase

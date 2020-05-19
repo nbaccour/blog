@@ -12,6 +12,9 @@ use App\model\CategoryManager;
 use App\model\Post;
 
 /**
+ *
+ *
+ * @author nizar BACCOUR <nbaccour@gmail.com>
  * Class PostManager
  * @package App\model
  */

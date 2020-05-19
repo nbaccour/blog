@@ -9,6 +9,9 @@
 namespace App\model;
 
 /**
+ *
+ *
+ * @author nizar BACCOUR <nbaccour@gmail.com>
  * Class UserManager
  * @package App\model
  */

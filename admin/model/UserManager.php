@@ -9,6 +9,7 @@
 /**
  * UserManager est une classe pour gérer les utilisateurs (ajout, suppression et mise à jour)
  *
+ * @author nizar BACCOUR <nbaccour@gmail.com>
  * Class UserManager
  */
 class UserManager extends DataBase

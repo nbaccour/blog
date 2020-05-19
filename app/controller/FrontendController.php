@@ -11,6 +11,9 @@ namespace App\controller;
 
 
 /**
+ *
+ *
+ * @author nizar BACCOUR <nbaccour@gmail.com>
  * Class FrontendController
  * @package App\controller
  */

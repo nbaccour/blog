@@ -7,6 +7,9 @@
  */
 
 /**
+ *
+ *
+ * @author nizar BACCOUR <nbaccour@gmail.com>
  * Class UserController
  */
 class UserController extends DefaultController

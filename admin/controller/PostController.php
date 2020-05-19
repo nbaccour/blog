@@ -7,6 +7,8 @@
  */
 
 /**
+ *
+ * @author nizar BACCOUR <nbaccour@gmail.com>
  * Class PostController
  */
 class PostController extends DefaultController

@@ -6,6 +6,11 @@
  * Time: 13:13
  */
 
+/**
+ * Class DataBase
+ *
+ * @author nizar BACCOUR <nbaccour@gmail.com>
+ */
 class DataBase
 {
     protected function dbconnect()

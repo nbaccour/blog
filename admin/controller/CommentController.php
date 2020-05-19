@@ -6,7 +6,12 @@
  * Time: 15:26
  */
 
-
+/**
+ *
+ * Class CommentController
+ *
+ * @author nizar BACCOUR <nbaccour@gmail.com>
+ */
 class CommentController extends DefaultController
 {
 

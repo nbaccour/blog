@@ -10,6 +10,8 @@
 /**
  * PostManager est une classe pour gérer les articles (ajout, suppression et mise à jour)
  *
+ *
+ * @author nizar BACCOUR <nbaccour@gmail.com>
  * Class PostManager
  */
 class PostManager extends DataBase

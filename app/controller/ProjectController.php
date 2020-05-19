@@ -13,6 +13,9 @@ use App\model\ProjectManager;
 
 
 /**
+ *
+ *
+ * @author nizar BACCOUR <nbaccour@gmail.com>
  * Class ProjectController
  * @package App\controller
  */

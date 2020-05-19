@@ -14,6 +14,9 @@ use App\model\CommentManager;
 
 
 /**
+ * Gère les articles
+ *
+ * @author nizar BACCOUR <nbaccour@gmail.com>
  * Class PostController
  * @package App\controller
  */
