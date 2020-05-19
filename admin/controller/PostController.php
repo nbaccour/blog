@@ -13,7 +13,7 @@ class PostController extends DefaultController
 {
 
     /**
-     * recuperer les données d'un article pour les affichées dans le formulaire de l'article
+     * Récupère les données d'un article pour les affichées dans le formulaire de l'article
      *
      *
      * @param int $id
@@ -61,7 +61,7 @@ class PostController extends DefaultController
 
 
     /**
-     * recuperer la liste des articles
+     * Récupère la liste des articles
      *
      *
      * @return string
@@ -95,7 +95,7 @@ class PostController extends DefaultController
 
 
     /**
-     * mettre à jour un article
+     * met à jour un article
      *
      *
      * @param int $id
@@ -150,7 +150,7 @@ class PostController extends DefaultController
 
 
     /**
-     * ajouter un article
+     * ajoute un article
      *
      *
      * @return string

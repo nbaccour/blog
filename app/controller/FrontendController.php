@@ -49,7 +49,7 @@ class FrontendController extends DefaultController
     }
 
     /**
-     * recuperer une page en fonction du nom
+     * Récupère une page en fonction du nom
      *
      *
      * @param $namePage

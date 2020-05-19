@@ -48,7 +48,7 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC');
     }
 
     /**
-     * recuperer un article
+     * Récupère un article
      *
      *
      * @param int $idPost
@@ -77,7 +77,7 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC');
     }
 
     /**
-     * supprimer un article
+     * supprime un article
      *
      * @param int $id
      * @return bool
@@ -100,7 +100,7 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC');
     }
 
     /**
-     * mettre à jour un article
+     * met à jour un article
      *
      * @param array $PUT
      * @return bool
@@ -138,7 +138,7 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC');
     }
 
     /**
-     * telecharger un fichier (image de l'article)
+     * Telecharge un fichier (image de l'article)
      *
      *
      * @param array $Files
@@ -190,7 +190,7 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC');
     }
 
     /**
-     * mettre à jour l'image de l'article
+     * Met à jour l'image de l'article
      *
      *
      * @param array $Files
@@ -227,7 +227,7 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC');
     }
 
     /**
-     * ajouter un article
+     * Ajoute un article
      *
      *
      * @param array $FILES

@@ -16,7 +16,7 @@ class UserManager extends DataBase
 {
 
     /**
-     * verifier les identifiants de connexion
+     * verifie les identifiants de connexion
      *
      *
      * @return array|mixed
@@ -48,15 +48,15 @@ class UserManager extends DataBase
 
     }
 
+
     /**
-     * ajouter un utilisateur
+     * ajoute un utilisateur
      *
-     *
-     * @param $POST
+     * @param array $POST
      * @return bool
      * @throws \Exception
      */
-    function addUser($POST)
+    function addUser(array $POST)
     {
         $db = $this->dbconnect();
         try {

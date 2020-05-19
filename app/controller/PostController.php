@@ -21,7 +21,7 @@ class PostController extends DefaultController
 {
 
     /**
-     * recuperer la liste des articles
+     * Récupère la liste des articles
      *
      *
      * @return string
@@ -55,7 +55,7 @@ class PostController extends DefaultController
     }
 
     /**
-     * recuperer la liste des articles en fonction du nom
+     * Récupère la liste des articles en fonction du nom
      *
      *
      * @param $name
@@ -89,7 +89,7 @@ class PostController extends DefaultController
     }
 
     /**
-     * recuperer les données d'un article
+     * Récupère les données d'un article
      *
      *
      * @param $id

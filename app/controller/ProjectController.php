@@ -21,7 +21,7 @@ class ProjectController extends DefaultController
 
 
     /**
-     * recuperer les données d'un projet
+     * Récupère les données d'un projet
      *
      *
      * @param $id

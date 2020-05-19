@@ -17,7 +17,7 @@ class ProjectManager extends DataBase
 
 
     /**
-     * recuperer les données des projets
+     * Récupère les données des projets
      *
      *
      * @param $id

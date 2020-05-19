@@ -14,15 +14,16 @@ namespace App\model;
  */
 class CommentManager extends DataBase
 {
+
     /**
-     * ajouter un commentaire
+     * ajoute un commentaire
      *
      *
-     * @param $POST
+     * @param array $POST
      * @return bool
      * @throws \Exception
      */
-    public function addComment($POST)
+    public function addComment(array $POST)
     {
 
 
@@ -59,15 +60,15 @@ class CommentManager extends DataBase
 
     //Get list method
 
+
     /**
-     * recuperer la liste des commentaires
+     * Récupère la liste des commentaires
      *
-     *
-     * @param $id
+     * @param int $id
      * @return array
      * @throws \Exception
      */
-    public function getlist($id)
+    public function getlist(int $id)
     {
         $db = $this->dbconnect();
         try {
@@ -97,7 +98,7 @@ LEFT JOIN users AS us ON (co.author = us.id) WHERE co.postid = :id AND co.statut
 
 
     /**
-     * recuperer les commentaires non validé pour un utilisateur par article
+     * Récupère les commentaires non validé pour un utilisateur par article
      *
      *
      * @param $id
@@ -135,14 +136,14 @@ LEFT JOIN users AS us ON (co.author = us.id) WHERE co.postid = :id AND co.statut
     }
 
     /**
-     * recuperer les commentaires validés pour un article
+     * Récupère les commentaires validés pour un article
      *
      *
      * @param $id
      * @return array
      * @throws \Exception
      */
-    public function getCommentValidByIdPost($id)
+    public function getCommentValidByIdPost(int $id)
     {
         $db = $this->dbconnect();
         try {

@@ -16,7 +16,7 @@ class UserManager extends DataBase
 
 
     /**
-     * recuperer la liste des utilisateurs de la table users
+     * Récupère la liste des utilisateurs de la table users
      *
      * @return array
      * @throws Exception
@@ -48,7 +48,7 @@ class UserManager extends DataBase
     }
 
     /**
-     * recuperer un utilisateur
+     * Récupère un utilisateur
      *
      *
      * @param int $id
@@ -80,7 +80,7 @@ class UserManager extends DataBase
     }
 
     /**
-     * ajouter un utilisateur
+     * ajoute un utilisateur
      *
      *
      * @param array $POST
@@ -125,7 +125,7 @@ class UserManager extends DataBase
     }
 
     /**
-     * supprimer un utilisateur
+     * supprime un utilisateur
      *
      *
      * @param int $id
@@ -150,7 +150,7 @@ class UserManager extends DataBase
     }
 
     /**
-     * mettre à jour un utilisateur
+     * met à jour un utilisateur
      *
      *
      * @param array $PUT
@@ -192,7 +192,7 @@ class UserManager extends DataBase
     }
 
     /**
-     * vérifier les identifiants d'un utilisateur
+     * vérifie les identifiants d'un utilisateur
      *
      *
      * @return mixed|string

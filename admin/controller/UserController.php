@@ -14,7 +14,7 @@ class UserController extends DefaultController
 
 
     /**
-     * vérifier les identifiants de connexion d'un utilisateur
+     * vérifie les identifiants de connexion d'un utilisateur
      *
      *
      * @return string
@@ -69,7 +69,7 @@ class UserController extends DefaultController
 
 
     /**
-     * recuperer les données d'un utilisateur
+     * Récupère les données d'un utilisateur
      *
      * @param int $id
      * @return string
@@ -113,7 +113,7 @@ class UserController extends DefaultController
     }
 
     /**
-     * recupérer les données des utilisateurs
+     * Récupère les données des utilisateurs
      *
      *
      * @return string

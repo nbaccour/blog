@@ -11,7 +11,7 @@ class CommentController extends DefaultController
 {
 
     /**
-     * recuperer la liste de tous les commentaires
+     * Récupère la liste de tous les commentaires
      *
      *
      * @param array $aOptions
@@ -44,7 +44,7 @@ class CommentController extends DefaultController
     }
 
     /**
-     * recuperer les données d'un commentaire
+     * Récupère les données d'un commentaire
      *
      *
      * @param $id

@@ -15,7 +15,7 @@ class CommentManager extends DataBase
 {
 
     /**
-     * supprimer un commentaire
+     * supprime un commentaire
      *
      *
      * @param $id
@@ -39,7 +39,7 @@ class CommentManager extends DataBase
     }
 
     /**
-     * recuperer la liste des commentaires de la table comments
+     * Récupère la liste des commentaires de la table comments
      *
      *
      * @param array $aOptions
@@ -88,7 +88,7 @@ LEFT JOIN posts AS po ON (co.postid = po.id)
 
 
     /**
-     * recuperer un commentaire en fonction de son id
+     * Récupère un commentaire en fonction de son id
      *
      *
      * @param $id
@@ -127,7 +127,7 @@ WHERE co.id = :id ORDER BY co.id DESC');
 
 
     /**
-     * valider un commentaire
+     * valide un commentaire
      *
      *
      * @param array $PUT
@@ -166,7 +166,7 @@ WHERE co.id = :id ORDER BY co.id DESC');
     }
 
     /**
-     * recuperer le nombre des commentaires
+     * Récupère le nombre des commentaires
      *
      *
      * @return mixed

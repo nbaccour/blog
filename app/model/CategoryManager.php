@@ -17,14 +17,13 @@ class CategoryManager extends DataBase
 
 
     /**
-     * recuperer les gategorie
+     * Récupère les gategorie
      *
-     *
-     * @param $name
+     * @param string $name
      * @return Category
      * @throws \Exception
      */
-    function getIdCategoryByName($name)
+    function getIdCategoryByName(string $name)
     {
         $db = $this->dbconnect();
         try {

@@ -20,7 +20,7 @@ class PostManager extends DataBase
 
 
     /**
-     * recuperer la liste des articles de la table posts
+     * Récupère la liste des articles de la table posts
      * @return array
      * @throws \Exception
      */
@@ -49,15 +49,15 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC');
 
     }
 
+
     /**
-     * recuperer la liste des articles en fonction du nom
+     * Récupère la liste des articles en fonction du nom
      *
-     *
-     * @param $name
+     * @param string $name
      * @return array
      * @throws \Exception
      */
-    function getListPostByName($name)
+    function getListPostByName(string $name)
     {
         $db = $this->dbconnect();
 
@@ -94,14 +94,13 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC');
 
 
     /**
-     * recuperer les données s'un article
+     * Récupère les données s'un article
      *
-     *
-     * @param $id
+     * @param int $id
      * @return \App\model\Post
      * @throws \Exception
      */
-    function getPost($id)
+    function getPost(int $id)
     {
 
         $db = $this->dbconnect();

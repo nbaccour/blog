@@ -19,7 +19,7 @@ class UserController extends DefaultController
 
 
     /**
-     * recuperer les données d'un utilisateur
+     * Récupère les données d'un utilisateur
      *
      *
      * @param $id
