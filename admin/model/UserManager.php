@@ -11,6 +11,10 @@ class UserManager extends DataBase
 {
 
 
+    /**
+     * @return array
+     * @throws Exception
+     */
     function getListUser()
     {
         $db = $this->dbconnect();
@@ -37,7 +41,12 @@ class UserManager extends DataBase
 
     }
 
-    function getUser($id)
+    /**
+     * @param int $id
+     * @return User
+     * @throws Exception
+     */
+    function getUser(int $id)
     {
         $db = $this->dbconnect();
 
@@ -61,7 +70,12 @@ class UserManager extends DataBase
 
     }
 
-    function addUser($POST)
+    /**
+     * @param array $POST
+     * @return bool
+     * @throws Exception
+     */
+    function addUser(array $POST)
     {
         $db = $this->dbconnect();
 
@@ -98,7 +112,12 @@ class UserManager extends DataBase
 
     }
 
-    function deleteUser($id)
+    /**
+     * @param int $id
+     * @return bool
+     * @throws Exception
+     */
+    function deleteUser(int $id)
     {
 
         $db = $this->dbconnect();
@@ -115,6 +134,11 @@ class UserManager extends DataBase
 
     }
 
+    /**
+     * @param array $PUT
+     * @return bool
+     * @throws Exception
+     */
     function updateUser(array $PUT)
     {
         $db = $this->dbconnect();
@@ -149,6 +173,10 @@ class UserManager extends DataBase
 
     }
 
+    /**
+     * @return mixed|string
+     * @throws Exception
+     */
     public function checkUser()
     {
 

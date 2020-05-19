@@ -8,10 +8,19 @@
 
 namespace App\model;
 
+/**
+ * Class CategoryManager
+ * @package App\model
+ */
 class CategoryManager extends DataBase
 {
 
 
+    /**
+     * @param $name
+     * @return Category
+     * @throws \Exception
+     */
     function getIdCategoryByName($name)
     {
         $db = $this->dbconnect();

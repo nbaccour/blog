@@ -6,12 +6,17 @@
  * Time: 15:24
  */
 
-//namespace admin\controller;
 
 class DefaultController
 {
+    /**
+     * @var Twig_Environment
+     */
     protected $_twig;
 
+    /**
+     * DefaultController constructor.
+     */
     public function __construct()
     {
         $loader = new Twig_Loader_Filesystem([

@@ -8,9 +8,17 @@
 
 namespace App\model;
 
+/**
+ * Class UserManager
+ * @package App\model
+ */
 class UserManager extends DataBase
 {
 
+    /**
+     * @return array|mixed
+     * @throws \Exception
+     */
     public function checkUser()
     {
 
@@ -37,6 +45,11 @@ class UserManager extends DataBase
 
     }
 
+    /**
+     * @param $POST
+     * @return bool
+     * @throws \Exception
+     */
     function addUser($POST)
     {
         $db = $this->dbconnect();

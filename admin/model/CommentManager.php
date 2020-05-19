@@ -6,11 +6,15 @@
  * Time: 00:50
  */
 
-//namespace App\model;
 
 class CommentManager extends DataBase
 {
 
+    /**
+     * @param $id
+     * @return bool
+     * @throws Exception
+     */
     function deleteComment($id)
     {
 
@@ -27,6 +31,11 @@ class CommentManager extends DataBase
 
     }
 
+    /**
+     * @param array $aOptions
+     * @return array
+     * @throws Exception
+     */
     public function getListAllComment(array $aOptions = [])
     {
         $db = $this->dbconnect();
@@ -68,6 +77,11 @@ LEFT JOIN posts AS po ON (co.postid = po.id)
     }
 
 
+    /**
+     * @param $id
+     * @return Comment
+     * @throws Exception
+     */
     function getComment($id)
     {
 
@@ -99,6 +113,11 @@ WHERE co.id = :id ORDER BY co.id DESC');
     }
 
 
+    /**
+     * @param array $PUT
+     * @return bool
+     * @throws Exception
+     */
     function validComment(array $PUT)
     {
         $db = $this->dbconnect();
@@ -130,6 +149,10 @@ WHERE co.id = :id ORDER BY co.id DESC');
 
     }
 
+    /**
+     * @return mixed
+     * @throws Exception
+     */
     public function countComment()
     {
         $db = $this->dbconnect();

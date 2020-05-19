@@ -8,10 +8,18 @@
 
 namespace App\model;
 
+/**
+ * Class ContactManager
+ * @package App\model
+ */
 class ContactManager extends DataBase
 {
 
 
+    /**
+     * @param $POST
+     * @return bool
+     */
     function sendMessage($POST)
     {
 

@@ -13,9 +13,22 @@ use App\model\PostManager;
 use App\model\CommentManager;
 
 
+/**
+ * Class PostController
+ * @package App\controller
+ */
 class PostController extends DefaultController
 {
 
+    /**
+     * @return string
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
     function getListPost()
     {
 
@@ -38,6 +51,16 @@ class PostController extends DefaultController
 
     }
 
+    /**
+     * @param $name
+     * @return string
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
     function getListPostByName($name)
     {
 

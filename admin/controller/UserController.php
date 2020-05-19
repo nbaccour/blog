@@ -11,6 +11,15 @@ class UserController extends DefaultController
 {
 
 
+    /**
+     * @return string
+     * @throws Twig_Error_Loader
+     * @throws Twig_Error_Runtime
+     * @throws Twig_Error_Syntax
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
     function checkUser()
     {
         $manager = new UserManager();
@@ -54,7 +63,17 @@ class UserController extends DefaultController
     }
 
 
-    function getFormUser($id)
+    /**
+     * @param int $id
+     * @return string
+     * @throws Twig_Error_Loader
+     * @throws Twig_Error_Runtime
+     * @throws Twig_Error_Syntax
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
+    function getFormUser(int $id)
     {
 
         $aDataUser = [];
@@ -86,6 +105,15 @@ class UserController extends DefaultController
         return $content;
     }
 
+    /**
+     * @return string
+     * @throws Twig_Error_Loader
+     * @throws Twig_Error_Runtime
+     * @throws Twig_Error_Syntax
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
     function getListUser()
     {
 

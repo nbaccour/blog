@@ -6,13 +6,22 @@
  * Time: 15:24
  */
 
-//namespace App\Blog\DefaultControl;
 namespace App\controller;
 
+/**
+ * Class DefaultController
+ * @package App\controller
+ */
 class DefaultController
 {
+    /**
+     * @var \Twig_Environment
+     */
     protected $_twig;
 
+    /**
+     * DefaultController constructor.
+     */
     public function __construct()
     {
         $loader = new \Twig_Loader_Filesystem(['view', 'public/template']); // Dossier contenant les templates
@@ -28,6 +37,9 @@ class DefaultController
 
     }
 
+    /**
+     * @return mixed
+     */
     function getUrlPage()
     {
         $requestUri = $_SERVER['REQUEST_URI'];

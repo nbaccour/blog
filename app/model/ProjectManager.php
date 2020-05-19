@@ -8,10 +8,19 @@
 
 namespace App\model;
 
+/**
+ * Class ProjectManager
+ * @package App\model
+ */
 class ProjectManager extends DataBase
 {
 
 
+    /**
+     * @param $id
+     * @return Project
+     * @throws \Exception
+     */
     function getProject($id)
     {
 

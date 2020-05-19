@@ -7,10 +7,17 @@
  */
 
 
+/**
+ * Class PostManager
+ */
 class PostManager extends DataBase
 {
 
 
+    /**
+     * @return array
+     * @throws Exception
+     */
     function getListPost()
     {
         $db = $this->dbconnect();
@@ -36,8 +43,12 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC');
 
     }
 
-
-    function getPost($idPost)
+    /**
+     * @param int $idPost
+     * @return Post
+     * @throws Exception
+     */
+    function getPost(int $idPost)
     {
 
         $db = $this->dbconnect();
@@ -58,7 +69,12 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC');
 
     }
 
-    function deletePost($id)
+    /**
+     * @param int $id
+     * @return bool
+     * @throws Exception
+     */
+    function deletePost(int $id)
     {
 
         $db = $this->dbconnect();
@@ -74,6 +90,11 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC');
 
     }
 
+    /**
+     * @param array $PUT
+     * @return bool
+     * @throws Exception
+     */
     function updatePost(array $PUT)
     {
         $db = $this->dbconnect();
@@ -105,6 +126,10 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC');
 
     }
 
+    /**
+     * @param array $Files
+     * @return bool|string
+     */
     function uploadFile(array $Files)
     {
         $errorFilePost = false;
@@ -150,6 +175,12 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC');
         return $errorFilePost;
     }
 
+    /**
+     * @param array $Files
+     * @param $id
+     * @return bool
+     * @throws Exception
+     */
     function updateImgPost(array $Files, $id)
     {
         $db = $this->dbconnect();
@@ -178,7 +209,12 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC');
         }
     }
 
-
+    /**
+     * @param array $FILES
+     * @param array $POST
+     * @return bool
+     * @throws Exception
+     */
     function addPost(array $FILES, array $POST)
     {
         $db = $this->dbconnect();

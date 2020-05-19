@@ -10,10 +10,16 @@
 namespace App\controller;
 
 
-
+/**
+ * Class FrontendController
+ * @package App\controller
+ */
 class FrontendController extends DefaultController
 {
 
+    /**
+     *
+     */
     function connectOut()
     {
         session_unset();
@@ -23,12 +29,31 @@ class FrontendController extends DefaultController
         exit;
     }
 
+    /**
+     * @return string
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
     function getFormConnect()
     {
         $content = $this->_twig->render('formConnect.html.twig', ['title' => 'Admin']);
         return $content;
     }
 
+    /**
+     * @param $namePage
+     * @return string
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
     function getPage($namePage)
     {
         $content = $this->_twig->render($namePage . '.html.twig', ['title' => 'Admin']);

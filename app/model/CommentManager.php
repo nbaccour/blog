@@ -8,8 +8,17 @@
 
 namespace App\model;
 
+/**
+ * Class CommentManager
+ * @package App\model
+ */
 class CommentManager extends DataBase
 {
+    /**
+     * @param $POST
+     * @return bool
+     * @throws \Exception
+     */
     public function addComment($POST)
     {
 
@@ -46,6 +55,12 @@ class CommentManager extends DataBase
     }
 
     //Get list method
+
+    /**
+     * @param $id
+     * @return array
+     * @throws \Exception
+     */
     public function getlist($id)
     {
         $db = $this->dbconnect();
@@ -75,6 +90,12 @@ LEFT JOIN users AS us ON (co.author = us.id) WHERE co.postid = :id AND co.statut
     }
 
 
+    /**
+     * @param $id
+     * @param $postId
+     * @return array
+     * @throws \Exception
+     */
     public function getCommentNotValidByIdAuthorByIdPost($id, $postId)
     {
         $db = $this->dbconnect();
@@ -104,6 +125,11 @@ LEFT JOIN users AS us ON (co.author = us.id) WHERE co.postid = :id AND co.statut
 
     }
 
+    /**
+     * @param $id
+     * @return array
+     * @throws \Exception
+     */
     public function getCommentValidByIdPost($id)
     {
         $db = $this->dbconnect();
@@ -129,21 +155,4 @@ LEFT JOIN users AS us ON (co.author = us.id) WHERE co.postid = :id AND co.statut
         }
 
     }
-//
-//    public function countComment()
-//    {
-//        $db = $this->dbconnect();
-//        try {
-//            $req = $db->prepare('SELECT COUNT(*) AS statut FROM comments WHERE statut = 0');
-//            $req->execute();
-//            $data = $req->fetch(\PDO::FETCH_ASSOC);
-//            $count = $data['statut'];
-//            return $count;
-//
-//        } catch (Exception $e) {
-//
-//            throw new \Exception($e->getMessage());
-//        }
-//
-//    }
 }

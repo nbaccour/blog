@@ -10,7 +10,17 @@
 class PostController extends DefaultController
 {
 
-    function getFormPost($id)
+    /**
+     * @param int $id
+     * @return string
+     * @throws Twig_Error_Loader
+     * @throws Twig_Error_Runtime
+     * @throws Twig_Error_Syntax
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
+    function getFormPost(int $id)
     {
         $manager = new CategoryManager();
         $aCategory = $manager->getCategory();
@@ -45,6 +55,15 @@ class PostController extends DefaultController
     }
 
 
+    /**
+     * @return string
+     * @throws Twig_Error_Loader
+     * @throws Twig_Error_Runtime
+     * @throws Twig_Error_Syntax
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
     function getListPost()
     {
 
@@ -67,7 +86,17 @@ class PostController extends DefaultController
     }
 
 
-    function updatePost($id)
+    /**
+     * @param int $id
+     * @return string
+     * @throws Twig_Error_Loader
+     * @throws Twig_Error_Runtime
+     * @throws Twig_Error_Syntax
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
+    function updatePost(int $id)
     {
 
         $postManager = new PostManager();
@@ -109,6 +138,15 @@ class PostController extends DefaultController
     }
 
 
+    /**
+     * @return string
+     * @throws Twig_Error_Loader
+     * @throws Twig_Error_Runtime
+     * @throws Twig_Error_Syntax
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
     function addPost()
     {
         $manager = new PostManager();

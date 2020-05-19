@@ -10,10 +10,24 @@
 namespace App\controller;
 
 
+/**
+ * Class UserController
+ * @package App\controller
+ */
 class UserController extends DefaultController
 {
 
 
+    /**
+     * @param $id
+     * @return string
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
     function getFormUser($id)
     {
 

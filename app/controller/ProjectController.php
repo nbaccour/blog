@@ -12,10 +12,24 @@ namespace App\controller;
 use App\model\ProjectManager;
 
 
+/**
+ * Class ProjectController
+ * @package App\controller
+ */
 class ProjectController extends DefaultController
 {
 
 
+    /**
+     * @param $id
+     * @return string
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
     function getProject($id)
     {
 

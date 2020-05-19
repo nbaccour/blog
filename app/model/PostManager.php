@@ -11,10 +11,18 @@ namespace App\model;
 use App\model\CategoryManager;
 use App\model\Post;
 
+/**
+ * Class PostManager
+ * @package App\model
+ */
 class PostManager extends DataBase
 {
 
 
+    /**
+     * @return array
+     * @throws \Exception
+     */
     function getListPost()
     {
         $db = $this->dbconnect();
@@ -40,6 +48,11 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC');
 
     }
 
+    /**
+     * @param $name
+     * @return array
+     * @throws \Exception
+     */
     function getListPostByName($name)
     {
         $db = $this->dbconnect();
@@ -76,6 +89,11 @@ LEFT JOIN category AS cat ON (cat.id = po.idcategory) ORDER BY po.id DESC');
     }
 
 
+    /**
+     * @param $id
+     * @return \App\model\Post
+     * @throws \Exception
+     */
     function getPost($id)
     {
 

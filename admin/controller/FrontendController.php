@@ -10,6 +10,9 @@
 class FrontendController extends DefaultController
 {
 
+    /**
+     *
+     */
     function connectOut()
     {
         session_unset();
@@ -20,6 +23,15 @@ class FrontendController extends DefaultController
     }
 
 
+    /**
+     * @return string
+     * @throws Twig_Error_Loader
+     * @throws Twig_Error_Runtime
+     * @throws Twig_Error_Syntax
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
     function getFormConnect()
     {
         $content = $this->_twig->render('formConnect.html.twig', ['title' => 'Admin']);
